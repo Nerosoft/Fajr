@@ -1,0 +1,84 @@
+<div *ngIf="shouldShow">
+    <nav class="navbar navbar-expand-lg navbar-light  mb-3">
+      <a (click)="sendDataEffect()"class="navbar-brand" [routerLink]="'.'">شركة الفجر للأغذيه</a>
+    
+      <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
+      <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+        &#9776;
+      </button>
+    
+      <!-- Step 2: Add the ngbCollapse directive to the element below. -->
+      <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+        <ul class="navbar-nav navbar-center">
+            <li class="nav-item nero">
+            <div>
+            <li (click)="sendDataEffect()" routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'/categorys'">الاصناف</a> </li>
+            <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'clients'">العملاء</a> </li>
+            <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'output'">المبيعات</a> </li>
+            <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'input'">المشتريات</a> </li>
+            <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'suppliers'">الموردين</a> </li> 
+            <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'stores'">المخازن</a> </li>
+          </div>
+            </li>
+
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+
+
+
+
+
+
+
+
+<!-- <nav id="NB" *ngIf="shouldShow">
+    <div class="row">
+        <ul class="f-left col-lg-8 d-none d-lg-inline-block">
+            <div class="lidiv">
+            <li> <a routerLink="">الصفحه الرئيسيه</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="/manufacturers">الشركات المصنعه</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="/clients">العملاء</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="input">مستند الادخال</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="employees">الموظفين</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="category">الاصناف</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="categorytype">انواع الاصناف</a> </li>
+            </div>
+            <div class="text-center lidiv"> 
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="countries">البلدان</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="jobs">الوظائف</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="output">مستند الاخراج</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="recipients">المستلمين</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="stores">المخازن</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="suppliers">الموردين</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="sales">فاتورة البيع</a> </li>
+            </div>
+        </ul>
+
+        <span class="icon col-2 d-lg-none"><i class="fa fa-bars"></i> </span>
+        <h2 class="f-right col-10 col-lg-4   ">شركة الفجر لصناعة المواد الغذائيه</h2>
+    
+
+
+        <div class="drop  col-lg-9 ">
+            <ul>
+                <li> <a routerLink="">الصفحه الرئيسيه</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="/manufacturers">الشركات المصنعه</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="/clients">العملاء</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="input">مستند الادخال</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="employees">الموظفين</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="category">الاصناف</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="categorytype">انواع الاصناف</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="countries">البلدان</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="jobs">الوظائف</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="output">مستند الاخراج</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="recipients">المستلمين</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="stores">المخازن</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="suppliers">الموردين</a> </li>
+            <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="sales">فاتورة البيع</a> </li>
+            </ul>
+        </div>
+    </div>
+</nav> -->

@@ -1,0 +1,158 @@
+<div class="ov">
+    <!-- ___________________________________________tools__________________ -->
+
+    <ng-template #dangerstnumber>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
+            <path
+                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
+        </svg>
+        {{err.number}}
+    </ng-template>
+    <ng-template #dangerstdate>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
+            <path
+                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
+        </svg>
+        {{err.date}}
+    </ng-template>
+    <ng-template #dangerststtheclient>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
+            <path
+                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
+        </svg>
+        {{err.theclient}}
+    </ng-template>
+
+    <app-toasts></app-toasts>
+
+    <section class="tools">
+        <div class="container">
+            <hr> 
+            <i class="icon icon-help" (click)="qus()"></i>
+            <i class="icon icon-up-big" 
+            [ngClass]="{'active' : ngbnv2}" 
+            (click)="setnav(2)"></i>
+            <i class="icon icon-down-big"
+            [ngClass]="{'active' : ngbnv1}" 
+            (click)="setnav(1)"></i>
+            <!-- <i class="fas fa-edit"></i> -->
+            <i class="icon icon-minus" (click)="open()"></i>
+            <!-- <i class="fas fa-plus-circle"></i>
+            <i class="fas fa-print"></i> -->
+            <i class="icon icon-plus"
+                (click)="savaDAtaBase([dangerstnumber,dangerstdate,dangerststtheclient])"></i>
+            <hr>
+        </div>
+    </section>
+
+    <!-- __________________________company data________________ -->
+
+    <section class="com-data">
+        <div class="row">
+            <div class="container">
+                <ul ngbNav [activeId]="activeId"  #nav="ngbNav" class="nav-tabs invisible" (navChange)="onNavChange($event)">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink class="fas fa-arrow-right" (click)="setpostion(0)"></a>
+                        <ng-template ngbNavContent>
+                            <h2 class="t-center">بيانات المبيعات </h2>
+                            <fieldset>
+                                <form #heroForm="ngForm" >
+                                    <div class="form-group">
+                                        <label for="number">رقم البيع</label>
+                                        <input type="number" class="form-control" id="number"
+                                            [ngClass]="{'error' : model.stnumber}" required [(ngModel)]="model.number"
+                                            name="number">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date">التاريخ</label>
+                                        <input type="date" class="form-control" id="date"
+                                            [ngClass]="{'error' : model.stdate}" required [(ngModel)]="model.date"
+                                            name="date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="theclient">العميل</label>
+                                        <select class="form-control" id="theclient"
+                                            (click)="setClintes()"
+                                            [ngClass]="{'error' : model.sttheclient}" required
+                                            [(ngModel)]="model.theclient" name="theclient">
+                                            <option *ngFor="let client of model.theclients" [value]="client">
+                                                {{client}}</option>
+                                        </select>
+                                    </div>
+                                </form>
+                                <div class="myinfotable">
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">الصنف</th>
+                                                <th scope="col">سعر الوحده</th>
+                                                <th scope="col">الكميه</th>
+                                                <th scope="col">الاجمالى</th>
+                                                <th scope="col">ملاحظات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody">
+                                            <tr>
+                                                <th class="info">
+                                                    <select class="form-control itemclas" id="item"
+                                                    (change)="onChange($event)"
+                                                    (click)="setitems()"
+                                                    [ngClass]="{'error' : model.stitem}" required
+                                                    [(ngModel)]="model.item" name="item">
+                                                    <option *ngFor="let item of model.items;let i = index" [id]="i" [value]="item">{{item}}
+                                                    </option>
+                                                </select>
+                                                </th>
+                                                <th class="info">
+                                                    <input type="number" class="form-control" id="salary"
+                                                        disabled
+                                                        [ngClass]="{'error' : model.stsalary}" required
+                                                        [(ngModel)]="model.salary" name="salary">
+                                                </th>
+                                                <th class="info">
+                                                    <input type="number" class="form-control" id="quantity"
+                                                        [ngClass]="{'error' : model.stquantity}" required
+                                                        [(ngModel)]="model.quantity" name="quantity">
+                                                </th>
+                                                <th class="info">
+                                                    <input type="number" class="form-control" id="total"
+                                                        [ngClass]="{'error' : model.sttotal}" required
+                                                        disabled
+                                                        [(ngModel)]="model.quantity*model.salary" name="total">
+                                                </th>
+                                                <th class="info">
+                                                    <input type="text" class="form-control" id="notes"
+                                                        [ngClass]="{'error' : model.stnotes}" required
+                                                        [(ngModel)]="model.notes" name="notes">
+                                                </th>
+
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                            </fieldset>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink class="fas fa-arrow-left" (click)="setpostion(1)"></a>
+                        <ng-template ngbNavContent>
+
+                            <fieldset>
+                                <app-ngbd-table-complete [hedTable]="hedTable" [info]="info" [Id]="Id">
+                                </app-ngbd-table-complete>
+                            </fieldset>
+
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+            </div>
+        </div>
+    </section>
+
+
+</div>

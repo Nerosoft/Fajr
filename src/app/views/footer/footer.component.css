@@ -1,0 +1,48 @@
+/* ______________footer *____________________ */
+
+@media (max-width: 991px)
+{
+footer{      font-size: 22px;
+             background-color:#19191b7d; 
+             height: 38px;
+             color: #fff;   
+             border: solid darkslateblue; 
+             line-height: 31px; 
+             position: fixed;
+             bottom: 0;
+             left: 0;
+             width: 100%;
+            }
+      }       
+  
+@media (min-width: 992px)
+{
+    
+footer{     height: 38px;
+            background-color: #1e184287;
+            color: #fff;font-size: 25px;
+            border: solid darkslateblue;
+            line-height: 31px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            position: fixed;
+        }
+   }
+
+
+   
+ {
+    height: 38px;
+    background-color: #1e184287;
+    color: #fff;
+    font-size: 22px;
+    border: solid darkslateblue;
+    line-height: 31px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    position: fixed;
+}
