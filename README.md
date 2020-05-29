@@ -25,4 +25,4 @@
 ![Fajr](https://github.com/Nerosoft/Fajr/blob/master/screenshot/input4.PNG)
 
 # اذا واجهتك اي مشكله يمكنك مشاهدة الطريقه علي يوتيوب
-* ## [youtube](https://www.youtube.com/playlist?list=PLpAujTRyjgcHijNFTWfSNl-dYh-6PBa8Q&playnext)
+* ## [youtube](https://www.youtube.com/watch?v=CCwVykr9SR4&list=PLpAujTRyjgcEQT0q6qde7StorE3SybG6H&index=7)
