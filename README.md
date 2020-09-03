@@ -24,6 +24,11 @@
 ### شاشة انشاء فروع الشركه
 ![Fajr](https://github.com/Nerosoft/Fajr/blob/master/screenshot/branch.PNG)
 
+### شاشة تسجيل دخول إلي فروع الشركه
+## login/intel
+## نكتب اسم الشركه لنصل الي الفروع
+![Fajr](https://github.com/Nerosoft/Fajr/blob/master/screenshot/loginbranch.PNG)
+
 ### شاشة عرض المبيعات
 ![Fajr](https://github.com/Nerosoft/Fajr/blob/master/screenshot/input2.PNG)
 
