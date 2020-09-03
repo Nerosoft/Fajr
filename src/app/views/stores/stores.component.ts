@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { StoresServes } from './storesServes';
 import { CategorysComponent } from '../categorys/categorys.component';
 import { Stores } from './Stores';
+import { AlertInfoComponent } from '../alert-info/alert-info.component';
 
 @Component({
   selector: 'app-stores',
@@ -19,6 +20,7 @@ export class StoresComponent implements OnInit {
   @ViewChild(NgbdTableCompleteComponent, {static: false}) td: NgbdTableCompleteComponent;
   postionTap=0;
   model = Stores.setStores();
+  message=HeroService.message
   err=HeroService.err.Stores;
   hedTable = ["رقم المخزن","اسم المخزن","امين المخزن"];
   info=[];
@@ -68,7 +70,7 @@ export class StoresComponent implements OnInit {
     this.model=Stores.setStores();
     this.getStoresComponentInfo();
    // console.log(this.model.getClients());
-    this.toastService.show('success', { classname: 'bg-success text-light', delay: 10000 });
+   this.toastService.show(this.message.success.plus, { classname: 'bg-success text-light', delay: 3000 });
   }
 
   getStoresComponentInfo(){
@@ -138,19 +140,10 @@ export class StoresComponent implements OnInit {
   }
 
 
-  qus(){
-
-  //   this.info.push(  [
-  //     55,
-  //     'prince',
-  //     'f/f3/Flag_of_Russia.svg',
-  //      17075200,
-  //      146989754
-  //   ]);
-  //  this.info.reverse();
-  // //  this.td.service.setup();
-  //   console.log("tmaaaaaa",this.info)
-  }
+ 
+information(){
+  this._modalService.open(AlertInfoComponent).componentInstance.displaystores()
+ }
 }
 
 

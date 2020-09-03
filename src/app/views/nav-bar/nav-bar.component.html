@@ -1,6 +1,10 @@
-<div *ngIf="shouldShow">
+<div [ngClass]="{'hidenav':!shouldShow}">
+  <!--  -->
     <nav class="navbar navbar-expand-lg navbar-light  mb-3">
-      <a (click)="sendDataEffect()"class="navbar-brand" [routerLink]="'.'">شركة الفجر للأغذيه</a>
+      <a [ngClass]="{'color0':colores[0],'color1':colores[1],'color2':colores[2],'color3':colores[3],'color4':colores[4],'color5':colores[5],'color6':colores[6]}"
+      (click)="sendDataEffect()"
+      style="width: 70px;"
+      class="navbar-brand textScramble" [routerLink]="'.'">منظومة الشركة</a>
     
       <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
       <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
@@ -18,6 +22,12 @@
             <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'input'">المشتريات</a> </li>
             <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'suppliers'">الموردين</a> </li> 
             <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'stores'">المخازن</a> </li>
+            <li (click)="sendDataEffect()"
+            *ngIf="branch"
+            routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'branch'">الفروع</a> </li>
+            <li (click)="changePass()" 
+            *ngIf="branch"
+            class="nav-item"><a class="nav-link cursor">تغير كلمة المرور</a></li>
           </div>
             </li>
 

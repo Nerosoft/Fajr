@@ -1,0 +1,45 @@
+.dark-modal{
+    
+}
+.dark-modal .modal-content {
+    width: 400px;
+    background-color: rgba(0,0,0,.5)!important;
+    padding: 20px;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    color: white;
+
+    direction: ltr;
+    border-top: 1px solid #7e3125;
+    border-bottom: 1px solid #7e3125;
+    border-radius: 7px;
+    margin-bottom: 1rem;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  }
+
+  .dark-modal .modal-content{
+    padding: 0;
+  }
+  .dark-modal .modal-header,
+  .dark-modal .modal-footer{
+    border-bottom: none;
+    border-top: none;
+  }
+  .dark-modal .modal-body{
+
+}
+.upload{
+  padding: 20px;
+}
+
+
+.dropdown-menu{
+  background: rgb(247, 249, 250,.5);
+}
+
+.btn-group .btn{
+border: 0;
+border-radius: 0;
+}
+

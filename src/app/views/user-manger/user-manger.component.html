@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form *ngIf='!state'>
+        <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="icon-user"></i></span>
+            </div>
+            <input type="text" class="form-control" id="userName"
+            [ngClass]="{'error' :stuserName}"
+            required
+            placeholder="اسم المستخدم"
+            [(ngModel)]="userName" name="userName">
+            
+        </div>
+        <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="icon-key"></i></span>
+            </div>
+            <input type="password" class="form-control" id="pass"
+            [ngClass]="{'error' : stpass}"
+            required
+            placeholder="كلمة المرور"
+            [(ngModel)]="pass" name="pass">
+        </div>
+    </form>
+    <div *ngIf='state'
+    class="alert alert-success" role="alert">
+     <h3><span class="badge badge-primary">{{finalPass}}</span> كلمة المرور هي</h3>    
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">اغلاق</button>
+    <button type="button" ngbAutofocus class="btn btn-danger"
+    *ngIf='!state'
+     (click)="callback(modal,userName,pass)">{{nameAction}}</button>
+  </div>

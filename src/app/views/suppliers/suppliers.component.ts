@@ -10,6 +10,7 @@ import { SuppliersServes } from './SuppliersServes';
 import { map } from 'rxjs/operators';
 import { CategorysComponent } from '../categorys/categorys.component';
 import { Suppliers } from './Suppliers';
+import { AlertInfoComponent } from '../alert-info/alert-info.component';
 
 @Component({
   selector: 'app-suppliers',
@@ -22,6 +23,7 @@ export class SuppliersComponent implements OnInit {
   @ViewChild(NgbdTableCompleteComponent, {static: false}) td: NgbdTableCompleteComponent;
   postionTap=0;
   model = Suppliers.setSuppliers();
+  message=HeroService.message
   err=HeroService.err.Suppliers;
   hedTable = ["الرقم","الاسم","الهاتف","العنوان"];
   info=[];
@@ -71,7 +73,7 @@ export class SuppliersComponent implements OnInit {
     this.model.setSuppliersComponent(this.model);
     this.model=Suppliers.setSuppliers();
     this.getSuppliersComponentInfo();
-    this.toastService.show('success', { classname: 'bg-success text-light', delay: 10000 });
+    this.toastService.show(this.message.success.plus, { classname: 'bg-success text-light', delay: 3000 });
   }
 
 
@@ -144,8 +146,8 @@ export class SuppliersComponent implements OnInit {
 
 
 
-  qus(){
-
-  }
+  information(){
+    this._modalService.open(AlertInfoComponent).componentInstance.displaySupplier()
+   }
 }
 

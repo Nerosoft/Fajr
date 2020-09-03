@@ -9,6 +9,7 @@ import { ClientsServes } from './ClientsServes';
 import { map } from 'rxjs/operators';
 import { CategorysComponent } from '../categorys/categorys.component';
 import { Clients } from './Clients';
+import { AlertInfoComponent } from '../alert-info/alert-info.component';
 
 @Component({
   selector: 'app-clients',
@@ -19,6 +20,7 @@ export class ClientsComponent implements OnInit {
   @ViewChild(NgbdTableCompleteComponent, {static: false}) td: NgbdTableCompleteComponent;
   postionTap=0;
   model = Clients.setClients();
+  message=HeroService.message
   err=HeroService.err.Clients;
   hedTable = ["الرقم","الاسم","الهاتف","العنوان"];
   info=[];
@@ -39,9 +41,6 @@ export class ClientsComponent implements OnInit {
        
         this.getClientsComponentInfo();
 
-      // this.info=[]=this.getClientsComponentInfo();
-      //  this.td.service.setup(this.info)
-      //   console.log("xtxtxtxtx")
         
       }
     
@@ -76,7 +75,7 @@ export class ClientsComponent implements OnInit {
     this.model=Clients.setClients();
     this.getClientsComponentInfo();
    // console.log(this.model.getClients());
-    this.toastService.show('success', { classname: 'bg-success text-light', delay: 10000 });
+   this.toastService.show(this.message.success.plus, { classname: 'bg-success text-light', delay: 3000 });
   }
 
 
@@ -145,18 +144,8 @@ export class ClientsComponent implements OnInit {
     }
   }
 
-  qus(){
-
-  //   this.info.push(  [
-  //     55,
-  //     'prince',
-  //     'f/f3/Flag_of_Russia.svg',
-  //      17075200,
-  //      146989754
-  //   ]);
-  //  this.info.reverse();
-  // //  this.td.service.setup();
-  //   console.log("tmaaaaaa",this.info)
-  }
+  information(){
+    this._modalService.open(AlertInfoComponent).componentInstance.displayClints()
+   }
 }
 

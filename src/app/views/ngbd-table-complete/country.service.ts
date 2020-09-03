@@ -38,8 +38,9 @@ function sort(countries: Country[], column: SortColumn, direction: string): Coun
 function matches(country, term: string, pipe: PipeTransform) {
   //console.log("offf",country)
   return country[0][1].toLowerCase().includes(term.toLowerCase())
-     || pipe.transform(country[0][0]).includes(term)
-    // || pipe.transform(country.population).includes(term);
+     || pipe.transform(Number.isInteger(country[0][0]) ? country[0][0] :0 ).includes(term)
+     || pipe.transform( Number.isInteger(country[0][2]) ? country[0][2] :0 ).
+     toLowerCase().includes(term.toLowerCase());
 }
 
 @Injectable({providedIn: 'root'})

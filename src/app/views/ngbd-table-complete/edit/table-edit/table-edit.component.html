@@ -3,7 +3,7 @@
         <path
             d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
         </svg>
-        there something not right with you
+        {{message.error.errII}}
 </ng-template>
 <app-toasts></app-toasts>
 
@@ -18,7 +18,6 @@
         <div class="form-group">
             <label for="number">الرقم</label>
             <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
-                disabled
                 required [(ngModel)]="model.number" name="number">
         </div>
         <div class="form-group">
@@ -26,6 +25,40 @@
             <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}"
                 required [(ngModel)]="model.name" name="name">
         </div>
+        <div class="form-group">
+            <label for="phone">الهاتف</label>
+            <input type="number" class="form-control" id="phone" [ngClass]="{'error' : model.stphone}"
+                required [(ngModel)]="model.phone" name="phone">
+        </div>
+        <div class="form-group">
+            <label for="address">العنوان</label>
+            <input type="text" class="form-control" id="address" [ngClass]="{'error' : model.staddress}"
+                required [(ngModel)]="model.address" name="address">
+        </div>
+    </form>
+  </div>
+
+    <div class="modal-body"*ngIf="Id=='BranchComponent'">
+    <form #heroForm="ngForm" >
+        <div class="form-group">
+            <label for="branchName">اسم الفرع</label>
+            <input type="text" class="form-control" id="branchName" [ngClass]="{'error' : model.stbranchName}"
+                required
+                disabled
+                [(ngModel)]="model.branchName" name="branchName">
+        </div>
+        <div class="form-group">
+            <label for="name">الاسم</label>
+            <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}"
+                required [(ngModel)]="model.name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="pass">كلمة المرور</label>
+            <input type="text" class="form-control" id="pass" [ngClass]="{'error' : model.stpass}"
+               
+                required [(ngModel)]="model.pass" name="pass">
+        </div>
+       
         <div class="form-group">
             <label for="phone">الهاتف</label>
             <input type="number" class="form-control" id="phone" [ngClass]="{'error' : model.stphone}"
@@ -169,7 +202,8 @@
                     </th>
                     <th class="info">
                         <input type="text" class="form-control" id="notes"
-                            [ngClass]="{'error' : model.stnotes}" required
+                            [ngClass]="{'error' : model.stnotes}" 
+                            required
                             [(ngModel)]="model.notes" name="notes">
                     </th>
 

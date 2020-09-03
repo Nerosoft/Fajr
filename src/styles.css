@@ -8,12 +8,24 @@ body{background: url("assets/pic/wood.jpg") no-repeat fixed;
 body,html{
     height: 100vh;
 }
-/* 
-.home-page{background: url("assets/pic/home.png") no-repeat fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;} */
+#scrollbar {
+    background-color: #382616;
+}
+#scrollbar::-webkit-scrollbar-track,
+.modal::-webkit-scrollbar-track {
+    border-radius: 10px !important;
+  }
+  
+  #scrollbar::-webkit-scrollbar,
+  .modal::-webkit-scrollbar {
+    width: 14px !important;
+  }
+  
+  #scrollbar::-webkit-scrollbar-thumb,
+  .modal::-webkit-scrollbar-thumb {
+    border-radius: 10px !important;
+    background-color: #64664f !important;
+  }
 
 
 

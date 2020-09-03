@@ -8,6 +8,7 @@ import { NgbdTableCompleteComponent } from '../ngbd-table-complete/ngbd-table-co
 import { CategorysServes } from './CategorysServes';
 import { map } from 'rxjs/operators';
 import { Categorys } from './Categorys';
+import { AlertInfoComponent } from '../alert-info/alert-info.component';
 
 @Component({
   selector: 'app-categorys',
@@ -21,6 +22,7 @@ export class CategorysComponent implements OnInit {
   @ViewChild(NgbdTableCompleteComponent, {static: false}) td: NgbdTableCompleteComponent;
   countries = Categorys.getCountries();
   model = Categorys.setCategorys();
+  message=HeroService.message
   err=HeroService.err.Categorys;
   hedTable = ["الرقم","اسم الصنف","السعر","الدولة"];
   info=[];
@@ -73,7 +75,7 @@ export class CategorysComponent implements OnInit {
     this.model=Categorys.setCategorys();
     this.getCategorysComponentInfo();// firebase
     console.log(HeroService.categorys);
-    this.toastService.show('success', { classname: 'bg-success text-light', delay: 10000 });
+    this.toastService.show(this.message.success.plus, { classname: 'bg-success text-light', delay: 3000 });
   }
 
   getCategorysComponentInfo(){
@@ -137,7 +139,12 @@ export class CategorysComponent implements OnInit {
 
 
   onNavChange(changeEvent: NgbNavChangeEvent) {
-    //console.log("xxxxxxxxxxxxxxxx",changeEvent.nextId);
+    //console.log("",changeEvent.nextId);
  
+   }
+
+
+   information(){
+    this._modalService.open(AlertInfoComponent).componentInstance.displayCategory()
    }
 }

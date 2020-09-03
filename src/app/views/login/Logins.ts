@@ -1,10 +1,17 @@
 export class Login{
     public userName
+    public companyName
+    public aliasName
+    public forgitKey
+    public member="admin"
     public pass
     public login=["Create sucssesful"];
     public key
     public stuserName
+    public stcompanyName
+    public staliasName
     public stpass
+    public stforgitKey
   
     public validateInput(){
         let state=true;

@@ -73,6 +73,7 @@ export class NgbdModalConfirmAutofocusComponent implements OnInit {
   }
 
 
+
   public static setupSuppliersComponent(callback){
     NgbdModalConfirmAutofocusComponent.header="بيانات الموردين";
     NgbdModalConfirmAutofocusComponent.mes1="هل انت متأكد من اجراء";
@@ -148,6 +149,14 @@ export class NgbdModalConfirmAutofocusComponent implements OnInit {
 
 
 
+  public static setupRemoveBranchsComponent(callback,name){
+    NgbdModalConfirmAutofocusComponent.header="بيانات الافرع";
+    NgbdModalConfirmAutofocusComponent.mes1="هل انت متأكد من اجراء";
+    NgbdModalConfirmAutofocusComponent.mes2="حذف فرع" + name;
+    NgbdModalConfirmAutofocusComponent.mes3="سيتم اجراء العملية.";
+    NgbdModalConfirmAutofocusComponent.mes4="هذه العملة لا يمكن الرجوع فيها.";
+    NgbdModalConfirmAutofocusComponent.callback=callback;
+  }
 
 
 

@@ -18,7 +18,6 @@ export class Suppliers {
       HeroService.suppliers.push(value);
     }
   
-
   
     public validateInput(){
       let state=true;

@@ -6,18 +6,26 @@ import { Injectable } from '@angular/core';
 })
 export  class LoginServes {
  
-    private dbPath = 'diploma/users';
+    private dbPath = 'diploma/';
    
     usersRef: AngularFireList<Login> = null;
- 
+    dbf:AngularFireDatabase=null
     constructor(private db: AngularFireDatabase) {
-      this.usersRef = db.list(this.dbPath);
+      this.dbf=db
+      this.usersRef = db.list(this.dbPath+"/users");
     }
    
     createUser(user: Login): void {
-      this.usersRef.push(user);
+      this.usersRef.push(this.filtterData(user));
     }
-   
+    filtterData(user: Login){
+      user.stuserName=null
+      user.stcompanyName=null
+      user.staliasName=null
+      user.stpass=null
+      user.stforgitKey=null
+      return user
+    }
     updateUser(key: string, value: any): Promise<void> {
       return this.usersRef.update(key, value);
     }
@@ -32,6 +40,9 @@ export  class LoginServes {
    
     deleteAll(): Promise<void> {
       return this.usersRef.remove();
+    }
+    getDatabase(dbPath){
+      return this.dbf.object(dbPath).valueChanges()
     }
   }
   

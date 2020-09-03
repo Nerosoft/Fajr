@@ -60,7 +60,8 @@ export class NgbdTableCompleteComponent implements OnInit {
     SuppliersComponent:"شاشة الموردين",
     StoresComponent:"شاشة المخازن",
     InputComponent:"شاشة المشتريات",
-    OutputComponent:"شاشة المبيعات"}
+    OutputComponent:"شاشة المبيعات",
+    BranchComponent:'شاشة الافرع'}
     console.log("id [1] is "+id)
     TableEditComponent.setupTableEditComponent(this.Id,componant[this.Id],id,()=>{
       NgbdTableCompleteComponent.callback()

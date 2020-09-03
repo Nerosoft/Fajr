@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { InputServes } from './InputServes';
 import { CategorysComponent } from '../categorys/categorys.component';
 import { Inputs } from './Inputs';
+import { AlertInfoComponent } from '../alert-info/alert-info.component';
 
 @Component({
   selector: 'app-input',
@@ -19,6 +20,7 @@ export class InputComponent implements OnInit {
   @ViewChild(NgbdTableCompleteComponent, {static: false}) td: NgbdTableCompleteComponent;
   postionTap=0;
   model = Inputs.setInput();
+  message=HeroService.message
   err=HeroService.err.Input;
   hedTable = ["رقم الشراء","المورد","التاريخ","المخزن","عرض"];
   info=[];
@@ -70,7 +72,7 @@ export class InputComponent implements OnInit {
     this.model=Inputs.setInput();
     this.getInputComponentInfo();
    // console.log(this.model.getClients());
-    this.toastService.show('success', { classname: 'bg-success text-light', delay: 10000 });
+   this.toastService.show(this.message.success.plus, { classname: 'bg-success text-light', delay: 3000 });
   }
 
   getInputComponentInfo(){
@@ -141,9 +143,9 @@ export class InputComponent implements OnInit {
     
   }
 
-  qus(){
-
-  }
+  information(){
+    this._modalService.open(AlertInfoComponent).componentInstance.displayInput()
+   }
 
   setthesuppliers(){
    

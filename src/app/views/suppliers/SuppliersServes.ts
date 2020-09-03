@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Suppliers } from './Suppliers';
+import { LoginComponent } from '../login/login.component';
 
 
 @Injectable({
@@ -8,16 +9,27 @@ import { Suppliers } from './Suppliers';
 })
 export class SuppliersServes {
     private dbPath = 'diploma/Suppliers';
+    dbf=null
     suppliersRef: AngularFireList<Suppliers> = null;
     constructor(private db: AngularFireDatabase) {
-        this.suppliersRef = db.list(this.dbPath);
+        this.dbf=db
+       // this.suppliersRef = db.list(this.dbPath);
       }
 
+      setupAngularFireList(){
+        this.suppliersRef = this.dbf.list('diploma/aplication/'+LoginComponent.USERNAME+'/Suppliers');
+      }
 
       createSuppliers(suppliers: Suppliers): void {
-        this.suppliersRef.push(suppliers);
+        this.suppliersRef.push(this.filtterData(suppliers));
       }
-     
+      filtterData(suppliers: Suppliers){
+        suppliers.stname=null
+        suppliers.stnumber=null
+        suppliers.stphone=null
+        suppliers.staddress=null
+        return suppliers
+      }
       updateF(key: string, value: any): Promise<void> {
         return this.suppliersRef.update(key, value);
       }

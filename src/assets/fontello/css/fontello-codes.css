@@ -7,6 +7,11 @@
 .icon-edit:before { content: '\e805'; } /* '' */
 .icon-user:before { content: '\e806'; } /* '' */
 .icon-key:before { content: '\e807'; } /* '' */
+.icon-heart:before { content: '\e808'; } /* '' */
+.icon-eye:before { content: '\e809'; } /* '' */
+.icon-network:before { content: '\e80a'; } /* '' */
+.icon-key-1:before { content: '\e80b'; } /* '' */
 .icon-github-circled:before { content: '\f09b'; } /* '' */
+.icon-circle:before { content: '\f111'; } /* '' */
 .icon-youtube-play:before { content: '\f16a'; } /* '' */
 .icon-facebook-official:before { content: '\f230'; } /* '' */

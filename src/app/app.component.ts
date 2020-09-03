@@ -7,7 +7,10 @@ import { SuppliersServes } from './views/suppliers/SuppliersServes';
 import { StoresServes } from './views/stores/storesServes';
 
 import { LoginComponent } from './views/login/login.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { InputServes } from './views/input/InputServes';
+import { OutServes } from './views/output/OutServes';
+import { BranchServes } from './views/branch/BranchServes';
 
 @Component({
   selector: 'app-root',
@@ -15,32 +18,58 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
- 
+
   title = 'TypeScript Type';
-  static justOne=true;
+  static justOne = true;
 
 
 
 
-  constructor(private clientsServes: ClientsServes ,
-    private categorysServes:CategorysServes,
-    private suppliersServes:SuppliersServes,
-    private storesServes:StoresServes,
-    private route: Router ) {
+  constructor(private clientsServes: ClientsServes,
+    private categorysServes: CategorysServes,
+    private suppliersServes: SuppliersServes,
+    private storesServes: StoresServes,
+    private inputServes: InputServes,
+    private outServes: OutServes,
+    private branch: BranchServes,
+    private route: Router,) {
+    if (!window.location.pathname.includes("/Login"))
+      this.getValid()
+  }
 
 
 
-     
-      this.suppliersServes.getSuppliersList().snapshotChanges().pipe(
-          map(changes =>
-            changes.map(c =>
-              ({ key: c.payload.key, ...c.payload.val() })
-            )
-          )
-        ).subscribe(suppliers => {
-         HeroService.suppliers = suppliers;
-         console.log( "xxxxxxxxxx", HeroService.suppliers);
-        });
+
+  ngOnInit() {
+
+  }
+
+
+  getValid() {
+    if (!LoginComponent.USERLOGIN)
+      this.route.navigate(['/Login']);
+    else
+      this.setupUserInfo()
+  }
+  setupUserInfo() {
+    console.log('START APPCOMPONENT INTILIZE')
+    this.clientsServes.setupAngularFireList()
+    this.categorysServes.setupAngularFireList()
+    this.suppliersServes.setupAngularFireList()
+    this.storesServes.setupAngularFireList()
+    this.inputServes.setupAngularFireList()
+    this.outServes.setupAngularFireList()
+    this.branch.setupAngularFireList()
+
+    this.suppliersServes.getSuppliersList().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(suppliers => {
+      HeroService.suppliers = suppliers;
+    });
 
 
 
@@ -52,9 +81,9 @@ export class AppComponent {
         )
       )
     ).subscribe(clients => {
-     HeroService.clients = clients;
-    
-     console.log( "xxxxxxxxxx", HeroService.clients);
+      HeroService.clients = clients;
+
+
     });
     // 
     this.categorysServes.getCategorysList().snapshotChanges().pipe(
@@ -64,8 +93,8 @@ export class AppComponent {
         )
       )
     ).subscribe(categorys => {
-     HeroService.categorys = categorys;
-     console.log( "xxxxxxxxxx",HeroService.categorys);
+      HeroService.categorys = categorys;
+      console.log("qqqqqqqqqqqqq", HeroService.clients);
     });
 
 
@@ -76,30 +105,10 @@ export class AppComponent {
         )
       )
     ).subscribe(stores => {
-     HeroService.stores = stores;
-     console.log( HeroService.stores);
+      HeroService.stores = stores;
+      console.log(HeroService.stores);
     });
-
-
-    
-    if(!LoginComponent.USERLOGIN)
-      this.route.navigate(['/Login']);
-    
-
   }
-  
-   
-  
- 
-    ngOnInit() {
-      
-    
-      
-    
-     }
-
-  
-
 
 }
 

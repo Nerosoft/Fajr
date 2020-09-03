@@ -2,22 +2,26 @@ import { HeroService } from "src/app/hero/hero.service";
 
 export class Clients {
 
-    public number: number;
-    public name: string;
-    public phone: string;
-    public address: string;
-    public key
-    public stnumber=false;
-    public stname=false;
-    public stphone=false;
-    public staddress=false;
+    public number: number; //  حقل اسمه ونوعه
+    public name: string; //  حقل اسمه ونوعه
+    public phone: string; //  حقل اسمه ونوعه
+    public address: string; //  حقل اسمه ونوعه
+    public key //  حقل اسمه ونوعه وهو لا يتكرر
+
+
+
+    public stnumber=false;  // خاص بالفحص
+    public stname=false;// خاص بالفحص
+    public stphone=false;// خاص بالفحص
+    public staddress=false;// خاص بالفحص
+    
     constructor() { }
   
     public setClients(value:Clients){
       HeroService.clients.push(value);
     }
   
-
+    // هنا يتم عمل فحص للبيانات الحقول قبل ارسالها وتخذنها في القعده
     public validateInput(){
       let state=true;
       if(!Number.isInteger(this.number)){

@@ -80,11 +80,9 @@ span.ngb-highlight {
   }
 
 
-  /* 
-  .nav-tabs {
-    position: absolute;
-    top: -20%;
-    right: 34%;
-}
-
-*/
+  .text-nowrap{
+    white-space: nowrap;
+    max-width: 175px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

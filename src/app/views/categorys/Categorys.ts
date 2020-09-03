@@ -2,11 +2,12 @@ import { HeroService } from "src/app/hero/hero.service";
 
 export class Categorys {
     public key: string;
-    public editCounts
     public number: number;
     public name: string;
     public salary: string;
     public countrie: string;
+
+    public editCounts
     public stnumber=false;
     public stname=false;
     public stsalary=false;
@@ -16,11 +17,8 @@ export class Categorys {
     public setCategorys(value:Categorys){
       HeroService.categorys.push(value);
     }
-    // public getCategorys():Categorys[]{
-    //  return HeroService.categorys;
-    // }
+ 
     public validateInput(){
-    //number=false,name=false,email=false,countrie=false
       let state=true;
       if(!Number.isInteger(this.number)){
         state=false;

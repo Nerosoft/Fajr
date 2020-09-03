@@ -9,6 +9,7 @@ import { OutServes } from './OutServes';
 import { CategorysComponent } from '../categorys/categorys.component';
 import { map } from 'rxjs/operators';
 import { Outs } from './Outs';
+import { AlertInfoComponent } from '../alert-info/alert-info.component';
 
 @Component({
   selector: 'app-output',
@@ -19,6 +20,7 @@ export class OutputComponent implements OnInit {
   @ViewChild(NgbdTableCompleteComponent, {static: false}) td: NgbdTableCompleteComponent;
   postionTap=0;
   model = Outs.setOut();
+  message=HeroService.message
   err=HeroService.err.Out;
   hedTable = ["رقم البيع","العميل","التاريخ","عرض"];
   info=[];
@@ -66,7 +68,7 @@ export class OutputComponent implements OnInit {
     this.model=Outs.setOut();
     this.getInputComponentInfo();
    // console.log(this.model.getClients());
-    this.toastService.show('success', { classname: 'bg-success text-light', delay: 10000 });
+   this.toastService.show(this.message.success.plus, { classname: 'bg-success text-light', delay: 3000 });
   }
 
   getInputComponentInfo(){
@@ -142,19 +144,9 @@ export class OutputComponent implements OnInit {
    }
  
 
-  qus(){
-
-  //   this.info.push(  [
-  //     55,
-  //     'prince',
-  //     'f/f3/Flag_of_Russia.svg',
-  //      17075200,
-  //      146989754
-  //   ]);
-  //  this.info.reverse();
-  // //  this.td.service.setup();
-  //   console.log("tmaaaaaa",this.info)
-  }
+   information(){
+    this._modalService.open(AlertInfoComponent).componentInstance.displayOut()
+   }
 
   setClintes(){
     if(this.model.theclients.length==0)

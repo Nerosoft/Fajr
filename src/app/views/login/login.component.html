@@ -3,24 +3,24 @@
         <path
             d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
         </svg>
-    {{err.stuserName}}
+    {{err.userName}}
 </ng-template>
 <ng-template #dangerstpass>
     <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
         <path
             d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
         </svg>
-    {{err.stpass}}
+    {{err.pass}}
 </ng-template>
 <app-toasts></app-toasts>
 
 <div class="xo"  dir="ltr">
 <div class="container">
 	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3>Fajr Sign In</h3>
-				<div class="d-flex justify-content-end social_icon">
+		<div class="card" *ngIf='isLogin'>
+			<div class="card-header d-flex justify-content-center">
+				<h3>تسجيل دخول {{productId}} </h3>
+				<div class="d-flex justify-content-end social_icon invisible">
 					<span>
 						<a href="https://www.facebook.com/mor.lena.33" target="_blank">
 							<i class="fab icon-facebook-official"></i>
@@ -42,13 +42,26 @@
 			</div>
 			<div class="card-body">
 				<form>
+					<div *ngIf='isBranch' 
+					class="btn-group mr-3 mb-3" style="width: 100%;">
+						<button type="button" class="btn btn-primary">{{defBranch}}</button>
+						<div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+						  <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
+						  <div class="dropdown-menu" 
+						  ngbDropdownMenu>
+							<button *ngFor="let branch of branchs;index as i" 
+							(click)="setBranch(i)" ngbDropdownItem>{{branch.branchName}}</button>
+						  </div>
+						</div>
+					  </div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="icon-user"></i></span>
 						</div>
                         <input type="text" class="form-control" id="userName"
                         [ngClass]="{'error' : model.stuserName}"
-                        required
+						required
+						placeholder="اسم المستخدم"
                         [(ngModel)]="model.userName" name="userName">
 						
 					</div>
@@ -58,26 +71,101 @@
 						</div>
                         <input type="password" class="form-control" id="pass"
                         [ngClass]="{'error' : model.stpass}"
-                        required
+						required
+						placeholder="كلمة المرور"
                         [(ngModel)]="model.pass" name="pass">
 					</div>
-					<div class="row align-items-center remember">
+					<!-- ----------------- -->
+					<!-- <div class="row align-items-center remember">
 						<input type="checkbox">Remember Me
-					</div>
+					</div> -->
 					<div class="form-group">
-						<input type="button" (click)="login([dangerstuserName,dangerstpass])" value="Login" class="btn float-right login_btn">
+						<input type="button" (click)="login([dangerstuserName,dangerstpass])" value="دخول" class="btn float-right login_btn">
                     </div>
-                    <div class="form-group">
-						<input (click)="sinIn([dangerstuserName,dangerstpass])" value="Sin In" class="btn float-left sin_btn ">
+				</form>
+			</div>
+			<div class="card-footer">
+				<div (click)="back()" class="d-flex justify-content-center forgit links">
+					<a > !اشترك معنا مجانا </a>  ليس لدي اشتراك؟
+				</div>
+				<div class="d-flex justify-content-center forgit links">
+					<a (click)="forgot()">استرجاع كلمة المرور؟</a>
+				</div>
+			</div>
+		</div>
+		<div class="card" *ngIf='!isLogin'>
+			<div class="card-header d-flex justify-content-center">
+				<h3>انشاء حساب</h3>
+			</div>
+			<div class="card-body">
+				<form>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span 
+							 class="input-group-text"><i class="icon-network"></i></span>
+						</div>
+                        <input type="text" class="form-control" id="companyName"
+                        [ngClass]="{'error' : model.stcompanyName}"
+						required
+						placeholder="اسم الشركه"
+                        [(ngModel)]="model.companyName" name="companyName">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span style="background-color: #8a9711;" 
+							 class="input-group-text"><i class="icon-network"></i></span>
+						</div>
+                        <input type="text" class="form-control" id="aliasName"
+                        [ngClass]="{'error' : model.staliasName}"
+						required
+						placeholder="اسم المستعار"
+                        [(ngModel)]="model.aliasName" name="aliasName">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span style="background-color: #f44336;" 
+							class="input-group-text"><i class="icon-user"></i></span>
+						</div>
+                        <input type="text" class="form-control" id="userName"
+                        [ngClass]="{'error' : model.stuserName}"
+						required
+						placeholder="اسم المستخدم"
+                        [(ngModel)]="model.userName" name="userName">
+						
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span style="background-color: #28a745;" 
+							 class="input-group-text"><i class="icon-key"></i></span>
+						</div>
+                        <input type="password" class="form-control" id="pass"
+                        [ngClass]="{'error' : model.stpass}"
+						required
+						placeholder="كلمة المرور"
+                        [(ngModel)]="model.pass" name="pass">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span style="background-color: #fd9131;" 
+							 class="input-group-text"><i class="icon-key-1"></i></span>
+						</div>
+                        <input type="text" class="form-control" id="forgitKey"
+                        [ngClass]="{'error' : model.stforgitKey}"
+						required
+						placeholder="رمز تذكر كلمة المرور"
+                        [(ngModel)]="model.forgitKey" name="forgitKey">
+					</div>
+					<!-- ----------------- -->
+                    <div class="form-group d-flex justify-content-end">
+						<input type="button" 
+						(click)="sinIn([dangerstuserName,dangerstpass])" 
+						value="انشاء" class="btn float-left sin_btn ">
 					</div>
 				</form>
 			</div>
 			<div class="card-footer">
-				<div class="d-flex justify-content-center links">
-					Don't have an account?<a >Sign Up</a>
-				</div>
-				<div class="d-flex justify-content-center">
-					<a >Forgot your password?</a>
+				<div class="d-flex justify-content-center forgit links">
+					<a (click)="back()">الرجوع لتسجيل الدخول</a>
 				</div>
 			</div>
 		</div>
@@ -87,8 +175,8 @@
 
 <div>
 
-
-<!-- <div style="position: fixed; z-index: -99; width: 100%; height: 100%">
+<!-- 
+<div style="position: fixed; z-index: -99; width: 100%; height: 100%">
     <iframe frameborder="0" height="100%" width="100%"
       src="https://youtu.be/PGyLlggd3n0?list=LL7fpUDkbNDP2ioHvvTupSaQ?autoplay=1&controls=0&showinfo=0&autohide=1">
     </iframe>

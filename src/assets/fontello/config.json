@@ -71,6 +71,36 @@
       "css": "github-circled",
       "code": 61595,
       "src": "fontawesome"
+    },
+    {
+      "uid": "130380e481a7defc690dfb24123a1f0c",
+      "css": "circle",
+      "code": 61713,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d02a803276d9e1f42b7393964aa22ce9",
+      "css": "heart",
+      "code": 59400,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "c5fd349cbd3d23e4ade333789c29c729",
+      "css": "eye",
+      "code": 59401,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "414fe97e4af5215a06d29be0f2cecdf5",
+      "css": "network",
+      "code": 59402,
+      "src": "entypo"
+    },
+    {
+      "uid": "75347b319511175da51af3955919dbac",
+      "css": "key-1",
+      "code": 59403,
+      "src": "linecons"
     }
   ]
 }

@@ -16,7 +16,7 @@ align-content: center;
 }
 
 .card{
-height: 370px;
+height: 440px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
@@ -98,3 +98,14 @@ color: white;
 .links a{
 margin-left: 4px;
 }
+
+.forgit{
+    cursor: pointer;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.forgit:hover{
+    color: yellowgreen;
+}
+

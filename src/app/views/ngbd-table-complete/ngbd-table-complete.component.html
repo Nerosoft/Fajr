@@ -16,7 +16,7 @@
 
       <tbody>
       <tr *ngFor="let country of countries$ | async">
-          <td *ngFor="let cx of country[0]; let i = index" >
+          <td *ngFor="let cx of country[0]; let i = index" class="text-nowrap">
             <div class="edit" *ngIf="i==1">
             <i class="icon-edit mr-2" style="width: 20px" (click)="edit(country[1])"></i>
             </div>
