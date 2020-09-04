@@ -18,15 +18,15 @@ import { SubBranch } from './SubBranch';
 export class LoginComponent implements OnInit {
   static USERLOGIN = false;
   static USERNAME = 'salahhh';
-  productId="مجموعة شركات الفجر "
-  isBranch=false
-  dataBranch:SubBranch
+  productId = "مجموعة شركات الفجر "
+  isBranch = false
+  dataBranch: SubBranch
 
-  branchs=[]
-  defBranch=""
+  branchs = []
+  defBranch = ""
   isLogin: boolean = true
   model = Login.setLogin();
-  message=HeroService.message
+  message = HeroService.message
   err = HeroService.err.Login
   constructor(public toastService: ToastService,
     private loginServes: LoginServes,
@@ -63,15 +63,21 @@ export class LoginComponent implements OnInit {
       this.loginServes.createUser(this.model)
       this.toastService.show(this.message.success.signUp, { classname: 'bg-success text-light', delay: 7000 });
       LoginComponent.USERNAME = this.model.companyName  //database root
-      HeroService.companyName=this.model.aliasName     // name of company
-      HeroService.USERNAME=this.model.userName        // name of user 
+      HeroService.companyName = this.model.aliasName     // name of company
+      HeroService.USERNAME = this.model.userName        // name of user 
       LoginComponent.USERLOGIN = true;            // login 
       this.route.navigate(['/']);
     } else {
-      if (this.model.stuserName)
+      if (this.model.stcompanyName)
         this.showDanger(dangerTpl[0])
-      if (this.model.stpass)
+      if (this.model.staliasName)
         this.showDanger(dangerTpl[1])
+      if (this.model.stuserName)
+        this.showDanger(dangerTpl[2])
+      if (this.model.stpass)
+        this.showDanger(dangerTpl[3])
+      if (this.model.stforgitKey)
+        this.showDanger(dangerTpl[4])
     }
   }
 
@@ -79,57 +85,57 @@ export class LoginComponent implements OnInit {
     this.toastService.show(dangerTpl, { classname: 'bg-danger text-light', delay: 3000 });
   }
   showSuccess() {
-    if(this.isBranch){
+    if (this.isBranch) {
       let state = true;
       this.branchs.forEach(element => {
-        if(this.model.userName == element.name &&
+        if (this.model.userName == element.name &&
           this.model.pass == element.pass &&
-          this.defBranch==element.branchName && LoginComponent.USERLOGIN == false){
-            state = false;
-            LoginComponent.USERNAME = this.productId+'/aplication/'+element.branchName
-            this.toastService.show(this.message.success.signIn, { classname: 'bg-success text-light', delay: 3000 });
-            LoginComponent.USERLOGIN = true;
-            this.route.navigate(['/']);
-          }
-      });
-      if (state) 
-      this.showDanger(this.message.error.err)
-    }
-    else{
-    let subscription = this.loginServes.getUsersList().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(users => {
-      let state = true;
-      users.forEach(element => {
-        if (this.model.userName == element.userName &&
-          this.model.pass == element.pass && LoginComponent.USERLOGIN == false) {
-          let today = new Date();
-          let logs = (today.getMonth() + 1) + '-' + today.getDate() + ' H ' + today.getHours() + ',' + today.getMinutes();
-          element.login.push(logs)
-          this.loginServes.updateUser(element.key, element)
-          this.toastService.toasts = [];
-          this.toastService.show(this.message.success.signIn, { classname: 'bg-success text-light', delay: 3000 });
-          LoginComponent.USERNAME = element.companyName  //database root
-          HeroService.companyName=element.aliasName     // name of company
-          HeroService.USERNAME=element.userName        // name of user 
-          LoginComponent.USERLOGIN = true;            // login 
+          this.defBranch == element.branchName && LoginComponent.USERLOGIN == false) {
           state = false;
-        }
-        if (state) {
-          this.model.stuserName = true;
-          this.model.stpass = true;
-          this.showDanger(this.message.error.err)
-        } else
+          LoginComponent.USERNAME = this.productId + '/aplication/' + element.branchName
+          this.toastService.show(this.message.success.signIn, { classname: 'bg-success text-light', delay: 3000 });
+          LoginComponent.USERLOGIN = true;
           this.route.navigate(['/']);
-
-        subscription.unsubscribe();
+        }
       });
-    });
-  }
+      if (state)
+        this.showDanger(this.message.error.err)
+    }
+    else {
+      let subscription = this.loginServes.getUsersList().snapshotChanges().pipe(
+        map(changes =>
+          changes.map(c =>
+            ({ key: c.payload.key, ...c.payload.val() })
+          )
+        )
+      ).subscribe(users => {
+        let state = true;
+        users.forEach(element => {
+          if (this.model.userName == element.userName &&
+            this.model.pass == element.pass && LoginComponent.USERLOGIN == false) {
+            let today = new Date();
+            let logs = (today.getMonth() + 1) + '-' + today.getDate() + ' H ' + today.getHours() + ',' + today.getMinutes();
+            element.login.push(logs)
+            this.loginServes.updateUser(element.key, element)
+            this.toastService.toasts = [];
+            this.toastService.show(this.message.success.signIn, { classname: 'bg-success text-light', delay: 3000 });
+            LoginComponent.USERNAME = element.companyName  //database root
+            HeroService.companyName = element.aliasName     // name of company
+            HeroService.USERNAME = element.userName        // name of user 
+            LoginComponent.USERLOGIN = true;            // login 
+            state = false;
+          }
+          if (state) {
+            this.model.stuserName = true;
+            this.model.stpass = true;
+            this.showDanger(this.message.error.err)
+          } else
+            this.route.navigate(['/']);
+
+          subscription.unsubscribe();
+        });
+      });
+    }
   }
 
   back() {
@@ -168,10 +174,10 @@ export class LoginComponent implements OnInit {
 
   }
 
-  setBranch(index){
-    this.defBranch=this.branchs[index].branchName
+  setBranch(index) {
+    this.defBranch = this.branchs[index].branchName
   }
-  shearchCompany(productId){
+  shearchCompany(productId) {
     let subscription = this.loginServes.getUsersList().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -181,26 +187,26 @@ export class LoginComponent implements OnInit {
     ).subscribe(users => {
       let state = true;
       users.forEach(element => {
-        if (productId == element.companyName ) {
-            state = false
-            this.productId=element.companyName
-            HeroService.companyName=element.aliasName
-            this.loginServes.getDatabase('diploma/aplication/'+productId).
-              subscribe((data:SubBranch)=>{
-              this.dataBranch=data
-              this.branchs=Object.values(this.dataBranch.branch)
-              this.defBranch=this.branchs[0].branchName
-              this.isBranch=true
-              
+        if (productId == element.companyName) {
+          state = false
+          this.productId = element.companyName
+          HeroService.companyName = element.aliasName
+          this.loginServes.getDatabase('diploma/aplication/' + productId).
+            subscribe((data: SubBranch) => {
+              this.dataBranch = data
+              this.branchs = Object.values(this.dataBranch.branch)
+              this.defBranch = this.branchs[0].branchName
+              this.isBranch = true
+
             })
-           
+
         }
 
       });
       if (state) {
         this.showDanger(this.message.error.login)
         this.route.navigate(['Login']);
-      
+
       }
       subscription.unsubscribe();
     })

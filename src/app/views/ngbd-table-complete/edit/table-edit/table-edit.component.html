@@ -7,7 +7,7 @@
 </ng-template>
 <app-toasts></app-toasts>
 
-<div class="modal-header">
+<div class="modal-header" >
     <h4 class="modal-title" id="modal-title">{{nameId}}</h4>
     <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modalN.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
@@ -16,9 +16,11 @@
   <div class="modal-body"*ngIf="Id=='ClientsComponent'||Id=='SuppliersComponent'">
     <form #heroForm="ngForm" >
         <div class="form-group">
-            <label for="number">الرقم</label>
+            <label for="number" class="text-xs-right">الرقم</label>
             <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
-                required [(ngModel)]="model.number" name="number">
+                required 
+                disabled
+                [(ngModel)]="model.number" name="number">
         </div>
         <div class="form-group">
             <label for="name">الاسم</label>
@@ -80,6 +82,7 @@
             <input type="number" class="form-control" id="number"
             [ngClass]="{'error' : model.stnumber}"
             required
+            disabled
             [(ngModel)]="model.number" name="number">
         </div>
         <div class="form-group">
@@ -115,7 +118,9 @@
         <div class="form-group">
             <label for="number">رقم المخزن</label>
             <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
-                required [(ngModel)]="model.number" name="number">
+                required 
+                disabled
+                [(ngModel)]="model.number" name="number">
         </div>
         <div class="form-group">
             <label for="name">اسم المخزن</label>
@@ -137,7 +142,9 @@
         <div class="form-group">
             <label for="number">رقم الشراء</label>
             <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
-                required [(ngModel)]="model.number" name="number">
+                required 
+                disabled
+                [(ngModel)]="model.number" name="number">
         </div>
         <div class="form-group">
             <label for="date">التاريخ</label>
@@ -220,7 +227,9 @@
         <div class="form-group">
             <label for="number">رقم البيع</label>
             <input type="number" class="form-control" id="number"
-                [ngClass]="{'error' : model.stnumber}" required [(ngModel)]="model.number"
+                [ngClass]="{'error' : model.stnumber}"
+                required [(ngModel)]="model.number"
+                disabled
                 name="number">
         </div>
         <div class="form-group">
@@ -293,36 +302,6 @@
 
 
 <div class="modal-body"*ngIf="Id=='InputComponent/show'">
-    <!-- <form #heroForm="ngForm" (ngSubmit)="onSubmit(heroForm.value)">
-        <div class="form-group">
-            <label for="number">رقم الشراء</label>
-            <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
-                required [(ngModel)]="model.number" name="number">
-        </div>
-        <div class="form-group">
-            <label for="date">التاريخ</label>
-            <input type="date" class="form-control" id="date" [ngClass]="{'error' : model.stdate}"
-                required [(ngModel)]="model.date" name="date">
-        </div>
-        <div class="form-group">
-          <label for="thesupplier">المورد</label>
-          <select class="form-control" id="thesupplier"
-          [ngClass]="{'error' : model.stthesupplier}" 
-          required
-          [(ngModel)]="model.thesupplier" name="thesupplier">
-            <option *ngFor="let supplier of model.thesuppliers" [value]="supplier">{{supplier}}</option>
-          </select>
-        </div>
-        <div class="form-group">
-            <label for="thestore">المورد</label>
-            <select class="form-control" id="thestore"
-            [ngClass]="{'error' : model.stthestore}" 
-            required
-            [(ngModel)]="model.thestore" name="thestore">
-              <option *ngFor="let store of model.thestores" [value]="store">{{store}}</option>
-            </select>
-          </div>
-    </form> -->
     <div class="myinfotable">
         <table class="table">
             <thead class="thead-dark">

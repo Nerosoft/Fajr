@@ -30,4 +30,9 @@
   width: 15% !important;
 }
 
+label{
+  text-align: right !important;
+  width: 100%;
+}
+
 /* border-collapse: collapse; */
