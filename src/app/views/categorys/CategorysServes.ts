@@ -8,16 +8,11 @@ import { LoginComponent } from '../login/login.component';
   providedIn: 'root'
 })
 export class CategorysServes {
-    private dbPath = 'diploma/Categorys';
     dbf=null
     categorysRef: AngularFireList<Categorys> = null;
     constructor(private db: AngularFireDatabase) {
         this.dbf=db
-        //this.categorysRef = this.dbf.list(this.dbPath);
       }
-
-
-
       setupAngularFireList(){
         this.categorysRef = this.dbf.list('diploma/aplication/'+LoginComponent.USERNAME+'/Categorys');
       }
@@ -31,23 +26,16 @@ export class CategorysServes {
         category.stcountrie=null
         return category
       }
-
       updateF(key: string, value: any): Promise<void> {
         return this.categorysRef.update(key, value);
       }
-     
       deleteF(key: string): Promise<void> {
         return this.categorysRef.remove(key);
       }
-     
       getCategorysList(): AngularFireList<Categorys> {
         return this.categorysRef;
       }
-     
       deleteAll(): Promise<void> {
         return this.categorysRef.remove();
       }
-
-
-
 }

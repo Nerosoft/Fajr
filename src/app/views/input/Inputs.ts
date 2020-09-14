@@ -7,9 +7,10 @@ export class Inputs extends InputAndOut{
     public date: string;
     public thesupplier: string;
     public thestore:string;
+    public key
+
     public thesuppliers=[];
     public thestores=[];
-    public key
 
     public stnumber=false;
     public stdate=false;

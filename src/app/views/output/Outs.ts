@@ -5,10 +5,13 @@ export class Outs extends InputAndOut{
 
     public number: number;
     public date: string;
-    public theclient: string;
     public key;
+    public theclient: string;
+  
+
     public theclients=[];
     public salaryOfItem=[]
+
     public stnumber=false;
     public stdate=false;
     public sttheclient=false;

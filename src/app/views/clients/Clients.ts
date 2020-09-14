@@ -2,11 +2,11 @@ import { HeroService } from "src/app/hero/hero.service";
 
 export class Clients {
 
-    public number: number; //  حقل اسمه ونوعه
-    public name: string; //  حقل اسمه ونوعه
-    public phone: string; //  حقل اسمه ونوعه
-    public address: string; //  حقل اسمه ونوعه
-    public key //  حقل اسمه ونوعه وهو لا يتكرر
+    public number: number;
+    public name: string; 
+    public phone: string; 
+    public address: string; 
+    public key 
 
 
 

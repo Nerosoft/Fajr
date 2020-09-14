@@ -108,6 +108,7 @@ export class AppComponent {
       HeroService.stores = stores;
       console.log(HeroService.stores);
     });
+    
   }
 
 }

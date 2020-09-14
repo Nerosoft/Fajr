@@ -8,42 +8,34 @@ import { LoginComponent } from '../login/login.component';
   providedIn: 'root'
 })
 export class SuppliersServes {
-    private dbPath = 'diploma/Suppliers';
-    dbf=null
-    suppliersRef: AngularFireList<Suppliers> = null;
-    constructor(private db: AngularFireDatabase) {
-        this.dbf=db
-       // this.suppliersRef = db.list(this.dbPath);
-      }
-
-      setupAngularFireList(){
-        this.suppliersRef = this.dbf.list('diploma/aplication/'+LoginComponent.USERNAME+'/Suppliers');
-      }
-
-      createSuppliers(suppliers: Suppliers): void {
-        this.suppliersRef.push(this.filtterData(suppliers));
-      }
-      filtterData(suppliers: Suppliers){
-        suppliers.stname=null
-        suppliers.stnumber=null
-        suppliers.stphone=null
-        suppliers.staddress=null
-        return suppliers
-      }
-      updateF(key: string, value: any): Promise<void> {
-        return this.suppliersRef.update(key, value);
-      }
-     
-      deleteF(key: string): Promise<void> {
-        return this.suppliersRef.remove(key);
-      }
-     
-      getSuppliersList(): AngularFireList<Suppliers> {
-        return this.suppliersRef;
-      }
-     
-      deleteAll(): Promise<void> {
-        return this.suppliersRef.remove();
-      }
-
+  dbf = null
+  suppliersRef: AngularFireList<Suppliers> = null;
+  constructor(private db: AngularFireDatabase) {
+    this.dbf = db
+  }
+  setupAngularFireList() {
+    this.suppliersRef = this.dbf.list('diploma/aplication/' + LoginComponent.USERNAME + '/Suppliers');
+  }
+  createSuppliers(suppliers: Suppliers): void {
+    this.suppliersRef.push(this.filtterData(suppliers));
+  }
+  filtterData(suppliers: Suppliers) {
+    suppliers.stname = null
+    suppliers.stnumber = null
+    suppliers.stphone = null
+    suppliers.staddress = null
+    return suppliers
+  }
+  updateF(key: string, value: any): Promise<void> {
+    return this.suppliersRef.update(key, value);
+  }
+  deleteF(key: string): Promise<void> {
+    return this.suppliersRef.remove(key);
+  }
+  getSuppliersList(): AngularFireList<Suppliers> {
+    return this.suppliersRef;
+  }
+  deleteAll(): Promise<void> {
+    return this.suppliersRef.remove();
+  }
 }

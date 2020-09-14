@@ -7,14 +7,11 @@ import { LoginComponent } from '../login/login.component';
   providedIn: 'root'
 })
 export class OutServes {
-    private dbPath = 'diploma/Outs';
     dbf=null
     outssRef: AngularFireList<Outs> = null;
     constructor(private db: AngularFireDatabase) {
       this.dbf=db 
-      // this.outssRef = db.list(this.dbPath);
       }
-
       setupAngularFireList(){
         this.outssRef = this.dbf.list('diploma/aplication/'+LoginComponent.USERNAME+'/Outs');
       }
@@ -34,17 +31,13 @@ export class OutServes {
       updateF(key: string, value: any): Promise<void> {
         return this.outssRef.update(key, value);
       }
-     
       deleteF(key: string): Promise<void> {
         return this.outssRef.remove(key);
       }
-     
       getOutsList(): AngularFireList<Outs> {
         return this.outssRef;
       }
-     
       deleteAll(): Promise<void> {
         return this.outssRef.remove();
       }
-
 }

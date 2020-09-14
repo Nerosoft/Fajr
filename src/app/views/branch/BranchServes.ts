@@ -9,14 +9,12 @@ import { Branch } from './Branch';
 })
 
 export class BranchServes {
-    private dbPath = 'diploma/branch';
     dbf=null
     branchsRef: AngularFireList<Branch> = null;
     constructor(private db: AngularFireDatabase) {
         this.dbf=db
-        // this.clientsRef = db.list(this.dbPath);
+      
       }
-
       setupAngularFireList(){
         this.branchsRef = this.dbf.list('diploma/aplication/'+LoginComponent.USERNAME+'/branch');
       }
@@ -34,17 +32,13 @@ export class BranchServes {
       updateF(key: string, value: any): Promise<void> {
         return this.branchsRef.update(key, value);
       }
-     
       deleteF(key: string): Promise<void> {
         return this.branchsRef.remove(key);
       }
-     
       getBranchsList(): AngularFireList<Branch> {
         return this.branchsRef;
       }
-     
       deleteAll(): Promise<void> {
         return this.branchsRef.remove();
       }
-
 }

@@ -47,6 +47,56 @@ export class HomeComponent implements OnInit {
     this.inputServes.setupAngularFireList()
     this.outServes.setupAngularFireList()
     this.branch.setupAngularFireList()
+
+    this.suppliersServes.getSuppliersList().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(suppliers => {
+      HeroService.suppliers = suppliers;
+    });
+
+
+
+
+    this.clientsServes.getClientsList().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(clients => {
+      HeroService.clients = clients;
+
+
+    });
+    // 
+    this.categorysServes.getCategorysList().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(categorys => {
+      HeroService.categorys = categorys;
+      console.log("qqqqqqqqqqqqq", HeroService.clients);
+    });
+
+
+    this.storesServes.getStoresList().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(stores => {
+      HeroService.stores = stores;
+      console.log(HeroService.stores);
+    });
+
+
   }
 
   sendDataEffect() {

@@ -1,11 +1,14 @@
 import { HeroService } from "src/app/hero/hero.service";
 
 export class Categorys {
+
     public key: string;
     public number: number;
     public name: string;
     public salary: string;
     public countrie: string;
+
+    
 
     public editCounts
     public stnumber=false;

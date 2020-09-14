@@ -17,7 +17,7 @@ import { SubBranch } from './SubBranch';
 })
 export class LoginComponent implements OnInit {
   static USERLOGIN = false;
-  static USERNAME = 'salahhh';
+  static USERNAME = 'ready';
   productId = "مجموعة شركات الفجر "
   isBranch = false
   dataBranch: SubBranch
@@ -36,8 +36,9 @@ export class LoginComponent implements OnInit {
     this.routes.paramMap.subscribe(params => {
       if (params.get('productId') != null) {
         this.shearchCompany(params.get('productId'))
-
       }
+      if (LoginComponent.USERLOGIN && LoginComponent.USERNAME != "ready")
+        this.route.navigate(['/']);
     })
   }
 
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
 
   login(dangerTpl) {
 
-    if (this.model.validateInput()) {
+    if (this.model.validateLogin()) {
       this.showSuccess();
     } else {
       if (this.model.stuserName)
@@ -125,15 +126,15 @@ export class LoginComponent implements OnInit {
             LoginComponent.USERLOGIN = true;            // login 
             state = false;
           }
-          if (state) {
-            this.model.stuserName = true;
-            this.model.stpass = true;
-            this.showDanger(this.message.error.err)
-          } else
-            this.route.navigate(['/']);
-
-          subscription.unsubscribe();
         });
+        if (state) {
+          this.model.stuserName = true;
+          this.model.stpass = true;
+          this.showDanger(this.message.error.err)
+        } else
+          this.route.navigate(['/']);
+
+        subscription.unsubscribe();
       });
     }
   }

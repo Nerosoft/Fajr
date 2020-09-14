@@ -1,12 +1,14 @@
 import { HeroService } from "src/app/hero/hero.service";
 
 export class Branch{
+  
     public branchName: string;
     public name: string;
     public pass: number;
     public phone: string;
     public address: string;
     public key
+
     public stbranchName=false;
     public stname=false;
     public stpass=false;
