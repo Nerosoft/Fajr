@@ -1,117 +1,85 @@
 <div class="ov">
-    <!-- ___________________________________________tools__________________ -->
+  <!-- ___________________________________________tools__________________ -->
 
-    <ng-template #dangerstnumber>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24"><path d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z"/></svg>
-        {{err.number}}
-      </ng-template>
-      <ng-template #dangerstname>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24"><path d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z"/></svg>
-        {{err.name}}
-      </ng-template>
-      <ng-template #dangerstsalary>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24"><path d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z"/></svg>
-        {{err.salary}}
-      </ng-template>
-      <ng-template #dangerstcountrie>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24"><path d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z"/></svg>
-        {{err.countrie}}
-      </ng-template>
-      <app-toasts></app-toasts>
-    
-      <section class="tools">
-        <div class="container">
-            <hr> 
-            <i (click)="information()" class="icon icon-help"></i>
-            <i class="icon icon-up-big" 
-            [ngClass]="{'active' : ngbnv2}" 
-            (click)="setnav(2)"></i>
-            <i class="icon icon-down-big"
-            [ngClass]="{'active' : ngbnv1}" 
-            (click)="setnav(1)"></i>
-            <!-- <i class="fas fa-edit"></i> -->
-            <i class="icon icon-minus" (click)="open()"></i>
-            <!-- <i class="fas fa-plus-circle"></i>
+
+  <app-toasts></app-toasts>
+
+  <section class="tools">
+    <div class="container">
+      <hr>
+      <i (click)="information()" class="icon icon-help"></i>
+      <i class="icon icon-up-big" [ngClass]="{'active' : ngbnv2}" (click)="setnav(2)"></i>
+      <i class="icon icon-down-big" [ngClass]="{'active' : ngbnv1}" (click)="setnav(1)"></i>
+      <!-- <i class="fas fa-edit"></i> -->
+      <i class="icon icon-minus" (click)="open()"></i>
+      <!-- <i class="fas fa-plus-circle"></i>
             <i class="fas fa-print"></i> -->
-            <i class="icon icon-plus"
-                (click)="savaDAtaBase([dangerstnumber,dangerstname,dangerstsalary,dangerstcountrie])"></i>
-            <hr>
-        </div>
-    </section>
+      <i class="icon icon-plus" (click)="savaDAtaBase()"></i>
+      <hr>
+    </div>
+  </section>
 
-    <!-- __________________________company data________________ -->
+  <!-- __________________________company data________________ -->
 
-    <section class="com-data">
-        <div class="row">
-            <div class="container">
-                <ul ngbNav  [activeId]="activeId"  #nav2="ngbNav" class="nav-tabs invisible"  (navChange)="onNavChange($event)"> 
-                    <li [ngbNavItem]="1">
-                    <a ngbNavLink class="fas fa-arrow-right" (click)="setpostion(0)"></a>
-                    <ng-template ngbNavContent>
-                        <h2 class="t-center">الاصناف</h2>
-                        <fieldset>
-                            <form #heroForm="ngForm" >
-                                <div class="form-group">
-                                    <label for="number">الرقم</label>
-                                    <input type="number" class="form-control" id="number"
-                                    [ngClass]="{'error' : model.stnumber}"
-                                    required
-                                    [(ngModel)]="model.number" name="number">
-                                </div>
-                                <div class="form-group">
-                                    <label for="name">اسم الصنف</label>
-                                    <input type="text" class="form-control" id="name" 
-                                    [ngClass]="{'error' : model.stname}"
-                                    required
-                                    [(ngModel)]="model.name" name="name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="salary">السعر</label>
-                                    <input type="number" class="form-control" id="salary"
-                                    [ngClass]="{'error' : model.stsalary}" 
-                                    required
-                                    [(ngModel)]="model.salary" name="salary">
-                                </div>
-                                <div class="form-group">
-                                    <label for="countries">الدولة</label>
-                                    <select class="form-control" id="countries" 
-                                    [ngClass]="{'error' : model.stcountrie}" 
-                                    required
-                                    [(ngModel)]="model.countrie" name="countrie">
-                                      <option *ngFor="let countrie of countries" [value]="countrie.name">{{countrie.name}}</option>
-                                    </select>
-                                </div>
-                                <!-- <button type="submit" class="btn btn-danger" (click)="newHero()">New Hero</button> -->
-                            </form>
-                        </fieldset>
+  <section class="com-data">
+    <div class="row">
+      <div class="container">
+        <ul ngbNav [activeId]="activeId" #nav2="ngbNav" class="nav-tabs invisible" (navChange)="onNavChange($event)">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink class="fas fa-arrow-right" (click)="setpostion(0)"></a>
+            <ng-template ngbNavContent>
+              <h2 class="t-center">الاصناف</h2>
+              <fieldset>
+                <form #heroForm="ngForm">
+                  <div class="form-group">
+                    <label for="number">الرقم</label>
+                    <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
+                      required [(ngModel)]="model.number" name="number">
+                  </div>
+                  <div class="form-group">
+                    <label for="name">اسم الصنف</label>
+                    <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}" required
+                      [(ngModel)]="model.name" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label for="salary">السعر</label>
+                    <input type="number" class="form-control" id="salary" [ngClass]="{'error' : model.stsalary}"
+                      required [(ngModel)]="model.salary" name="salary">
+                  </div>
+                  <div class="form-group">
+                    <label for="countries">الدولة</label>
+                    <select class="form-control" id="countries" [ngClass]="{'error' : model.stcountrie}" required
+                      [(ngModel)]="model.countrie" name="countrie">
+                      <option *ngFor="let countrie of countries" [value]="countrie.name">{{countrie.name}}</option>
+                    </select>
+                  </div>
+                  <!-- <button type="submit" class="btn btn-danger" (click)="newHero()">New Hero</button> -->
+                </form>
+              </fieldset>
 
-                    </ng-template>
-                    </li>
-                    <li [ngbNavItem]="2" >
-                      <a ngbNavLink class="fas fa-arrow-left" (click)="setpostion(1)"></a>
-                      <ng-template ngbNavContent>
-                     
-                        <fieldset>
-                            <app-ngbd-table-complete 
-                             [hedTable]="hedTable"
-                             [info]="info"
-                             [Id]="Id"
-                             ></app-ngbd-table-complete>
-                        </fieldset>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <a ngbNavLink class="fas fa-arrow-left" (click)="setpostion(1)"></a>
+            <ng-template ngbNavContent>
 
-                      </ng-template>
-                    </li>
-                </ul>
-                
-                <div [ngbNavOutlet]="nav2" class="mt-2"></div>
+              <fieldset>
+                <app-ngbd-table-complete [hedTable]="hedTable" [info]="info" [Id]="Id"></app-ngbd-table-complete>
+              </fieldset>
+
+            </ng-template>
+          </li>
+        </ul>
+
+        <div [ngbNavOutlet]="nav2" class="mt-2"></div>
 
 
 
-            
 
-            </div>
-        </div>
-    </section>
 
-    
+      </div>
+    </div>
+  </section>
+
+
 </div>

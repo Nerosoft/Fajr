@@ -1,52 +1,23 @@
 <div class="ov">
     <!-- ___________________________________________tools__________________ -->
-
-    <ng-template #dangerstnumber>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-            <path
-                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-        {{err.number}}
-    </ng-template>
-    <ng-template #dangerstdate>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-            <path
-                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-        {{err.date}}
-    </ng-template>
-    <ng-template #dangerstthesupplier>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-            <path
-                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-        {{err.thesupplier}}
-    </ng-template>
-    <ng-template #dangerstthestore>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-            <path
-                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-        {{err.thestore}}
-    </ng-template>
     <app-toasts></app-toasts>
 
     <section class="tools">
         <div class="container">
-            <hr> 
+            <hr>
             <i class="icon icon-help" (click)="information()"></i>
-            <i class="icon icon-up-big" 
-            [ngClass]="{'active' : ngbnv2}" 
+            <i class="icon icon-up-big"
+            [ngClass]="{'active' : ngbnv2}"
             (click)="setnav(2)"></i>
             <i class="icon icon-down-big"
-            [ngClass]="{'active' : ngbnv1}" 
+            [ngClass]="{'active' : ngbnv1}"
             (click)="setnav(1)"></i>
             <!-- <i class="fas fa-edit"></i> -->
             <i class="icon icon-minus" (click)="open()"></i>
             <!-- <i class="fas fa-plus-circle"></i>
             <i class="fas fa-print"></i> -->
             <i class="icon icon-plus"
-                (click)="savaDAtaBase([dangerstnumber,dangerstdate,dangerstthesupplier,dangerstthestore])"></i>
+                (click)="savaDAtaBase()"></i>
             <hr>
         </div>
     </section>
@@ -78,20 +49,20 @@
                                     <div class="form-group">
                                         <label for="thesupplier">المورد</label>
                                         <select class="form-control" id="thesupplier"
-                                            (click)="setthesuppliers()"
+
                                             [ngClass]="{'error' : model.stthesupplier}" required
                                             [(ngModel)]="model.thesupplier" name="thesupplier">
-                                            <option *ngFor="let supplier of model.thesuppliers" [value]="supplier">
-                                                {{supplier}}</option>
+                                            <option *ngFor="let supplier of heroService.suppliers" [value]="supplier.name">
+                                                {{supplier.name}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="thestore">المخزن</label>
                                         <select class="form-control" id="thestore"
-                                            (click)="setthestores()"
+
                                             [ngClass]="{'error' : model.stthestore}" required
                                             [(ngModel)]="model.thestore" name="thestore">
-                                            <option *ngFor="let store of model.thestores" [value]="store">{{store}}
+                                            <option *ngFor="let store of heroService.stores" [value]="store.name">{{store.name}}
                                             </option>
                                         </select>
                                     </div>
@@ -111,10 +82,10 @@
                                             <tr>
                                                 <th class="info">
                                                     <select class="form-control itemclas" id="item"
-                                                    (click)="setitems()"
+
                                                     [ngClass]="{'error' : model.stitem}" required
                                                     [(ngModel)]="model.item" name="item">
-                                                    <option *ngFor="let item of model.items" [value]="item">{{item}}
+                                                    <option *ngFor="let item of heroService.categorys" [value]="item.name">{{item.name}}
                                                     </option>
                                                 </select>
                                                 </th>

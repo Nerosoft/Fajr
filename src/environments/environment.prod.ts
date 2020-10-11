@@ -1,3 +1,11 @@
 export const environment = {
-  production: false
+  production: true,
+  firebaseConfig :{
+   
+  },
+  systemConfig:{
+    linkdata: 'TEST',
+    aliasname: 'احسنت العمل',
+    branch: ''
+  }
 };

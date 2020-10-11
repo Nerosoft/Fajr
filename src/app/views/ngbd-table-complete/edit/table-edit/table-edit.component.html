@@ -1,501 +1,391 @@
-<ng-template #dangerTpl>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-        <path
-            d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-        {{message.error.errII}}
-</ng-template>
+
 <app-toasts></app-toasts>
 
-<div class="modal-header" >
-    <h4 class="modal-title" id="modal-title">{{nameId}}</h4>
-    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modalN.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body"*ngIf="Id=='ClientsComponent'||Id=='SuppliersComponent'">
-    <form #heroForm="ngForm" >
-        <div class="form-group">
-            <label for="number" class="text-xs-right">الرقم</label>
-            <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
-                required 
-                disabled
-                [(ngModel)]="model.number" name="number">
-        </div>
-        <div class="form-group">
-            <label for="name">الاسم</label>
-            <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}"
-                required [(ngModel)]="model.name" name="name">
-        </div>
-        <div class="form-group">
-            <label for="phone">الهاتف</label>
-            <input type="number" class="form-control" id="phone" [ngClass]="{'error' : model.stphone}"
-                required [(ngModel)]="model.phone" name="phone">
-        </div>
-        <div class="form-group">
-            <label for="address">العنوان</label>
-            <input type="text" class="form-control" id="address" [ngClass]="{'error' : model.staddress}"
-                required [(ngModel)]="model.address" name="address">
-        </div>
-    </form>
-  </div>
-
-    <div class="modal-body"*ngIf="Id=='BranchComponent'">
-    <form #heroForm="ngForm" >
-        <div class="form-group">
-            <label for="branchName">اسم الفرع</label>
-            <input type="text" class="form-control" id="branchName" [ngClass]="{'error' : model.stbranchName}"
-                required
-                disabled
-                [(ngModel)]="model.branchName" name="branchName">
-        </div>
-        <div class="form-group">
-            <label for="name">الاسم</label>
-            <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}"
-                required [(ngModel)]="model.name" name="name">
-        </div>
-        <div class="form-group">
-            <label for="pass">كلمة المرور</label>
-            <input type="text" class="form-control" id="pass" [ngClass]="{'error' : model.stpass}"
-               
-                required [(ngModel)]="model.pass" name="pass">
-        </div>
-       
-        <div class="form-group">
-            <label for="phone">الهاتف</label>
-            <input type="number" class="form-control" id="phone" [ngClass]="{'error' : model.stphone}"
-                required [(ngModel)]="model.phone" name="phone">
-        </div>
-        <div class="form-group">
-            <label for="address">العنوان</label>
-            <input type="text" class="form-control" id="address" [ngClass]="{'error' : model.staddress}"
-                required [(ngModel)]="model.address" name="address">
-        </div>
-    </form>
-  </div>
-
-
-  <div class="modal-body"*ngIf="Id=='CategorysComponent'">
-      <form #heroForm="ngForm">
-        <div class="form-group">
-            <label for="number">الرقم</label>
-            <input type="number" class="form-control" id="number"
-            [ngClass]="{'error' : model.stnumber}"
-            required
-            disabled
-            [(ngModel)]="model.number" name="number">
-        </div>
-        <div class="form-group">
-            <label for="name">اسم الصنف</label>
-            <input type="text" class="form-control" id="name" 
-            [ngClass]="{'error' : model.stname}"
-            required
-            [(ngModel)]="model.name" name="name">
-        </div>
-        <div class="form-group">
-            <label for="salary">السعر</label>
-            <input type="number" class="form-control" id="salary"
-            [ngClass]="{'error' : model.stsalary}" 
-            required
-            [(ngModel)]="model.salary" name="salary">
-        </div>
-        <div class="form-group">
-            <label for="countries">الدولة</label>
-            <select class="form-control" id="countries" 
-            [ngClass]="{'error' : model.stcountrie}" 
-            required
-            [(ngModel)]="model.countrie" name="countrie">
-              <option *ngFor="let countrie of  model.editCounts" [value]="countrie.name">{{countrie.name}}</option>
-            </select>
-        </div>
-        <!-- <button type="submit" class="btn btn-danger" (click)="newHero()">New Hero</button> -->
-    </form>
-</div>
-
-
-<div class="modal-body"*ngIf="Id=='StoresComponent'">
-    <form #heroForm="ngForm" >
-        <div class="form-group">
-            <label for="number">رقم المخزن</label>
-            <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
-                required 
-                disabled
-                [(ngModel)]="model.number" name="number">
-        </div>
-        <div class="form-group">
-            <label for="name">اسم المخزن</label>
-            <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}"
-                required [(ngModel)]="model.name" name="name">
-        </div>
-        <div class="form-group">
-            <label for="storekeeper">امين المخزن</label>
-            <input type="text" class="form-control" id="storekeeper" [ngClass]="{'error' : model.ststorekeeper}"
-                required [(ngModel)]="model.storekeeper" name="storekeeper">
-        </div>
-    </form>
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">{{componant[Id]}}</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+    (click)="modalN.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 
 
 
-<div class="modal-body"*ngIf="Id=='InputComponent'">
-    <form #heroForm="ngForm" >
-        <div class="form-group">
-            <label for="number">رقم الشراء</label>
-            <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
-                required 
-                disabled
-                [(ngModel)]="model.number" name="number">
-        </div>
-        <div class="form-group">
-            <label for="date">التاريخ</label>
-            <input type="date" class="form-control" id="date" [ngClass]="{'error' : model.stdate}"
-                required [(ngModel)]="model.date" name="date">
-        </div>
-        <div class="form-group">
-          <label for="thesupplier">المورد</label>
-          <select class="form-control" id="thesupplier"
-          [ngClass]="{'error' : model.stthesupplier}" 
-          required
+<div class="modal-body" [ngSwitch]="Id">
+
+  <form #heroForm="ngForm" *ngSwitchCase="'CategorysComponent'">
+    <div class="form-group">
+      <label for="number">الرقم</label>
+      <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}" required disabled
+        [(ngModel)]="model.number" name="number">
+    </div>
+    <div class="form-group">
+      <label for="name">اسم الصنف</label>
+      <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}" required
+        [(ngModel)]="model.name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="salary">السعر</label>
+      <input type="number" class="form-control" id="salary" [ngClass]="{'error' : model.stsalary}" required
+        [(ngModel)]="model.salary" name="salary">
+    </div>
+    <div class="form-group">
+      <label for="countries">الدولة</label>
+      <select class="form-control" id="countries" [ngClass]="{'error' : model.stcountrie}" required
+        [(ngModel)]="model.countrie" name="countrie">
+        <option *ngFor="let countrie of  model.editCounts" [value]="countrie.name">{{countrie.name}}</option>
+      </select>
+    </div>
+
+  </form>
+
+  <form #heroForm="ngForm" *ngSwitchCase="Id==='ClientsComponent'|| Id==='SuppliersComponent'?Id:''">
+    <div class="form-group">
+      <label for="number" class="text-xs-right">الرقم</label>
+      <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}" required disabled
+        [(ngModel)]="model.number" name="number">
+    </div>
+    <div class="form-group">
+      <label for="name">الاسم</label>
+      <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}" required
+        [(ngModel)]="model.name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="phone">الهاتف</label>
+      <input type="number" class="form-control" id="phone" [ngClass]="{'error' : model.stphone}" required
+        [(ngModel)]="model.phone" name="phone">
+    </div>
+    <div class="form-group">
+      <label for="address">العنوان</label>
+      <input type="text" class="form-control" id="address" [ngClass]="{'error' : model.staddress}" required
+        [(ngModel)]="model.address" name="address">
+    </div>
+  </form>
+
+  <form #heroForm="ngForm" *ngSwitchCase="'StoresComponent'">
+    <div class="form-group">
+      <label for="number">رقم المخزن</label>
+      <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}" required disabled
+        [(ngModel)]="model.number" name="number">
+    </div>
+    <div class="form-group">
+      <label for="name">اسم المخزن</label>
+      <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}" required
+        [(ngModel)]="model.name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="storekeeper">امين المخزن</label>
+      <input type="text" class="form-control" id="storekeeper" [ngClass]="{'error' : model.ststorekeeper}" required
+        [(ngModel)]="model.storekeeper" name="storekeeper">
+    </div>
+  </form>
+
+  <form #heroForm="ngForm" *ngSwitchCase="'BranchComponent'">
+    <div class="form-group">
+      <label for="branchName">اسم الفرع</label>
+      <input type="text" class="form-control" id="branchName" [ngClass]="{'error' : model.stbranchName}" required
+        disabled [(ngModel)]="model.branchName" name="branchName">
+    </div>
+    <div class="form-group">
+      <label for="name">الاسم</label>
+      <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}" required
+        [(ngModel)]="model.name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="pass">كلمة المرور</label>
+      <input type="text" class="form-control" id="pass" [ngClass]="{'error' : model.stpass}" required
+        [(ngModel)]="model.pass" name="pass">
+    </div>
+
+    <div class="form-group">
+      <label for="phone">الهاتف</label>
+      <input type="number" class="form-control" id="phone" [ngClass]="{'error' : model.stphone}" required
+        [(ngModel)]="model.phone" name="phone">
+    </div>
+    <div class="form-group">
+      <label for="address">العنوان</label>
+      <input type="text" class="form-control" id="address" [ngClass]="{'error' : model.staddress}" required
+        [(ngModel)]="model.address" name="address">
+    </div>
+  </form>
+
+  <div *ngSwitchCase="'InputComponent'">
+    <form #heroForm="ngForm">
+      <div class="form-group">
+        <label for="number">رقم الشراء</label>
+        <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}" required disabled
+          [(ngModel)]="model.number" name="number">
+      </div>
+      <div class="form-group">
+        <label for="date">التاريخ</label>
+        <input type="date" class="form-control" id="date" [ngClass]="{'error' : model.stdate}" required
+          [(ngModel)]="model.date" name="date">
+      </div>
+      <div class="form-group">
+        <label for="thesupplier">المورد</label>
+        <select class="form-control" id="thesupplier" [ngClass]="{'error' : model.stthesupplier}" required
           [(ngModel)]="model.thesupplier" name="thesupplier">
-            <option *ngFor="let supplier of model.thesuppliers" [value]="supplier">{{supplier}}</option>
-          </select>
-        </div>
-        <div class="form-group">
-            <label for="thestore">المخزن</label>
-            <select class="form-control" id="thestore"
-            [ngClass]="{'error' : model.stthestore}" 
-            required
-            [(ngModel)]="model.thestore" name="thestore">
-              <option *ngFor="let store of model.thestores" [value]="store">{{store}}</option>
-            </select>
-          </div>
+          <option *ngFor="let supplier of heroService.suppliers" [value]="supplier.name">{{supplier.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="thestore">المخزن</label>
+        <select class="form-control" id="thestore" [ngClass]="{'error' : model.stthestore}" required
+          [(ngModel)]="model.thestore" name="thestore">
+          <option *ngFor="let store of heroService.stores" [value]="store.name">{{store.name}}</option>
+        </select>
+      </div>
     </form>
+
     <div class="myinfotable">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">الصنف</th>
-                    <th scope="col">سعر الوحده</th>
-                    <th scope="col">الكميه</th>
-                    <th scope="col">الاجمالى</th>
-                    <th scope="col">ملاحظات</th>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-                <tr>
-                    <th class="info">
-                        <select class="form-control" id="item"
-                        [ngClass]="{'error' : model.stitem}" required
-                        [(ngModel)]="model.item" name="item">
-                        <option *ngFor="let item of model.items" [value]="item">{{item}}
-                        </option>
-                    </select>
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="salary"
-                            [ngClass]="{'error' : model.stsalary}" required
-                            [(ngModel)]="model.salary" name="salary">
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="quantity"
-                            [ngClass]="{'error' : model.stquantity}" required
-                            [(ngModel)]="model.quantity" name="quantity">
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="total"
-                            [ngClass]="{'error' : model.sttotal}" required
-                            disabled
-                            [(ngModel)]="model.quantity*model.salary" name="total">
-                    </th>
-                    <th class="info">
-                        <input type="text" class="form-control" id="notes"
-                            [ngClass]="{'error' : model.stnotes}" 
-                            required
-                            [(ngModel)]="model.notes" name="notes">
-                    </th>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">الصنف</th>
+            <th scope="col">سعر الوحده</th>
+            <th scope="col">الكميه</th>
+            <th scope="col">الاجمالى</th>
+            <th scope="col">ملاحظات</th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <tr>
+            <th class="info">
+              <select class="form-control" id="item" [ngClass]="{'error' : model.stitem}" required
+                [(ngModel)]="model.item" name="item">
+                <option *ngFor="let item of heroService.categorys" [value]="item.name">{{item.name}}
+                </option>
+              </select>
+            </th>
+            <th class="info">
+              <input type="number" class="form-control" id="salary" [ngClass]="{'error' : model.stsalary}" required
+                [(ngModel)]="model.salary" name="salary">
+            </th>
+            <th class="info">
+              <input type="number" class="form-control" id="quantity" [ngClass]="{'error' : model.stquantity}" required
+                [(ngModel)]="model.quantity" name="quantity">
+            </th>
+            <th class="info">
+              <input type="number" class="form-control" id="total" [ngClass]="{'error' : model.sttotal}" required
+                disabled [(ngModel)]="model.quantity*model.salary" name="total">
+            </th>
+            <th class="info">
+              <input type="text" class="form-control" id="notes" [ngClass]="{'error' : model.stnotes}" required
+                [(ngModel)]="model.notes" name="notes">
+            </th>
 
-                </tr>
-            </tbody>
+          </tr>
+        </tbody>
 
-        </table>
+      </table>
     </div>
-</div>
-
-
-<div class="modal-body"*ngIf="Id=='OutputComponent'">
-    <form #heroForm="ngForm" >
-        <div class="form-group">
-            <label for="number">رقم البيع</label>
-            <input type="number" class="form-control" id="number"
-                [ngClass]="{'error' : model.stnumber}"
-                required [(ngModel)]="model.number"
-                disabled
-                name="number">
-        </div>
-        <div class="form-group">
-            <label for="date">التاريخ</label>
-            <input type="date" class="form-control" id="date"
-                [ngClass]="{'error' : model.stdate}" required [(ngModel)]="model.date"
-                name="date">
-        </div>
-        <div class="form-group">
-            <label for="theclient">العميل</label>
-            <select class="form-control" id="theclient"
-                [ngClass]="{'error' : model.sttheclient}" required
-                [(ngModel)]="model.theclient" name="theclient">
-                <option *ngFor="let client of model.theclients" [value]="client">
-                    {{client}}</option>
-            </select>
-        </div>
-    </form>
-    <div class="myinfotable">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">الصنف</th>
-                    <th scope="col">سعر الوحده</th>
-                    <th scope="col">الكميه</th>
-                    <th scope="col">الاجمالى</th>
-                    <th scope="col">ملاحظات</th>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-                <tr>
-                    <th class="info">
-                        <select class="form-control itemclas" id="item"
-                        (change)="onChange($event)"
-                        [ngClass]="{'error' : model.stitem}" required
-                        [(ngModel)]="model.item" name="item">
-                        <option *ngFor="let item of model.items;let i = index" [id]="i" [value]="item">{{item}}
-                        </option>
-                    </select>
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="salary"
-                            disabled
-                            [ngClass]="{'error' : model.stsalary}" required
-                            [(ngModel)]="model.salary" name="salary">
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="quantity"
-                            [ngClass]="{'error' : model.stquantity}" required
-                            [(ngModel)]="model.quantity" name="quantity">
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="total"
-                            [ngClass]="{'error' : model.sttotal}" required
-                            disabled
-                            [(ngModel)]="model.quantity*model.salary" name="total">
-                    </th>
-                    <th class="info">
-                        <input type="text" class="form-control" id="notes"
-                            [ngClass]="{'error' : model.stnotes}" required
-                            [(ngModel)]="model.notes" name="notes">
-                    </th>
-
-                </tr>
-            </tbody>
-
-        </table>
-    </div>
-</div>
-
-
-<div class="modal-body"*ngIf="Id=='InputComponent/show'">
-    <div class="myinfotable">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">الصنف</th>
-                    <th scope="col">سعر الوحده</th>
-                    <th scope="col">الكميه</th>
-                    <th scope="col">الاجمالى</th>
-                    <th scope="col">ملاحظات</th>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-                <tr>
-                    <th class="info">
-                        <input class="form-control" id="item"
-                        disabled
-                       
-                        required
-                        [(ngModel)]="model.item" name="item">
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="salary"
-                            disabled
-                           
-                            [(ngModel)]="model.salary" name="salary">
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="quantity"
-                            disabled
-                           
-                            [(ngModel)]="model.quantity" name="quantity">
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="total"
-                            
-                            disabled
-                            [(ngModel)]="model.quantity*model.salary" name="total">
-                    </th>
-                    <th class="info">
-                        <input type="text" class="form-control" id="notes"
-                            disabled
-                           
-                            [(ngModel)]="model.notes" name="notes">
-                    </th>
-
-                </tr>
-            </tbody>
-        </table>
-
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">رقم الشراء</th>
-                    <th scope="col">التاريخ</th>
-                    <th scope="col">المورد</th>
-                    <th scope="col">المخزن</th>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-                <tr>
-                    <th class="info">
-                        <input type="number" class="form-control" id="number" 
-                    
-                        required
-                        disabled
-                        [(ngModel)]="model.number" name="number">
-                    </th>
-                    <th class="info">
-                        <input type="date" class="form-control" id="date" 
-                        
-                        required 
-                        disabled
-                        [(ngModel)]="model.date" name="date">
-                    </th>
-                    <th class="info">
-                        <input class="form-control" id="thesupplier"
-                       
-                        required
-                        disabled
-                        [(ngModel)]="model.thesupplier" name="thesupplier">
-                    </th>
-                    <th class="info">
-                        <input class="form-control" id="thestore"
-                       
-                        required
-                        disabled
-                        [(ngModel)]="model.thestore" name="thestore">
-                    </th>
-
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
- 
-      
-
-</div>
-
-
-<div class="modal-body"*ngIf="Id=='OutputComponent/show'">
-    <div class="myinfotable">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">الصنف</th>
-                    <th scope="col">سعر الوحده</th>
-                    <th scope="col">الكميه</th>
-                    <th scope="col">الاجمالى</th>
-                    <th scope="col">ملاحظات</th>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-                <tr>
-                    <th class="info">
-                        <input class="form-control" id="item"
-                        disabled
-                      
-                        required
-                        [(ngModel)]="model.item" name="item">
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="salary"
-                            disabled
-                           
-                            [(ngModel)]="model.salary" name="salary">
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="quantity"
-                            disabled
-                         
-                            [(ngModel)]="model.quantity" name="quantity">
-                    </th>
-                    <th class="info">
-                        <input type="number" class="form-control" id="total"
-                          
-                            disabled
-                            [(ngModel)]="model.quantity*model.salary" name="total">
-                    </th>
-                    <th class="info">
-                        <input type="text" class="form-control" id="notes"
-                            disabled
-                            
-                            [(ngModel)]="model.notes" name="notes">
-                    </th>
-
-                </tr>
-            </tbody>
-        </table>
-
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">رقم البيع</th>
-                    <th scope="col">التاريخ</th>
-                    <th scope="col">العميل</th>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-                <tr>
-                    <th class="info">
-                        <input type="number" class="form-control" id="number" 
-                     
-                        required
-                        disabled
-                        [(ngModel)]="model.number" name="number">
-                    </th>
-                    <th class="info">
-                        <input type="date" class="form-control" id="date" 
-                       
-                        required 
-                        disabled
-                        [(ngModel)]="model.date" name="date">
-                    </th>
-                    <th class="info">
-                        <input class="form-control" id="theclient"
-                       
-                        required
-                        disabled
-                        [(ngModel)]="model.theclient" name="theclient">
-                    </th>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
- 
-      
-
-</div>
-
-
-  <div class="modal-footer"*ngIf="Id!='InputComponent/show'&&Id!='OutputComponent/show'">
-    <button type="button" class="btn btn-outline-secondary" (click)="modalN.dismiss('cancel click')">Cancel</button>
-    <i class="icon-minus mr-2" style="width: 20px" (click)="deletethis()"></i>
-    <button type="button" ngbAutofocus class="btn btn-primary" (click)="ok(dangerTpl)">Ok</button>
   </div>
+
+  <div *ngSwitchCase="'OutputComponent'">
+    <form #heroForm="ngForm">
+      <div class="form-group">
+        <label for="number">رقم البيع</label>
+        <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}" required
+          [(ngModel)]="model.number" disabled name="number">
+      </div>
+      <div class="form-group">
+        <label for="date">التاريخ</label>
+        <input type="date" class="form-control" id="date" [ngClass]="{'error' : model.stdate}" required
+          [(ngModel)]="model.date" name="date">
+      </div>
+      <div class="form-group">
+        <label for="theclient">العميل</label>
+        <select class="form-control" id="theclient" [ngClass]="{'error' : model.sttheclient}" required
+          [(ngModel)]="model.theclient" name="theclient">
+          <option *ngFor="let client of heroService.clients" [value]="client.name">
+            {{client.name}}</option>
+        </select>
+      </div>
+    </form>
+    <div class="myinfotable">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">الصنف</th>
+            <th scope="col">سعر الوحده</th>
+            <th scope="col">الكميه</th>
+            <th scope="col">الاجمالى</th>
+            <th scope="col">ملاحظات</th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          <tr>
+            <th class="info">
+              <select class="form-control itemclas" id="item" (change)="onChange($event.target.selectedIndex)"
+                [ngClass]="{'error' : model.stitem}" required [(ngModel)]="model.item" name="item">
+                <option *ngFor="let item of heroService.categorys;let i = index" [id]="i" [value]="item.name">{{item.name}}
+                </option>
+              </select>
+            </th>
+            <th class="info">
+              <input type="number" class="form-control" id="salary" disabled [ngClass]="{'error' : model.stsalary}"
+                required [(ngModel)]="model.salary" name="salary">
+            </th>
+            <th class="info">
+              <input type="number" class="form-control" id="quantity" [ngClass]="{'error' : model.stquantity}" required
+                [(ngModel)]="model.quantity" name="quantity">
+            </th>
+            <th class="info">
+              <input type="number" class="form-control" id="total" [ngClass]="{'error' : model.sttotal}" required disabled
+                [(ngModel)]="model.quantity*model.salary" name="total">
+            </th>
+            <th class="info">
+              <input type="text" class="form-control" id="notes" [ngClass]="{'error' : model.stnotes}" required
+                [(ngModel)]="model.notes" name="notes">
+            </th>
+
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+  <div class="myinfotable" *ngSwitchCase="'show/InputComponent'">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">الصنف</th>
+          <th scope="col">سعر الوحده</th>
+          <th scope="col">الكميه</th>
+          <th scope="col">الاجمالى</th>
+          <th scope="col">ملاحظات</th>
+        </tr>
+      </thead>
+      <tbody class="tbody">
+        <tr>
+          <th class="info">
+            <input class="form-control" id="item" disabled required [(ngModel)]="model.item" name="item">
+          </th>
+          <th class="info">
+            <input type="number" class="form-control" id="salary" disabled [(ngModel)]="model.salary" name="salary">
+          </th>
+          <th class="info">
+            <input type="number" class="form-control" id="quantity" disabled [(ngModel)]="model.quantity"
+              name="quantity">
+          </th>
+          <th class="info">
+            <input type="number" class="form-control" id="total" disabled [(ngModel)]="model.quantity*model.salary"
+              name="total">
+          </th>
+          <th class="info">
+            <input type="text" class="form-control" id="notes" disabled [(ngModel)]="model.notes" name="notes">
+          </th>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">رقم الشراء</th>
+          <th scope="col">التاريخ</th>
+          <th scope="col">المورد</th>
+          <th scope="col">المخزن</th>
+        </tr>
+      </thead>
+      <tbody class="tbody">
+        <tr>
+          <th class="info">
+            <input type="number" class="form-control" id="number" required disabled [(ngModel)]="model.number"
+              name="number">
+          </th>
+          <th class="info">
+            <input type="date" class="form-control" id="date" required disabled [(ngModel)]="model.date" name="date">
+          </th>
+          <th class="info">
+            <input class="form-control" id="thesupplier" required disabled [(ngModel)]="model.thesupplier"
+              name="thesupplier">
+          </th>
+          <th class="info">
+            <input class="form-control" id="thestore" required disabled [(ngModel)]="model.thestore" name="thestore">
+          </th>
+
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="myinfotable" *ngSwitchCase="'show/OutputComponent'">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">الصنف</th>
+          <th scope="col">سعر الوحده</th>
+          <th scope="col">الكميه</th>
+          <th scope="col">الاجمالى</th>
+          <th scope="col">ملاحظات</th>
+        </tr>
+      </thead>
+      <tbody class="tbody">
+        <tr>
+          <th class="info">
+            <input class="form-control" id="item" disabled required [(ngModel)]="model.item" name="item">
+          </th>
+          <th class="info">
+            <input type="number" class="form-control" id="salary" disabled [(ngModel)]="model.salary" name="salary">
+          </th>
+          <th class="info">
+            <input type="number" class="form-control" id="quantity" disabled [(ngModel)]="model.quantity"
+              name="quantity">
+          </th>
+          <th class="info">
+            <input type="number" class="form-control" id="total" disabled [(ngModel)]="model.quantity*model.salary"
+              name="total">
+          </th>
+          <th class="info">
+            <input type="text" class="form-control" id="notes" disabled [(ngModel)]="model.notes" name="notes">
+          </th>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">رقم البيع</th>
+          <th scope="col">التاريخ</th>
+          <th scope="col">العميل</th>
+        </tr>
+      </thead>
+      <tbody class="tbody">
+        <tr>
+          <th class="info">
+            <input type="number" class="form-control" id="number" required disabled [(ngModel)]="model.number"
+              name="number">
+          </th>
+          <th class="info">
+            <input type="date" class="form-control" id="date" required disabled [(ngModel)]="model.date" name="date">
+          </th>
+          <th class="info">
+            <input class="form-control" id="theclient" required disabled [(ngModel)]="model.theclient" name="theclient">
+          </th>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+
+</div>
+
+
+
+<div class="modal-footer" *ngIf="Id!='show/InputComponent'&&Id!='show/OutputComponent'">
+  <button type="button" class="btn btn-outline-secondary" (click)="modalN.dismiss('cancel click')">Cancel</button>
+  <i class="icon-minus mr-2" style="width: 20px" (click)="deletethis()"></i>
+  <button type="button" ngbAutofocus class="btn btn-primary" (click)="oky()">Ok</button>
+</div>
+
+
+
+
+

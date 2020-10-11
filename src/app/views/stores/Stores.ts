@@ -6,41 +6,45 @@ export class Stores {
     public name: string;
     public storekeeper: string;
     public key
-  
+
     public stnumber=false;
     public stname=false;
     public ststorekeeper=false;
-  
-    constructor() { }
-  
-    public setStores(value:Stores){
-      HeroService.stores.push(value);
+
+    constructor(key=null, number?, name?, storekeeper?) {
+      this.key = key;
+      this.number = number;
+      this.name = name;
+      this.storekeeper = storekeeper;
     }
-  
-  
-  
+
+    static getNewStores(){
+      return new Stores()
+    }
+
+
+
     public validateInput(){
       let state=true;
       if(!Number.isInteger(this.number)){
         state=false;
        this.stnumber=true;
       }else this.stnumber=false;
-  
+
       if(this.name==undefined||this.name.length<7){
         state=false;
         this.stname=true;
       }else  this.stname=false;
-  
+
       if(this.storekeeper==undefined||this.storekeeper.length<7){
         state=false;
         this.ststorekeeper=true;
       }else  this.ststorekeeper=false;
-  
+
       return state;
     }
 
-    static setStores(){
-      return new Stores();
+    static initStores(...model){
+      return new Stores(...model);
     }
   }
-  

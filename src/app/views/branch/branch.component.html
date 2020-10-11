@@ -1,42 +1,7 @@
 <div class="ov">
     <!-- ___________________________________________tools__________________ -->
-    <ng-template #dangerstbranch>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-            <path
-                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-        {{err.branch}}
-    </ng-template>
-    <ng-template #dangerstname>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-            <path
-                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-        {{err.name}}
-    </ng-template>
-    <ng-template #dangerstpass>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-            <path
-                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-        {{err.pass}}
-    </ng-template>
-    <ng-template #dangerstphone>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-            <path
-                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-        {{err.phone}}
-    </ng-template>
-    <ng-template #dangerstaddress>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-            <path
-                d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-        {{err.address}}
-    </ng-template>
     <app-toasts></app-toasts>
-    <!-- 
+    <!--
         icon-help
 
      -->
@@ -51,7 +16,7 @@
             <!-- <i class="fas fa-plus-circle"></i>
             <i class="fas fa-print"></i> -->
             <i class="icon icon-plus"
-                (click)="savaDAtaBase([dangerstbranch,dangerstname,dangerstpass,dangerstphone,dangerstaddress])"></i>
+                (click)="savaDAtaBase()"></i>
             <hr>
         </div>
     </section>
@@ -72,8 +37,8 @@
                                     <div class="form-group">
                                         <label for="branchName">اسم الفرع</label>
                                         <input type="text" class="form-control" id="branchName"
-                                            [ngClass]="{'error' : model.stbranchName}" 
-                                            required 
+                                            [ngClass]="{'error' : model.stbranchName}"
+                                            required
                                             [(ngModel)]="model.branchName"
                                             name="branchName">
                                     </div>
@@ -85,7 +50,7 @@
                                     <div class="form-group">
                                         <label for="pass">كلمة المرور</label>
                                         <input type="password" class="form-control" id="pass"
-                                            [ngClass]="{'error' : model.stpass}" 
+                                            [ngClass]="{'error' : model.stpass}"
                                             required
                                             [(ngModel)]="model.pass"
                                             name="pass">

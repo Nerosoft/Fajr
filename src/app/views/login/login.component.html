@@ -1,39 +1,3 @@
-
-<ng-template #dangerstcompanyName>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-        <path
-            d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-    {{err.companyName}}
-</ng-template>
-<ng-template #staliasName>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-        <path
-            d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-    {{err.aliasName}}
-</ng-template>
-<ng-template #dangerstuserName>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-        <path
-            d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-    {{err.userName}}
-</ng-template>
-<ng-template #dangerstpass>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-        <path
-            d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-    {{err.pass}}
-</ng-template>
-<ng-template #stforgitKey>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24" height="24" viewBox="0 0 24 24">
-        <path
-            d="M10.872 6.831l1.695 3.904 3.654-1.561-1.79 3.426 3.333.954-3.417 1.338 2.231 4.196-4.773-2.582-2.869 2.287.413-3.004-3.792-.726 2.93-1.74-1.885-2.512 3.427.646.843-4.626zm-.786-6.831l-1.665 9.119-6.512-1.228 3.639 4.851-5.548 3.294 7.108 1.361-.834 6.076 5.742-4.577 9.438 5.104-4.288-8.064 6.834-2.677-6.661-1.907 3.25-6.22-6.98 2.982-3.523-8.114z" />
-        </svg>
-    {{err.forgitKey}}
-</ng-template>
 <app-toasts></app-toasts>
 
 <div class="xo"  dir="ltr">
@@ -52,26 +16,26 @@
 						<a href="https://www.youtube.com/channel/UC7fpUDkbNDP2ioHvvTupSaQ" target="_blank" rel="noopener">
 							<i class="fab icon-youtube-play"></i>
 						</a>
-						
+
 					</span>
 					<span>
 						<a href="https://github.com/Nerosoft" target="_blank" rel="noopener">
 							<i class="fab icon-github-circled"></i>
 						</a>
-						
+
 					</span>
 				</div>
 			</div>
 			<div class="card-body">
-				<form>
-					<div *ngIf='isBranch' 
+				<form (keyup.enter)='login()'>
+					<div *ngIf='isBranch'
 					class="btn-group mr-3 mb-3" style="width: 100%;">
 						<button type="button" class="btn btn-primary">{{defBranch}}</button>
 						<div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
 						  <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
-						  <div class="dropdown-menu" 
+						  <div class="dropdown-menu"
 						  ngbDropdownMenu>
-							<button *ngFor="let branch of branchs;index as i" 
+							<button *ngFor="let branch of branchs;index as i"
 							(click)="setBranch(i)" ngbDropdownItem>{{branch.branchName}}</button>
 						  </div>
 						</div>
@@ -85,7 +49,7 @@
 						required
 						placeholder="اسم المستخدم"
                         [(ngModel)]="model.userName" name="userName">
-						
+
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
@@ -102,7 +66,7 @@
 						<input type="checkbox">Remember Me
 					</div> -->
 					<div class="form-group">
-						<input type="button" (click)="login([dangerstuserName,dangerstpass])" value="دخول" class="btn float-right login_btn">
+						<input type="button" (click)="login()" value="دخول" class="btn float-right login_btn">
                     </div>
 				</form>
 			</div>
@@ -123,7 +87,7 @@
 				<form>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span 
+							<span
 							 class="input-group-text"><i class="icon-network"></i></span>
 						</div>
                         <input type="text" class="form-control" id="companyName"
@@ -134,7 +98,7 @@
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span style="background-color: #8a9711;" 
+							<span style="background-color: #8a9711;"
 							 class="input-group-text"><i class="icon-network"></i></span>
 						</div>
                         <input type="text" class="form-control" id="aliasName"
@@ -145,7 +109,7 @@
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span style="background-color: #f44336;" 
+							<span style="background-color: #f44336;"
 							class="input-group-text"><i class="icon-user"></i></span>
 						</div>
                         <input type="text" class="form-control" id="userName"
@@ -153,11 +117,11 @@
 						required
 						placeholder="اسم المستخدم"
                         [(ngModel)]="model.userName" name="userName">
-						
+
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span style="background-color: #28a745;" 
+							<span style="background-color: #28a745;"
 							 class="input-group-text"><i class="icon-key"></i></span>
 						</div>
                         <input type="password" class="form-control" id="pass"
@@ -168,7 +132,7 @@
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span style="background-color: #fd9131;" 
+							<span style="background-color: #fd9131;"
 							 class="input-group-text"><i class="icon-key-1"></i></span>
 						</div>
                         <input type="text" class="form-control" id="forgitKey"
@@ -179,8 +143,8 @@
 					</div>
 					<!-- ----------------- -->
                     <div class="form-group d-flex justify-content-end">
-						<input type="button" 
-						(click)="sinIn([dangerstcompanyName,staliasName,dangerstuserName,dangerstpass,stforgitKey])" 
+						<input type="button"
+						(click)="sinIn()"
 						value="انشاء" class="btn float-left sin_btn ">
 					</div>
 				</form>
@@ -197,10 +161,3 @@
 
 <div>
 
-<!-- 
-<div style="position: fixed; z-index: -99; width: 100%; height: 100%">
-    <iframe frameborder="0" height="100%" width="100%"
-      src="https://youtu.be/PGyLlggd3n0?list=LL7fpUDkbNDP2ioHvvTupSaQ?autoplay=1&controls=0&showinfo=0&autohide=1">
-    </iframe>
-  </div>
-   -->

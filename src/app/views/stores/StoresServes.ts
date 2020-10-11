@@ -2,30 +2,33 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Stores } from './Stores';
 import { LoginComponent } from '../login/login.component';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StoresServes {
-  dbf = null
+  dbf = null;
   storesRef: AngularFireList<Stores> = null;
   constructor(private db: AngularFireDatabase) {
-    this.dbf = db
+    this.dbf = db;
   }
   setupAngularFireList() {
-    this.storesRef = this.dbf.list('diploma/aplication/' + LoginComponent.USERNAME + '/Stores');
+    this.storesRef = this.dbf.list(
+      'diploma/aplication/' + environment.systemConfig.linkdata + '/Stores'
+    );
   }
-  createStore(stores: Stores): void {
-    this.storesRef.push(this.filtterData(stores));
+  createStore(stores: Stores, callback): void {
+    this.storesRef.push(this.filtterData(stores)).then(callback);
   }
   filtterData(stores: Stores) {
-    stores.stnumber = null
-    stores.stname = null
-    stores.ststorekeeper = null
-    return stores
+    delete stores.stnumber;
+    delete stores.stname;
+    delete stores.ststorekeeper;
+    return stores;
   }
   updateF(key: string, value: any): Promise<void> {
-    return this.storesRef.update(key, value);
+    return this.storesRef.update(key, this.filtterData(value));
   }
   deleteF(key: string): Promise<void> {
     return this.storesRef.remove(key);

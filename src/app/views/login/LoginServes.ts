@@ -2,29 +2,29 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Login } from './Logins';
 import { Injectable } from '@angular/core';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginServes {
   private dbPath = 'diploma/';
   usersRef: AngularFireList<Login> = null;
-  dbf: AngularFireDatabase = null
+  dbf: AngularFireDatabase = null;
   constructor(private db: AngularFireDatabase) {
-    this.dbf = db
-    this.usersRef = db.list(this.dbPath + "/users");
+    this.dbf = db;
+    this.usersRef = db.list(this.dbPath + '/users');
   }
-  createUser(user: Login): void {
-    this.usersRef.push(this.filtterData(user));
+  createUser(user: Login, callback): void {
+    this.usersRef.push(this.filtterData(user)).then(callback);
   }
   filtterData(user: Login) {
-    user.stuserName = null
-    user.stcompanyName = null
-    user.staliasName = null
-    user.stpass = null
-    user.stforgitKey = null
-    return user
+    delete user.stuserName;
+    delete user.stcompanyName;
+    delete user.staliasName;
+    delete user.stpass;
+    delete user.stforgitKey;
+    return user;
   }
   updateUser(key: string, value: any): Promise<void> {
-    return this.usersRef.update(key, value);
+    return this.usersRef.update(key, this.filtterData(value));
   }
   deleteCustomer(key: string): Promise<void> {
     return this.usersRef.remove(key);
@@ -36,6 +36,6 @@ export class LoginServes {
     return this.usersRef.remove();
   }
   getDatabase(dbPath) {
-    return this.dbf.object(dbPath).valueChanges()
+    return this.dbf.object(dbPath).valueChanges();
   }
 }

@@ -3,49 +3,49 @@
        ابحث <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm"/>
         <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
     </div>
-  
+
     <table class="table table-hover table-dark">
 
       <thead class="headtable">
       <tr >
-        <th class="headborder" scope="col" sortable="name" (sort)="onSort($event)"
+        <th class="headborder" scope="col"
          *ngFor="let trname of hedTable">{{trname}}</th>
-         
+
       </tr>
       </thead>
 
       <tbody>
-      <tr *ngFor="let country of countries$ | async">
-          <td *ngFor="let cx of country[0]; let i = index" class="text-nowrap">
+      <tr *ngFor="let row of tableInfo$ | async ">
+          <td *ngFor="let cx of row | slice : 1; index as i" class="text-nowrap">
             <div class="edit" *ngIf="i==1">
-            <i class="icon-edit mr-2" style="width: 20px" (click)="edit(country[1])"></i>
+            <i class="icon-edit mr-2" style="width: 20px" (click)="edit(row)"></i>
             </div>
             <ngb-highlight [result]="cx" [term]="service.searchTerm">
             </ngb-highlight>
           </td>
-         
+
           <p *ngIf="show">
-            <button  type="button" class="btn btn-outline-primary" (click)="openXlShowTable(country[1])">
+            <button  type="button" class="btn btn-outline-primary" (click)="openXlShowTable(row)">
               بيانات
             </button>
           </p>
-            
+
 
 
       </tr>
       </tbody>
     </table>
-  
+
     <div class="d-flex justify-content-between p-2">
       <ngb-pagination
         [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
       </ngb-pagination>
-  
+
       <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
         <option [ngValue]="2">2 items per page</option>
         <option [ngValue]="4">4 items per page</option>
         <option [ngValue]="6">6 items per page</option>
       </select>
     </div>
-  
+
   </form>

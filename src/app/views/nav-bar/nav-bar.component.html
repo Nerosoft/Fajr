@@ -1,40 +1,42 @@
 <div [ngClass]="{'hidenav':!shouldShow}">
   <!--  -->
-    <nav class="navbar navbar-expand-lg navbar-light  mb-3">
-      <a [ngClass]="{'color0':colores[0],'color1':colores[1],'color2':colores[2],'color3':colores[3],'color4':colores[4],'color5':colores[5],'color6':colores[6]}"
-      (click)="sendDataEffect()"
-      style="width: 70px;"
-      class="navbar-brand textScramble" [routerLink]="'.'">منظومة الشركة</a>
-    
-      <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
-      <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
-        &#9776;
-      </button>
-    
-      <!-- Step 2: Add the ngbCollapse directive to the element below. -->
-      <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
-        <ul class="navbar-nav navbar-center">
-            <li class="nav-item nero">
-            <div>
-            <li (click)="sendDataEffect()" routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'/categorys'">الاصناف</a> </li>
-            <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'clients'">العملاء</a> </li>
-            <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'output'">المبيعات</a> </li>
-            <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'input'">المشتريات</a> </li>
-            <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'suppliers'">الموردين</a> </li> 
-            <li (click)="sendDataEffect()"routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'stores'">المخازن</a> </li>
-            <li (click)="sendDataEffect()"
-            *ngIf="branch"
-            routerLinkActive="active"class="nav-item"><a class="nav-link"[routerLink]="'branch'">الفروع</a> </li>
-            <li (click)="changePass()" 
-            *ngIf="branch"
-            class="nav-item"><a class="nav-link cursor">تغير كلمة المرور</a></li>
-          </div>
-            </li>
+  <nav class="navbar navbar-expand-lg navbar-light  mb-3">
+    <a [ngClass]="{'color0':colores[0],'color1':colores[1],'color2':colores[2],'color3':colores[3],'color4':colores[4],'color5':colores[5],'color6':colores[6]}"
+      (click)="sendDataEffect()" style="width: 70px;" class="navbar-brand textScramble" [routerLink]="'.'">منظومة
+      الشركة</a>
 
-        </ul>
-      </div>
-    </nav>
-  </div>
+    <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
+    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+      &#9776;
+    </button>
+
+    <!-- Step 2: Add the ngbCollapse directive to the element below. -->
+    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+      <ul class="navbar-nav navbar-center">
+        <li class="nav-item nero">
+          <div>
+        <li (click)="sendDataEffect()" routerLinkActive="active" class="nav-item"><a class="nav-link"
+            [routerLink]="'/categorys'">الاصناف</a> </li>
+        <li (click)="sendDataEffect()" routerLinkActive="active" class="nav-item"><a class="nav-link"
+            [routerLink]="'clients'">العملاء</a> </li>
+        <li (click)="sendDataEffect()" routerLinkActive="active" class="nav-item"><a class="nav-link"
+            [routerLink]="'output'">المبيعات</a> </li>
+        <li (click)="sendDataEffect()" routerLinkActive="active" class="nav-item"><a class="nav-link"
+            [routerLink]="'input'">المشتريات</a> </li>
+        <li (click)="sendDataEffect()" routerLinkActive="active" class="nav-item"><a class="nav-link"
+            [routerLink]="'suppliers'">الموردين</a> </li>
+        <li (click)="sendDataEffect()" routerLinkActive="active" class="nav-item"><a class="nav-link"
+            [routerLink]="'stores'">المخازن</a> </li>
+        <li (click)="sendDataEffect()" *ngIf="branch" routerLinkActive="active" class="nav-item"><a class="nav-link"
+            [routerLink]="'branch'">الفروع</a> </li>
+        <li (click)="changePass()" *ngIf="branch" class="nav-item"><a class="nav-link cursor">تغير كلمة المرور</a></li>
+    </div>
+    </li>
+
+    </ul>
+</div>
+</nav>
+</div>
 
 
 
@@ -56,7 +58,7 @@
             <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="category">الاصناف</a> </li>
             <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="categorytype">انواع الاصناف</a> </li>
             </div>
-            <div class="text-center lidiv"> 
+            <div class="text-center lidiv">
             <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="countries">البلدان</a> </li>
             <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="jobs">الوظائف</a> </li>
             <li routerLinkActive="active"> <a (click)="sendDataEffect()" routerLink="output">مستند الاخراج</a> </li>
@@ -69,7 +71,7 @@
 
         <span class="icon col-2 d-lg-none"><i class="fa fa-bars"></i> </span>
         <h2 class="f-right col-10 col-lg-4   ">شركة الفجر لصناعة المواد الغذائيه</h2>
-    
+
 
 
         <div class="drop  col-lg-9 ">

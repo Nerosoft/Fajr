@@ -1,168 +1,165 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { HeroService } from 'src/app/hero/hero.service';
 import { NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../toasts/toast-service';
 import { NgbdModalConfirmAutofocusComponent } from '../ngbd-modal-confirm-autofocus/ngbd-modal-confirm-autofocus.component';
-import {NgbNavConfig} from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdTableCompleteComponent } from '../ngbd-table-complete/ngbd-table-complete.component';
 import { map } from 'rxjs/operators';
 import { InputServes } from './InputServes';
-import { CategorysComponent } from '../categorys/categorys.component';
 import { Inputs } from './Inputs';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
+import { OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
-  styleUrls: ['./input.component.css']
+  styleUrls: ['../output/output.component.css'],
 })
-export class InputComponent implements OnInit {
-  @ViewChild(NgbdTableCompleteComponent, {static: false}) td: NgbdTableCompleteComponent;
-  postionTap=0;
-  model = Inputs.setInput();
-  message=HeroService.message
-  err=HeroService.err.Input;
-  hedTable = ["رقم الشراء","المورد","التاريخ","المخزن","عرض"];
-  info=[];
-  Id="InputComponent";
-  public activeId=1;
-  public ngbnv1=true;
-  public ngbnv2=false;
- 
-  constructor(public toastService: ToastService,
-    private inputServes: InputServes, //fire
-    private _modalService: NgbModal,
-    config: NgbNavConfig) {
-      config.destroyOnHide = true;
-      config.roles = "tablist";
-      HeroService.nvCategorysServes=this.inputServes;//fire
-      NgbdTableCompleteComponent.callback=()=>{
-        this.getInputComponentInfo();
-      }
-    
-    }
+export class InputComponent implements OnInit, OnDestroy {
+  @ViewChild(NgbdTableCompleteComponent, { static: false })
+  td: NgbdTableCompleteComponent;
+  postionTap = 0;
+  model: Inputs = Inputs.getNewInput();
+  message;
+  err;
+  hedTable = ['رقم الشراء', 'المورد', 'التاريخ', 'المخزن', 'عرض'];
+  info = [];
+  Id = 'InputComponent';
+  public activeId = 1;
+  public ngbnv1 = true;
+  public ngbnv2 = false;
+  subscription: Subscription;
 
-  ngOnInit() {
-    this.getCategorysList()
+  constructor(
+    public toastService: ToastService,
+    private inputServes: InputServes, // fire
+    private modalService: NgbModal,
+    public heroService: HeroService,
+    config: NgbNavConfig
+  ) {
+    this.message = this.heroService.message;
+    this.err = this.heroService.err.Input;
+    config.destroyOnHide = true;
+    config.roles = 'tablist';
   }
 
-
-  savaDAtaBase(dangerTpl) {
-    console.log(dangerTpl)
-    if(this.model.validateInput()){
-        this.showSuccess();
-    }else{
-      if(this.model.stnumber)
-      this.showDanger(dangerTpl[0])
-    if(this.model.stdate)
-      this.showDanger(dangerTpl[1])
-    if(this.model.stthesupplier)
-      this.showDanger(dangerTpl[2])
-    if(this.model.stthestore)
-      this.showDanger(dangerTpl[3])
+  ngOnInit() {
+    this.getCategorysList();
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+  savaDAtaBase() {
+    if (this.model.validateInput()) {
+      this.showSuccess();
+    } else {
+      if (this.model.stnumber) {
+        this.showDanger(this.err.number);
+      }
+      if (this.model.stdate) {
+        this.showDanger(this.err.date);
+      }
+      if (this.model.stthesupplier) {
+        this.showDanger(this.err.thesupplier);
+      }
+      if (this.model.stthestore) {
+        this.showDanger(this.err.thestore);
+      }
     }
   }
   showDanger(dangerTpl) {
-    this.toastService.show(dangerTpl, { classname: 'bg-danger text-light', delay: 15000 });
+    this.toastService.show(dangerTpl, {
+      classname: 'bg-danger text-light',
+      delay: 15000,
+    });
+  }
+  showSuccessMessage(dangerTpl) {
+    this.toastService.show(dangerTpl, {
+      classname: 'bg-success text-light',
+      delay: 3000,
+    });
   }
   showSuccess() {
-    this.toastService.toasts=[];
-    this.inputServes.createInput(this.model);//firebase
-    this.model.setInput(this.model);
-    this.model=Inputs.setInput();
-    this.getInputComponentInfo();
-   // console.log(this.model.getClients());
-   this.toastService.show(this.message.success.plus, { classname: 'bg-success text-light', delay: 3000 });
+    this.toastService.toasts = [];
+    this.inputServes.createInput(this.model, () => {
+      this.model = Inputs.getNewInput();
+      this.showSuccessMessage(this.message.success.plus);
+    }); // firebase;
   }
 
-  getInputComponentInfo(){
-    console.log("yes yes")
-    this.info=[];
-    HeroService.input.forEach(element => {
-      this.info.push([[
+  getInputComponentInfo() {
+    this.info = [];
+    this.heroService.input.forEach((element) => {
+      this.info.push([
+        {
+          key: element.key,
+          item: element.item,
+          salary: element.salary,
+          quantity: element.quantity,
+          notes: element.notes,
+        },
         element.number,
         element.thesupplier,
         element.date,
-        element.thestore
-      ],element.key]);
+        element.thestore,
+      ]);
     });
-    if(this.td !== null && this.td!==undefined)
-    this.td.service.setup(this.info);
+    if (this.td !== null && this.td !== undefined) {
+      this.td.service.setup(this.info);
+    }
 
     this.info.reverse();
-    return this.info
+    return this.info;
   }
-
 
   getCategorysList() {
-    this.inputServes.getInputsList().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
+    this.subscription = this.inputServes
+      .getInputsList()
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
         )
       )
-    ).subscribe(input => {
-     HeroService.input = input;
-     this.getInputComponentInfo()
-     console.log( HeroService.input);
-    });
+      .subscribe((input) => {
+        this.heroService.input = input;
+        this.getInputComponentInfo();
+      });
   }
-
 
   onNavChange(changeEvent: NgbNavChangeEvent) {
-   //console.log("xxxxxxxxxxxxxxxx",changeEvent.nextId);
 
   }
 
-  setpostion(pos){
-    this.postionTap=pos;
+  setpostion(pos) {
+    this.postionTap = pos;
   }
   open() {
-      if(this.postionTap==0){
-      NgbdModalConfirmAutofocusComponent.setupInputComponent(()=>{
-        this.model=Inputs.setInput();
-      });
-      this._modalService.open(NgbdModalConfirmAutofocusComponent);
-    } if(this.postionTap==1){
-
+    if (this.postionTap === 0) {
+      const NgbdMCAC = this.modalService.open(
+        NgbdModalConfirmAutofocusComponent
+      );
+      NgbdMCAC.componentInstance.cleareInformation(() => {
+        this.model = Inputs.getNewInput();
+      }, 'المشترايات');
+    }
+  }
+  setnav(vn) {
+    this.activeId = vn;
+    if (vn === 1) {
+      this.ngbnv1 = true;
+      this.ngbnv2 = false;
+    } else if (vn === 2) {
+      this.ngbnv2 = true;
+      this.ngbnv1 = false;
     }
   }
 
-
-
-  setnav(vn){
-    this.activeId=vn;
-    if(vn==1) {
-      this.ngbnv1=true;
-      this.ngbnv2=false;
-    }
-    else if(vn==2) {
-      this.ngbnv2=true;
-      this.ngbnv1=false;
-    }
-    
+  information() {
+    this.modalService.open(AlertInfoComponent).componentInstance.displayInput();
   }
 
-  information(){
-    this._modalService.open(AlertInfoComponent).componentInstance.displayInput()
-   }
 
-  setthesuppliers(){
-   
-    console.log(this.model.thesuppliers.length)
-     if(this.model.thesuppliers.length==0)
-          this.model.getSuppliers();
-    console.log(this.model.thesuppliers)
-  }
-  setthestores(){
-    if(this.model.thestores.length==0)
-         this.model.getStores();
-   console.log(this.model.thestores)
-  }
-  setitems(){
-    if(this.model.items.length==0)
-    this.model.getItems();
-console.log(this.model.items)
-  }
 }
-

@@ -2,42 +2,42 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Outs } from './Outs';
 import { LoginComponent } from '../login/login.component';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OutServes {
-    dbf=null
-    outssRef: AngularFireList<Outs> = null;
-    constructor(private db: AngularFireDatabase) {
-      this.dbf=db 
-      }
-      setupAngularFireList(){
-        this.outssRef = this.dbf.list('diploma/aplication/'+LoginComponent.USERNAME+'/Outs');
-      }
-      createOut(out: Outs): void {
-        this.outssRef.push(this.filtterData(out));
-      }
-      filtterData(out: Outs){
-        out.items=null
-        out.total=null
-        out.theclients=null
-        out.salaryOfItem=null
-        out.stnumber=null
-        out.stdate=null
-        out.sttheclient=null
-        return out
-      }
-      updateF(key: string, value: any): Promise<void> {
-        return this.outssRef.update(key, value);
-      }
-      deleteF(key: string): Promise<void> {
-        return this.outssRef.remove(key);
-      }
-      getOutsList(): AngularFireList<Outs> {
-        return this.outssRef;
-      }
-      deleteAll(): Promise<void> {
-        return this.outssRef.remove();
-      }
+  dbf = null;
+  outssRef: AngularFireList<Outs> = null;
+  constructor(private db: AngularFireDatabase) {
+    this.dbf = db;
+  }
+  setupAngularFireList() {
+    this.outssRef = this.dbf.list(
+      'diploma/aplication/' + environment.systemConfig.linkdata + '/Outs'
+    );
+  }
+  createOut(out: Outs, callback): void {
+    this.outssRef.push(this.filtterData(out)).then(callback);
+  }
+  filtterData(out: Outs) {
+    delete out.total;
+    delete out.stnumber;
+    delete out.stdate;
+    delete out.sttheclient;
+    return out;
+  }
+  updateF(key: string, value: any): Promise<void> {
+    return this.outssRef.update(key, this.filtterData(value));
+  }
+  deleteF(key: string): Promise<void> {
+    return this.outssRef.remove(key);
+  }
+  getOutsList(): AngularFireList<Outs> {
+    return this.outssRef;
+  }
+  deleteAll(): Promise<void> {
+    return this.outssRef.remove();
+  }
 }

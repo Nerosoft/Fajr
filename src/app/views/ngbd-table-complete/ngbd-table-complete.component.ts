@@ -1,78 +1,87 @@
-import {DecimalPipe} from '@angular/common';
-import {Component, QueryList, ViewChildren, OnInit, Input} from '@angular/core';
-import {Observable} from 'rxjs';
-import {Country} from './country';
-import {CountryService} from './country.service';
-import {NgbdSortableHeader, SortEvent} from './sortable.directive';
+import { DecimalPipe } from '@angular/common';
+import {
+  Component,
+  QueryList,
+  ViewChildren,
+  OnInit,
+  Input,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+import { TableService } from './Table.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TableEditComponent } from './edit/table-edit/table-edit.component';
 @Component({
   selector: 'app-ngbd-table-complete',
   templateUrl: './ngbd-table-complete.component.html',
   styleUrls: ['./ngbd-table-complete.component.css'],
-  providers: [CountryService, DecimalPipe]
+  providers: [TableService, DecimalPipe],
 })
 export class NgbdTableCompleteComponent implements OnInit {
-
-  countries$: Observable<Country[]>;
+  tableInfo$: Observable<any[]>;
   total$: Observable<number>;
 
-  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-  @Input('hedTable') hedTable: [];
-  @Input('info') info: []=[];
-  @Input('Id') Id:string;
-  show=false;
-  service: CountryService=null;
-  static callback;
 
-  constructor(public pipe: DecimalPipe,public _modalService: NgbModal) {
-    this.service=new CountryService(pipe)
-    this.countries$ = this.service.countries$;
+  // tslint:disable-next-line: no-input-rename
+  @Input('hedTable') hedTable: [];
+  // tslint:disable-next-line: no-input-rename
+  @Input('info') info: [] = [];
+  // tslint:disable-next-line: no-input-rename
+  @Input('Id') Id: string;
+  show = false;
+  service: TableService = null;
+
+  constructor(public pipe: DecimalPipe, public modalService: NgbModal) {
+    this.service = new TableService(pipe);
+    this.tableInfo$ = this.service.info$;
     this.total$ = this.service.total$;
 
-    //this.setupClientsComponent();
+    // this.setupClientsComponent();
   }
-
 
   ngOnInit(): void {
-    if(this.Id=='InputComponent'|| this.Id=='OutputComponent')
-      this.show=true;
-    this.service.setup(this.info);//عشان اول مره يحمل
-  }
-
-  onSort({column, direction}: SortEvent) {
-    // resetting other headers
-    this.headers.forEach(header => {
-      if (header.sortable !== column) {
-        header.direction = '';
-      }
-    });
-
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
+    if (this.Id === 'InputComponent' || this.Id === 'OutputComponent') {
+      this.show = true;
+    }
+    this.service.setup(this.info); // عشان اول مره يحمل
   }
 
 
-
-  edit(id){
-    let componant={ClientsComponent:"شاشة العملاء",
-    CategorysComponent:"شاشة الاصناف",
-    SuppliersComponent:"شاشة الموردين",
-    StoresComponent:"شاشة المخازن",
-    InputComponent:"شاشة المشتريات",
-    OutputComponent:"شاشة المبيعات",
-    BranchComponent:'شاشة الافرع'}
-    console.log("id [1] is "+id)
-    TableEditComponent.setupTableEditComponent(this.Id,componant[this.Id],id,()=>{
-      NgbdTableCompleteComponent.callback()
-    });
-    this._modalService.open(TableEditComponent, { size: 'xl'});
+  edit(model: any) {
+    const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
+    switch (this.Id) {
+      case 'CategorysComponent':
+        edit.componentInstance.setupCategory(this.Id, model);
+        break;
+      case 'ClientsComponent':
+        edit.componentInstance.setupClint(this.Id, model);
+        break;
+      case 'SuppliersComponent':
+        edit.componentInstance.setupSupplier(this.Id, model);
+        break;
+      case 'StoresComponent':
+        edit.componentInstance.setupStores(this.Id, model);
+        break;
+      case 'BranchComponent':
+        edit.componentInstance.setupBranch(this.Id, model);
+        break;
+      case 'InputComponent':
+        const infoTableInput = [...Object.values(model[0]), ...model.slice(1)];
+        edit.componentInstance.setupInput(this.Id, infoTableInput);
+        break;
+        case 'OutputComponent':
+        const infoTableOut = [...Object.values(model[0]), ...model.slice(1)];
+        edit.componentInstance.setupOut(this.Id, infoTableOut);
+        break;
+    }
   }
 
-  openXlShowTable(ID) {
-    TableEditComponent.setupTableShowComponent(ID,this.Id);
-    this._modalService.open(TableEditComponent, { size: 'xl'});
-    console.log(ID);
+  openXlShowTable(model) {
+    const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
+    const infoTable = [...Object.values(model[0]), ...model.slice(1)];
+    if (this.Id === 'InputComponent') {
+      edit.componentInstance.setupInput('show/InputComponent', infoTable, true);
+    } else {
+      edit.componentInstance.setupOut('show/OutputComponent', infoTable, true);
+    }
   }
-
 }
