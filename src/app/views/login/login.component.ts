@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private heroService: HeroService
   ) {
+    // this.model.userName='abdullah';
+    // this.model.pass='123123456'
     this.message = this.heroService.message;
     this.err = this.heroService.err.Login;
     this.routes.paramMap.subscribe((params) => {

@@ -11,6 +11,8 @@ import { Outs } from './Outs';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { EditRow, TableEdit } from '../interfaces';
+import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
 
 
 @Component({
@@ -18,7 +20,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
   templateUrl: './output.component.html',
   styleUrls: ['./output.component.css'],
 })
-export class OutputComponent implements OnInit, OnDestroy {
+export class OutputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
   public get heroService(): HeroService {
     return this._heroService;
   }
@@ -38,7 +40,7 @@ export class OutputComponent implements OnInit, OnDestroy {
   constructor(
     public toastService: ToastService,
     private outServes: OutServes, //fire
-    private _modalService: NgbModal,
+    private modalService: NgbModal,
     private _heroService: HeroService,
     config: NgbNavConfig
   ) {
@@ -47,7 +49,40 @@ export class OutputComponent implements OnInit, OnDestroy {
     config.destroyOnHide = true;
     config.roles = 'tablist';
   }
-
+  showItem(model: any) {
+    const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
+    const infoTableOut = [...Object.values(model[0]), ...model.slice(1)];
+    edit.componentInstance.setupModel('show/OutputComponent',  Outs.initOut(...infoTableOut));
+  }
+  editItem(model: any) {
+    const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
+    const infoTableOut = [...Object.values(model[0]), ...model.slice(1)];
+    edit.componentInstance.setupCompo(
+      this.Id,
+      Outs.initOut(...infoTableOut),
+      this
+    );
+  }
+  pushItem(model: any, modalN: any) {
+    this.outServes.updateF(model.key, model).then(modalN.close);
+  }
+  checkItem(model: any) {
+    if (model.stnumber) {
+      this.showDanger(this.err.number);
+    }
+    if (model.stdate) {
+      this.showDanger(this.err.date);
+    }
+    if (model.sttheclient) {
+      this.showDanger(this.err.theclient);
+    }
+  }
+  deleteItem(key: any, modalN: any) {
+    this.outServes.deleteF(key).then(modalN.close);
+  }
+  get This() {
+    return this;
+  }
   ngOnInit() {
     this.getCategorysList();
   }
@@ -58,15 +93,7 @@ export class OutputComponent implements OnInit, OnDestroy {
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-      if (this.model.stnumber) {
-        this.showDanger(this.err.number);
-      }
-      if (this.model.stdate) {
-        this.showDanger(this.err.date);
-      }
-      if (this.model.sttheclient) {
-        this.showDanger(this.err.theclient);
-      }
+     this.checkItem(this.model)
     }
   }
   showDanger(dangerTpl) {
@@ -140,7 +167,7 @@ export class OutputComponent implements OnInit, OnDestroy {
   }
   open() {
     if (this.postionTap === 0) {
-      const NgbdMCAC = this._modalService.open(
+      const NgbdMCAC = this.modalService.open(
         NgbdModalConfirmAutofocusComponent
       );
       NgbdMCAC.componentInstance.cleareInformation(() => {
@@ -164,7 +191,7 @@ export class OutputComponent implements OnInit, OnDestroy {
   }
 
   information() {
-    this._modalService.open(AlertInfoComponent).componentInstance.displayOut();
+    this.modalService.open(AlertInfoComponent).componentInstance.displayOut();
   }
 
 }

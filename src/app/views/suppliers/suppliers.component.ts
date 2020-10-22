@@ -12,13 +12,15 @@ import { AlertInfoComponent } from '../alert-info/alert-info.component';
 
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { EditRow, TableEdit } from '../interfaces';
+import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
 
 @Component({
   selector: 'app-suppliers',
   templateUrl: './suppliers.component.html',
   styleUrls: ['./suppliers.component.css'],
 })
-export class SuppliersComponent implements OnInit, OnDestroy {
+export class SuppliersComponent implements OnInit, OnDestroy, EditRow, TableEdit {
   @ViewChild(NgbdTableCompleteComponent, { static: false })
   td: NgbdTableCompleteComponent;
   postionTap = 0;
@@ -44,7 +46,40 @@ export class SuppliersComponent implements OnInit, OnDestroy {
     config.destroyOnHide = true;
     config.roles = 'tablist';
   }
-
+  showItem(model: any) {
+    throw new Error('Method not implemented.');
+  }
+  editItem(model: any) {
+    const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
+    edit.componentInstance.setupCompo(
+      this.Id,
+      Suppliers.initSuppliers(...model),
+      this
+    );
+  }
+  pushItem(model: any, modalN: any) {
+    this.suppliersServes.updateF(model.key, model).then(modalN.close);
+  }
+  checkItem(model: any) {
+    if (model.stnumber) {
+      this.showDanger(this.err.number);
+    }
+    if (model.stname) {
+      this.showDanger(this.err.name);
+    }
+    if (model.stphone) {
+      this.showDanger(this.err.phone);
+    }
+    if (model.staddress) {
+      this.showDanger(this.err.address);
+    }
+  }
+  deleteItem(key: any, modalN: any) {
+    this.suppliersServes.deleteF(key).then(modalN.close);
+  }
+  get This() {
+    return this;
+  }
   ngOnInit() {
     this.getSuppliersList();
   }
@@ -56,18 +91,7 @@ export class SuppliersComponent implements OnInit, OnDestroy {
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-      if (this.model.stnumber) {
-        this.showDanger(this.err.number);
-      }
-      if (this.model.stname) {
-        this.showDanger(this.err.name);
-      }
-      if (this.model.stphone) {
-        this.showDanger(this.err.phone);
-      }
-      if (this.model.staddress) {
-        this.showDanger(this.err.address);
-      }
+     this.checkItem(this.model)
     }
   }
   showDanger(dangerTpl) {

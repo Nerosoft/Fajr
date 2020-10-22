@@ -1,3 +1,4 @@
+import { EditRow, TableEdit } from '../interfaces';
 import { Component, OnInit, TemplateRef, Type, ViewChild } from '@angular/core';
 import { HeroService } from '../../hero/hero.service';
 import { ToastService } from '../toasts/toast-service';
@@ -15,13 +16,15 @@ import { Categorys } from './Categorys';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
 
 @Component({
   selector: 'app-categorys',
   templateUrl: './categorys.component.html',
   styleUrls: ['./categorys.component.css'],
 })
-export class CategorysComponent implements OnInit, OnDestroy {
+export class CategorysComponent
+  implements OnInit, OnDestroy, EditRow, TableEdit {
   @ViewChild(NgbdTableCompleteComponent, { static: false })
   td: NgbdTableCompleteComponent;
 
@@ -50,24 +53,46 @@ export class CategorysComponent implements OnInit, OnDestroy {
     config.destroyOnHide = true;
     config.roles = 'tablist';
   }
-
+  showItem(model: any) {
+    throw new Error('Method not implemented.');
+  }
+  pushItem(model: any, modalN: any) {
+    this.categorysServes.updateF(model.key, model).then(modalN.close);
+  }
+  checkItem(model: any) {
+    if (model.stnumber) {
+      this.showDanger(this.err.number);
+    }
+    if (model.stname) {
+      this.showDanger(this.err.name);
+    }
+    if (model.stsalary) {
+      this.showDanger(this.err.salary);
+    }
+    if (model.stcountrie) {
+      this.showDanger(this.err.countrie);
+    }
+  }
+  deleteItem(key: any,  modalN: any) {
+    this.categorysServes.deleteF(key).then(modalN.close);
+  }
+  editItem(model: any) {
+    const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
+    edit.componentInstance.setupCompo(
+      this.Id,
+      Categorys.initCategorys(...model),
+      this
+    );
+  }
+  get This() {
+    return this;
+  }
   newHero() {}
   savaDAtaBase() {
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-      if (this.model.stnumber) {
-        this.showDanger(this.err.number);
-      }
-      if (this.model.stname) {
-        this.showDanger(this.err.name);
-      }
-      if (this.model.stsalary) {
-        this.showDanger(this.err.salary);
-      }
-      if (this.model.stcountrie) {
-        this.showDanger(this.err.countrie);
-      }
+      this.checkItem(this.model);
     }
   }
   ngOnInit() {
@@ -115,7 +140,7 @@ export class CategorysComponent implements OnInit, OnDestroy {
   }
 
   getCategorysList() {
-   this.subscription =  this.categorysServes
+    this.subscription = this.categorysServes
       .getCategorysList()
       .snapshotChanges()
       .pipe(

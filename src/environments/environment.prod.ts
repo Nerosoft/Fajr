@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   firebaseConfig :{
-   
+
   },
   systemConfig:{
     linkdata: 'TEST',

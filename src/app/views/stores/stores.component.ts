@@ -12,13 +12,16 @@ import { Stores } from './Stores';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { EditRow, TableEdit } from '../interfaces';
+import { storage } from 'firebase';
+import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
 
 @Component({
   selector: 'app-stores',
   templateUrl: './stores.component.html',
   styleUrls: ['./stores.component.css'],
 })
-export class StoresComponent implements OnInit, OnDestroy {
+export class StoresComponent implements OnInit, OnDestroy, EditRow, TableEdit{
   @ViewChild(NgbdTableCompleteComponent, { static: false })
   td: NgbdTableCompleteComponent;
   postionTap = 0;
@@ -35,7 +38,7 @@ export class StoresComponent implements OnInit, OnDestroy {
   constructor(
     public toastService: ToastService,
     private storesServes: StoresServes, // fire
-    private _modalService: NgbModal,
+    private modalService: NgbModal,
     private heroService: HeroService,
     config: NgbNavConfig
   ) {
@@ -44,7 +47,38 @@ export class StoresComponent implements OnInit, OnDestroy {
     config.destroyOnHide = true;
     config.roles = 'tablist';
   }
+  showItem(model: any) {
+    throw new Error('Method not implemented.');
+  }
+  editItem(model: any) {
+    const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
+    edit.componentInstance.setupCompo(
+      this.Id,
+      Stores.initStores(...model),
+      this
+    );
+  }
+  pushItem(model: any, modalN: any) {
+    this.storesServes.updateF(model.key, model).then(modalN.close);
+  }
+  checkItem(model: any) {
+    if (model.stnumber) {
+      this.showDanger(this.err.number);
+    }
+    if (model.stname) {
+      this.showDanger(this.err.name);
+    }
+    if (model.ststorekeeper) {
+      this.showDanger(this.err.storekeeper);
+    }
+  }
+  deleteItem(key: any, modalN: any) {
+    this.storesServes.deleteF(key).then(modalN.close);
+  }
+  get This() {
 
+    return this;
+  }
   ngOnInit() {
     this.getCategorysList();
   }
@@ -55,15 +89,7 @@ export class StoresComponent implements OnInit, OnDestroy {
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-      if (this.model.stnumber) {
-        this.showDanger(this.err.number);
-      }
-      if (this.model.stname) {
-        this.showDanger(this.err.name);
-      }
-      if (this.model.ststorekeeper) {
-        this.showDanger(this.err.storekeeper);
-      }
+     this.checkItem(this.model)
     }
   }
   showDanger(dangerTpl) {
@@ -127,7 +153,7 @@ export class StoresComponent implements OnInit, OnDestroy {
   }
   open() {
     if (this.postionTap === 0) {
-      const NgbdMCAC = this._modalService.open(
+      const NgbdMCAC = this.modalService.open(
         NgbdModalConfirmAutofocusComponent
       );
       NgbdMCAC.componentInstance.cleareInformation(() => {
@@ -151,7 +177,7 @@ export class StoresComponent implements OnInit, OnDestroy {
   }
 
   information() {
-    this._modalService
+    this.modalService
       .open(AlertInfoComponent)
       .componentInstance.displaystores();
   }

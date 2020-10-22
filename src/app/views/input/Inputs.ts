@@ -27,6 +27,7 @@ export class Inputs extends InputAndOut {
     thestore?
   ) {
     super(item, salary, quantity, notes);
+    this.key = key;
     this.number = number;
     this.date = date;
     this.thesupplier = thesupplier;

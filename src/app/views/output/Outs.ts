@@ -2,6 +2,14 @@ import { InputAndOut } from 'src/app/hero/InputAndOut';
 import { HeroService } from 'src/app/hero/hero.service';
 
 export class Outs extends InputAndOut {
+  public number: number;
+  public date: string;
+  public key;
+  public theclient: string;
+
+  public stnumber = false;
+  public stdate = false;
+  public sttheclient = false;
   constructor(
     key = null,
     item?,
@@ -13,19 +21,13 @@ export class Outs extends InputAndOut {
     date?
   ) {
     super(item, salary, quantity, notes);
+    this.key = key;
     this.number = number;
     this.date = date;
     this.theclient = theclient;
     this.getTotal();
   }
-  public number: number;
-  public date: string;
-  public key;
-  public theclient: string;
 
-  public stnumber = false;
-  public stdate = false;
-  public sttheclient = false;
 
   static getNewOut(): Outs {
     return new Outs();

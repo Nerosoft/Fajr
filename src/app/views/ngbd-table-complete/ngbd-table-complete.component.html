@@ -18,14 +18,14 @@
       <tr *ngFor="let row of tableInfo$ | async ">
           <td *ngFor="let cx of row | slice : 1; index as i" class="text-nowrap">
             <div class="edit" *ngIf="i==1">
-            <i class="icon-edit mr-2" style="width: 20px" (click)="edit(row)"></i>
+            <i class="icon-edit mr-2" style="width: 20px" (click)="editItem(This,row)"></i>
             </div>
             <ngb-highlight [result]="cx" [term]="service.searchTerm">
             </ngb-highlight>
           </td>
 
           <p *ngIf="show">
-            <button  type="button" class="btn btn-outline-primary" (click)="openXlShowTable(row)">
+            <button  type="button" class="btn btn-outline-primary" (click)="openXlShowTable(This,row)">
               بيانات
             </button>
           </p>

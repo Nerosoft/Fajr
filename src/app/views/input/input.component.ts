@@ -11,13 +11,15 @@ import { InputServes } from './InputServes';
 import { Inputs } from './Inputs';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
+import { EditRow, TableEdit } from '../interfaces';
+import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['../output/output.component.css'],
 })
-export class InputComponent implements OnInit, OnDestroy {
+export class InputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
   @ViewChild(NgbdTableCompleteComponent, { static: false })
   td: NgbdTableCompleteComponent;
   postionTap = 0;
@@ -44,7 +46,45 @@ export class InputComponent implements OnInit, OnDestroy {
     config.destroyOnHide = true;
     config.roles = 'tablist';
   }
+  showItem(model: any) {
+    const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
+    const infoTableInput = [...Object.values(model[0]), ...model.slice(1)];
+    edit.componentInstance.setupModel('show/InputComponent',  Inputs.initInput(...infoTableInput));
+  }
+  editItem(model: any) {
+    const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
+    const infoTableInput = [...Object.values(model[0]), ...model.slice(1)];
+    edit.componentInstance.setupCompo(
+      this.Id,
+      Inputs.initInput(...infoTableInput),
+      this
+    );
+  }
+  pushItem(model: any, modalN: any) {
 
+    this.inputServes.updateF(model.key, model).then(modalN.close);
+  }
+  checkItem(model: any) {
+    if (model.stnumber) {
+      this.showDanger(this.err.number);
+    }
+    if (model.stdate) {
+      this.showDanger(this.err.date);
+    }
+    if (model.stthesupplier) {
+      this.showDanger(this.err.thesupplier);
+    }
+    if (model.stthestore) {
+      this.showDanger(this.err.thestore);
+    }
+  }
+  deleteItem(key: any, modalN: any) {
+    this.inputServes.deleteF(key).then(modalN.close);
+  }
+
+  get This() {
+    return this;
+  }
   ngOnInit() {
     this.getCategorysList();
   }
@@ -55,18 +95,7 @@ export class InputComponent implements OnInit, OnDestroy {
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-      if (this.model.stnumber) {
-        this.showDanger(this.err.number);
-      }
-      if (this.model.stdate) {
-        this.showDanger(this.err.date);
-      }
-      if (this.model.stthesupplier) {
-        this.showDanger(this.err.thesupplier);
-      }
-      if (this.model.stthestore) {
-        this.showDanger(this.err.thestore);
-      }
+      this.checkItem(this.model)
     }
   }
   showDanger(dangerTpl) {

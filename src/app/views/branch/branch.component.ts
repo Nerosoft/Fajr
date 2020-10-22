@@ -14,13 +14,15 @@ import { BranchServes } from './BranchServes';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { EditRow, TableEdit } from '../interfaces';
+import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
 
 @Component({
   selector: 'app-branch',
   templateUrl: './branch.component.html',
   styleUrls: ['./branch.component.css'],
 })
-export class BranchComponent implements OnInit, OnDestroy {
+export class BranchComponent implements OnInit, OnDestroy, EditRow, TableEdit {
   @ViewChild(NgbdTableCompleteComponent, { static: false })
   td: NgbdTableCompleteComponent;
   postionTap = 0;
@@ -46,7 +48,43 @@ export class BranchComponent implements OnInit, OnDestroy {
     config.destroyOnHide = true;
     config.roles = 'tablist';
   }
-
+  showItem(model: any) {
+    throw new Error('Method not implemented.');
+  }
+  editItem(model: any) {
+    const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
+    edit.componentInstance.setupCompo(
+      this.Id,
+      Branch.initBranch(...model),
+      this
+    );
+  }
+  pushItem(model: any, modalN: any) {
+    this.branchServes.updateF(model.key, model).then(modalN.close);
+  }
+  checkItem(model: any) {
+    if (model.stbranchName) {
+      this.showDanger(this.err.branch);
+    }
+    if (model.stname) {
+      this.showDanger(this.err.name);
+    }
+    if (model.stpass) {
+      this.showDanger(this.err.pass);
+    }
+    if (model.stphone) {
+      this.showDanger(this.err.phone);
+    }
+    if (model.staddress) {
+      this.showDanger(this.err.address);
+    }
+  }
+  deleteItem(key: any, modalN: any) {
+    this.branchServes.deleteF(key).then(modalN.close);
+  }
+  get This() {
+    return this;
+  }
   ngOnInit() {
     this.getBranchsList();
   }
@@ -57,21 +95,7 @@ export class BranchComponent implements OnInit, OnDestroy {
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-      if (this.model.stbranchName) {
-        this.showDanger(this.err.branch);
-      }
-      if (this.model.stname) {
-        this.showDanger(this.err.name);
-      }
-      if (this.model.stpass) {
-        this.showDanger(this.err.pass);
-      }
-      if (this.model.stphone) {
-        this.showDanger(this.err.phone);
-      }
-      if (this.model.staddress) {
-        this.showDanger(this.err.address);
-      }
+      this.checkItem(this.model)
     }
   }
   showDanger(dangerTpl) {
