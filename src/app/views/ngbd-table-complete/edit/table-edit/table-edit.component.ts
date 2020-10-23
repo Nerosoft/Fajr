@@ -57,7 +57,7 @@ export class TableEditComponent implements OnInit {
     };
 
     this.deletethis = () => {
-      this.deleteItem('الاصناف', this.model.name, () => {
+      this.deleteItem(this.componant[this.Id], this.model.name, () => {
         tableEdit.deleteItem(model.key, this.modalN);
       });
     };
