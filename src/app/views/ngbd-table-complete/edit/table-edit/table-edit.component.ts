@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HeroService } from 'src/app/hero/hero.service';
-import { ToastService } from 'src/app/views/toasts/toast-service';
 import { NgbdModalConfirmAutofocusComponent } from 'src/app/views/ngbd-modal-confirm-autofocus/ngbd-modal-confirm-autofocus.component';
 import { TableEdit } from 'src/app/views/interfaces';
 
@@ -34,7 +33,6 @@ export class TableEditComponent implements OnInit {
   constructor(
     public modalN: NgbActiveModal,
     public modalService: NgbModal,
-    public toastService: ToastService,
     // tslint:disable-next-line: variable-name
     private _heroService: HeroService,
   ) {
