@@ -11,12 +11,16 @@ import { map } from 'rxjs/operators';
 import { HeroService } from 'src/app/hero/hero.service';
 import { BranchServes } from '../branch/BranchServes';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  public get heroService(): HeroService {
+    return this._heroService;
+  }
   productId = environment.systemConfig.aliasname;
   constructor(
     private clientsServes: ClientsServes,
@@ -26,7 +30,7 @@ export class HomeComponent implements OnInit {
     private inputServes: InputServes,
     private outServes: OutServes,
     private branch: BranchServes,
-    private heroService: HeroService
+    private _heroService: HeroService,
   ) {
     this.setupUserInfo();
   }

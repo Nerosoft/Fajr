@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   static USERLOGIN = false;
@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   model = Login.setLogin();
   message;
   err;
+  Id = 'Login';
+  form: any = {};
   subscription;
   constructor(
     public toastService: ToastService,
@@ -35,15 +37,23 @@ export class LoginComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private heroService: HeroService
   ) {
-    // this.model.userName='abdullah';
-    // this.model.pass='123123456'
-    this.message = this.heroService.message;
-    this.err = this.heroService.err.Login;
+    this.model.userName = 'abdullah';
+    this.model.pass = '123123456';
+    this.heroService.translate
+      .getTranslation(this.heroService.currentLang())
+      .subscribe((lan) => {
+        this.setupLang(lan);
+      });
     this.routes.paramMap.subscribe((params) => {
       if (params.get('productId') != null) {
         this.shearchCompany(params.get('productId'));
       }
     });
+  }
+  setupLang(lang: any) {
+    this.message = lang.message;
+    this.form = lang.compoMessage[this.Id].form;
+    this.err = lang.compoMessage[this.Id].err;
   }
   ngOnDestroy(): void {
     if (this.subscription !== undefined) {

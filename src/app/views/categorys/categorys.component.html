@@ -2,7 +2,7 @@
   <!-- ___________________________________________tools__________________ -->
 
 
-  <app-toasts></app-toasts>
+
 
   <section class="tools">
     <div class="container">
@@ -28,26 +28,26 @@
           <li [ngbNavItem]="1">
             <a ngbNavLink class="fas fa-arrow-right" (click)="setpostion(0)"></a>
             <ng-template ngbNavContent>
-              <h2 class="t-center">الاصناف</h2>
+              <h2 (click)="translate.use('en')" class="text-center">{{heroService.lang[Id]}}</h2>
               <fieldset>
                 <form #heroForm="ngForm">
                   <div class="form-group">
-                    <label for="number">الرقم</label>
+                    <label for="number">{{form.number}}</label>
                     <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
                       required [(ngModel)]="model.number" name="number">
                   </div>
                   <div class="form-group">
-                    <label for="name">اسم الصنف</label>
+                    <label for="name"> {{form.name}}</label>
                     <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}" required
                       [(ngModel)]="model.name" name="name">
                   </div>
                   <div class="form-group">
-                    <label for="salary">السعر</label>
+                    <label for="salary">{{form.salary}}</label>
                     <input type="number" class="form-control" id="salary" [ngClass]="{'error' : model.stsalary}"
                       required [(ngModel)]="model.salary" name="salary">
                   </div>
                   <div class="form-group">
-                    <label for="countries">الدولة</label>
+                    <label for="countries">{{form.countries}}</label>
                     <select class="form-control" id="countries" [ngClass]="{'error' : model.stcountrie}" required
                       [(ngModel)]="model.countrie" name="countrie">
                       <option *ngFor="let countrie of countries" [value]="countrie.name">{{countrie.name}}</option>

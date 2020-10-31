@@ -1,88 +1,78 @@
-
 <div class="ov">
-    <!-- ___________________________________________tools__________________ -->
-    <app-toasts></app-toasts>
-    <!--
+  <!-- ___________________________________________tools__________________ -->
+
+  <!--
         icon-help
 
      -->
-    <section class="tools">
-        <div class="container">
-            <hr>
-            <i class="icon icon-help" (click)="information()"></i>
-            <i class="icon icon-up-big"
-            [ngClass]="{'active' : ngbnv2}"
-            (click)="setnav(2)"></i>
-            <i class="icon icon-down-big"
-            [ngClass]="{'active' : ngbnv1}"
-            (click)="setnav(1)"></i>
-            <!-- <i class="fas fa-edit"></i> -->
-            <i class="icon icon-minus" (click)="open()"></i>
-            <!-- <i class="fas fa-plus-circle"></i>
+  <section class="tools">
+    <div class="container">
+      <hr>
+      <i class="icon icon-help" (click)="information()"></i>
+      <i class="icon icon-up-big" [ngClass]="{'active' : ngbnv2}" (click)="setnav(2)"></i>
+      <i class="icon icon-down-big" [ngClass]="{'active' : ngbnv1}" (click)="setnav(1)"></i>
+      <!-- <i class="fas fa-edit"></i> -->
+      <i class="icon icon-minus" (click)="open()"></i>
+      <!-- <i class="fas fa-plus-circle"></i>
             <i class="fas fa-print"></i> -->
-            <i class="icon icon-plus"
-                (click)="savaDAtaBase()"></i>
-            <hr>
-        </div>
-    </section>
+      <i class="icon icon-plus" (click)="savaDAtaBase()"></i>
+      <hr>
+    </div>
+  </section>
 
-    <!-- __________________________company data________________ -->
+  <!-- __________________________company data________________ -->
 
-    <section class="com-data">
-        <div class="row">
-            <div class="container">
-                <ul ngbNav  [activeId]="activeId" #nav="ngbNav" class="nav-tabs invisible" (navChange)="onNavChange($event)">
-                    <li [ngbNavItem]="1">
-                      <a ngbNavLink class="fas fa-arrow-right" (click)="setpostion(0)"></a>
-                      <ng-template ngbNavContent>
-                        <h2 class="t-center">بيانات العملاء </h2>
-                        <fieldset>
-                            <form #heroForm="ngForm" >
-                              <div class="form-group">
-                                  <label for="number">الرقم</label>
-                                  <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
-                                      required [(ngModel)]="model.number" name="number">
-                              </div>
-                              <div class="form-group">
-                                  <label for="name">الاسم</label>
-                                  <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}"
-                                      required [(ngModel)]="model.name" name="name">
-                              </div>
-                              <div class="form-group">
-                                  <label for="phone">الهاتف</label>
-                                  <input type="number" class="form-control" id="phone" [ngClass]="{'error' : model.stphone}"
-                                      required [(ngModel)]="model.phone" name="phone"  pattern="[0-9]*">
-                              </div>
-                              <div class="form-group">
-                                  <label for="address">العنوان</label>
-                                  <input type="text" class="form-control" id="address" [ngClass]="{'error' : model.staddress}"
-                                      required [(ngModel)]="model.address" name="address">
-                              </div>
-                          </form>
-                      </fieldset>
-                      </ng-template>
-                    </li>
-                    <li [ngbNavItem] ="2">
-                      <a ngbNavLink class="fas fa-arrow-left" (click)="setpostion(1)"></a>
-                      <ng-template ngbNavContent>
+  <section class="com-data">
+    <div class="row">
+      <div class="container">
+        <ul ngbNav [activeId]="activeId" #nav="ngbNav" class="nav-tabs invisible" (navChange)="onNavChange($event)">
+          <li [ngbNavItem]="1">
+            <a ngbNavLink class="fas fa-arrow-right" (click)="setpostion(0)"></a>
+            <ng-template ngbNavContent>
+              <h2 class="text-center">{{heroService.lang[Id]}}</h2>
+              <fieldset>
+                <form #heroForm="ngForm">
+                  <div class="form-group">
+                    <label for="number">{{form.number}}</label>
+                    <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
+                      required [(ngModel)]="model.number" name="number">
+                  </div>
+                  <div class="form-group">
+                    <label for="name">{{form.name}}</label>
+                    <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}" required
+                      [(ngModel)]="model.name" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">{{form.phone}}</label>
+                    <input type="number" class="form-control" id="phone" [ngClass]="{'error' : model.stphone}" required
+                      [(ngModel)]="model.phone" name="phone" pattern="[0-9]*">
+                  </div>
+                  <div class="form-group">
+                    <label for="address">{{form.address}}</label>
+                    <input type="text" class="form-control" id="address" [ngClass]="{'error' : model.staddress}"
+                      required [(ngModel)]="model.address" name="address">
+                  </div>
+                </form>
+              </fieldset>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <a ngbNavLink class="fas fa-arrow-left" (click)="setpostion(1)"></a>
+            <ng-template ngbNavContent>
 
-                        <fieldset>
-                            <app-ngbd-table-complete
-                             [hedTable]="hedTable"
-                             [info]="info"
-                             [This]='This'
-                             ></app-ngbd-table-complete>
-                        </fieldset>
+              <fieldset>
+                <app-ngbd-table-complete [hedTable]="hedTable" [info]="info" [This]='This'></app-ngbd-table-complete>
+              </fieldset>
 
-                      </ng-template>
-                    </li>
-                </ul>
+            </ng-template>
+          </li>
+        </ul>
 
-                <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
 
-            </div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
 
 </div>

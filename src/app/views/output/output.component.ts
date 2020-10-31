@@ -11,16 +11,20 @@ import { Outs } from './Outs';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { EditRow, TableEdit } from '../interfaces';
+import { EditRow, Lang, TableEdit } from '../interfaces';
 import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
-
+import { LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-output',
   templateUrl: './output.component.html',
-  styleUrls: ['./output.component.css'],
+  styleUrls: [
+    './output.component.scss',
+    '../ngbd-table-complete/edit/table-edit/table-edit.component.scss',
+  ],
 })
-export class OutputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
+export class OutputComponent
+  implements OnInit, OnDestroy, EditRow, TableEdit, Lang {
   public get heroService(): HeroService {
     return this._heroService;
   }
@@ -30,9 +34,10 @@ export class OutputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
   model = Outs.getNewOut();
   message;
   err;
-  hedTable = ['رقم البيع', 'العميل', 'التاريخ', 'عرض'];
+  hedTable = [];
+  form: any = {};
   info = [];
-  Id = 'OutputComponent';
+  Id = 'Out';
   public activeId = 1;
   public ngbnv1 = true;
   public ngbnv2 = false;
@@ -42,17 +47,28 @@ export class OutputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     private outServes: OutServes, //fire
     private modalService: NgbModal,
     private _heroService: HeroService,
-    config: NgbNavConfig
+    private config: NgbNavConfig
   ) {
-    this.message = this.heroService.message;
-    this.err = this.heroService.err.Out;
-    config.destroyOnHide = true;
-    config.roles = 'tablist';
+    this.heroService.setupLanguage(this);
+    this.config.destroyOnHide = true;
+    this.config.roles = 'tablist';
   }
+
+  setupLang(lang: any) {
+    this.message = lang.message;
+    this.hedTable = lang.compoMessage[this.Id].table;
+    this.form = lang.compoMessage[this.Id].form;
+    this.err = lang.compoMessage[this.Id].err;
+  }
+
   showItem(model: any) {
     const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
     const infoTableOut = [...Object.values(model[0]), ...model.slice(1)];
-    edit.componentInstance.setupModel('show/OutputComponent',  Outs.initOut(...infoTableOut));
+    edit.componentInstance.setupModel(
+      this.Id,
+      Outs.initOut(...infoTableOut),
+      false
+    );
   }
   editItem(model: any) {
     const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
@@ -64,7 +80,12 @@ export class OutputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     );
   }
   pushItem(model: any, modalN: any) {
-    this.outServes.updateF(model.key, model).then(modalN.close);
+    this.outServes
+      .updateF(model.key, model)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   checkItem(model: any) {
     if (model.stnumber) {
@@ -78,7 +99,12 @@ export class OutputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     }
   }
   deleteItem(key: any, modalN: any) {
-    this.outServes.deleteF(key).then(modalN.close);
+    this.outServes
+      .deleteF(key)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   get This() {
     return this;
@@ -93,7 +119,7 @@ export class OutputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-     this.checkItem(this.model)
+      this.checkItem(this.model);
     }
   }
   showDanger(dangerTpl) {
@@ -156,9 +182,7 @@ export class OutputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
       });
   }
 
-  onNavChange(changeEvent: NgbNavChangeEvent) {
-
-  }
+  onNavChange(changeEvent: NgbNavChangeEvent) {}
   onChange(index) {
     this.model.salary = this.heroService.categorys[index].salary;
   }
@@ -172,7 +196,7 @@ export class OutputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
       );
       NgbdMCAC.componentInstance.cleareInformation(() => {
         this.model = Outs.getNewOut();
-      }, 'المبيعات');
+      });
     }
 
     if (this.postionTap === 1) {
@@ -191,7 +215,8 @@ export class OutputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
   }
 
   information() {
-    this.modalService.open(AlertInfoComponent).componentInstance.displayOut();
+    this.modalService
+      .open(AlertInfoComponent)
+      .componentInstance.display(this.Id);
   }
-
 }

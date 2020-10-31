@@ -1,3 +1,4 @@
+import { HeroService } from 'src/app/hero/hero.service';
 import { DecimalPipe } from '@angular/common';
 import {
   Component,
@@ -10,10 +11,13 @@ import { EditRow } from '../interfaces';
 @Component({
   selector: 'app-ngbd-table-complete',
   templateUrl: './ngbd-table-complete.component.html',
-  styleUrls: ['./ngbd-table-complete.component.css'],
+  styleUrls: ['./ngbd-table-complete.component.scss'],
   providers: [TableService, DecimalPipe],
 })
 export class NgbdTableCompleteComponent implements OnInit {
+  public get heroService(): HeroService {
+    return this._heroService;
+  }
   tableInfo$: Observable<any[]>;
   total$: Observable<number>;
 
@@ -29,7 +33,7 @@ export class NgbdTableCompleteComponent implements OnInit {
   @Input()show = false;
   service: TableService = null;
 
-  constructor(public pipe: DecimalPipe) {
+  constructor(public pipe: DecimalPipe, private _heroService: HeroService) {
     this.service = new TableService(pipe);
     this.tableInfo$ = this.service.info$;
     this.total$ = this.service.total$;
@@ -40,12 +44,12 @@ export class NgbdTableCompleteComponent implements OnInit {
     this.service.setup(this.info); // عشان اول مره يحمل
   }
 
-  editItem(task: EditRow, model) {
-    task.editItem(model);
+  editItem(model) {
+    this.This.editItem(model);
   }
 
 
-  openXlShowTable(task: EditRow, model) {
-    task.showItem(model);
+  openXlShowTable(model) {
+    this.This.showItem(model);
   }
 }

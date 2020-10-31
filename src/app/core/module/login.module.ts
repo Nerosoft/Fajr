@@ -15,6 +15,7 @@ import { AppBootstrapModule } from 'src/app/app-bootstrab.module';
 import { SharedModule } from './shared/shared.module';
 import { NavBarComponent } from 'src/app/views/nav-bar/nav-bar.component';
 import { UserPassComponent } from 'src/app/views/user-pass/user-pass.component';
+
 const appRoute: Routes = [
   { path: 'Login', component: LoginComponent },
   { path: 'Login/:productId', component: LoginComponent },
@@ -44,8 +45,10 @@ const appRoute: Routes = [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     RouterModule.forRoot(appRoute),
+
   ],
   exports: [],
+  providers: [],
   bootstrap: [AppComponent],
   entryComponents: [UserPassComponent, UserMangerComponent],
 })

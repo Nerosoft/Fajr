@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">{{title}}</h4>
+    <h4 class="modal-title" id="modal-title">{{'changePass' | translate}}</h4>
     <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -13,7 +13,7 @@
             <input type="password" class="form-control" id="pass"
             [ngClass]="{'error' : stpass}"
             required
-            placeholder="كلمة المرور"
+            placeholder="{{'oldPassword' | translate}}"
             [(ngModel)]="pass" name="pass">
         </div>
         <div class="input-group form-group">
@@ -23,14 +23,14 @@
             <input type="password" class="form-control" id="newpass"
             [ngClass]="{'error' :stnewpass}"
             required
-            placeholder="كلمة المرور الحديثه"
+            placeholder="{{'newPassword' | translate}}"
             [(ngModel)]="newpass" name="newpass">
-            
+
         </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">اغلاق</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">{{'cancel' | translate}}</button>
     <button type="button" ngbAutofocus class="btn btn-danger"
-     (click)="changePass()">{{nameAction}}</button>
+     (click)="changePass()">{{'ok' | translate}}</button>
   </div>

@@ -1,4 +1,4 @@
-import { EditRow, TableEdit } from '../interfaces';
+import { EditRow, Lang, TableEdit } from '../interfaces';
 import { Component, OnInit, TemplateRef, Type, ViewChild } from '@angular/core';
 import { HeroService } from '../../hero/hero.service';
 import { ToastService } from '../toasts/toast-service';
@@ -17,14 +17,18 @@ import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
+import { LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-categorys',
   templateUrl: './categorys.component.html',
-  styleUrls: ['./categorys.component.css'],
+  styleUrls: ['./categorys.component.scss'],
 })
 export class CategorysComponent
-  implements OnInit, OnDestroy, EditRow, TableEdit {
+  implements OnInit, OnDestroy, EditRow, TableEdit, Lang {
+  public get heroService(): HeroService {
+    return this._heroService;
+  }
   @ViewChild(NgbdTableCompleteComponent, { static: false })
   td: NgbdTableCompleteComponent;
 
@@ -32,9 +36,10 @@ export class CategorysComponent
   model = Categorys.getNewCategorys();
   message;
   err;
-  hedTable = ['الرقم', 'اسم الصنف', 'السعر', 'الدولة'];
+  hedTable = [];
+  form: any = {};
   info = [];
-  Id = 'CategorysComponent';
+  Id = 'Categorys';
   postionTap = 0;
 
   public activeId = 1;
@@ -45,19 +50,32 @@ export class CategorysComponent
     public toastService: ToastService,
     private categorysServes: CategorysServes, // fire
     private modalService: NgbModal,
-    config: NgbNavConfig,
-    private heroService: HeroService
+    private config: NgbNavConfig,
+    private _heroService: HeroService
   ) {
-    this.message = heroService.message;
-    this.err = heroService.err.Categorys;
-    config.destroyOnHide = true;
-    config.roles = 'tablist';
+    this.heroService.setupLanguage(this);
+
+    this.config.destroyOnHide = true;
+    this.config.roles = 'tablist';
   }
+
+  setupLang(lang: any) {
+    this.message = lang.message;
+    this.hedTable = lang.compoMessage[this.Id].table;
+    this.form = lang.compoMessage[this.Id].form;
+    this.err = lang.compoMessage[this.Id].err;
+  }
+
   showItem(model: any) {
     throw new Error('Method not implemented.');
   }
   pushItem(model: any, modalN: any) {
-    this.categorysServes.updateF(model.key, model).then(modalN.close);
+    this.categorysServes
+      .updateF(model.key, model)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   checkItem(model: any) {
     if (model.stnumber) {
@@ -73,8 +91,13 @@ export class CategorysComponent
       this.showDanger(this.err.countrie);
     }
   }
-  deleteItem(key: any,  modalN: any) {
-    this.categorysServes.deleteF(key).then(modalN.close);
+  deleteItem(key: any, modalN: any) {
+    this.categorysServes
+      .deleteF(key)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   editItem(model: any) {
     const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
@@ -161,7 +184,7 @@ export class CategorysComponent
       );
       NgbdMCAC.componentInstance.cleareInformation(() => {
         this.model = Categorys.getNewCategorys();
-      }, 'الاصناف');
+      });
     }
   }
   setpostion(pos) {
@@ -184,6 +207,6 @@ export class CategorysComponent
   information() {
     this.modalService
       .open(AlertInfoComponent)
-      .componentInstance.displayCategory();
+      .componentInstance.display(this.Id);
   }
 }

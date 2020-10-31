@@ -10,11 +10,9 @@ import { environment } from 'src/environments/environment';
   selector: 'app-user-pass',
   templateUrl: './user-pass.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['../user-manger/user-manger.component.css'],
+  styleUrls: ['../user-manger/user-manger.component.scss'],
 })
 export class UserPassComponent implements OnInit {
-  title = 'تغير كلمة المرور';
-  nameAction = 'تغير';
   pass;
   newpass;
   stpass = false;
@@ -26,7 +24,7 @@ export class UserPassComponent implements OnInit {
     private loginServes: LoginServes,
     private heroService: HeroService
   ) {
-    this.message = this.heroService.message;
+    this.message = this.heroService.lang.message;
   }
   setError() {
     this.stnewpass = true;
@@ -42,7 +40,6 @@ export class UserPassComponent implements OnInit {
         )
       )
       .subscribe((users) => {
-        console.log('KOTEBE', users);
         let state = true;
         users.forEach((element) => {
           if (

@@ -1,0 +1,196 @@
+{
+
+
+  "Categorys":"Categorys",
+  "Clients":"Clients",
+  "Out":"Sales",
+  "Input":"Purchases",
+  "Suppliers":"Suppliers",
+  "Stores":"Stores",
+  "Branch":"Branch",
+  "changePass":"change pass",
+
+  "show":"show",
+  "search":"Search",
+  "Loading":"Loading...",
+  "page":"items per page",
+  "about":{
+    "title":"Screen instructions",
+    "mes1":"A brief summary of the screen",
+    "mes2":"Does this explanation seem clear."
+  },
+
+  "remember":"Remember the password",
+  "userName":"userName",
+  "key":"Enter the code",
+  "find":"Password is",
+
+  "nameCategory":"Category",
+  "salaryCategory":"salary",
+  "quantity":"Quantity",
+  "total":"Total",
+  "notes":"Notes",
+
+  "oldPassword":"Old Password",
+  "newPassword":"New password",
+  "ok":"ok",
+  "cancel":"cancel",
+
+  "doAction":{
+    "header":"confirmation",
+    "mes1":"Are you sure to hold",
+    "mes2":"delete",
+    "mes3":"The process will be executed.",
+    "mes4":"This process is irreversible."
+  },
+
+
+  "message" : {
+    "success": {
+      "plus": "Successfully completed successfully",
+      "signIn": "You have signed in successfully",
+      "signUp": "Your subscription has been successfully registered",
+      "changPass": "Password changed"
+    },
+    "error": {
+      "err": "Please try again",
+      "login": "A problem occurred during the connection",
+      "errII": "Something does not look good"
+    }
+  },
+  "compoMessage" : {
+    "Categorys": {
+      "err":{
+        "number": "Check the number",
+        "name": "Check the name",
+        "salary": "Check the price",
+        "countrie": "Check the state"
+      },
+      "form":{
+        "number":"Number",
+        "name":"Name",
+        "salary":"Salary",
+        "countries":"Countries"
+      },
+      "table":["Number", "Name", "Salary", "Countries"],
+      "iformation":""
+    },
+    "Clients": {
+      "err":{
+        "number": "Check the number",
+        "name": "Check the name",
+        "phone": "Check the phone",
+        "address": "Check the address"
+      },
+      "form":{
+        "number":"Number",
+        "name":"Name",
+        "phone":"Phone",
+        "address":"Address"
+      },
+      "table": ["Number", "Name", "Phone", "Address"],
+      "iformation":""
+    },
+    "Suppliers": {
+      "err":{
+        "number": "Check the number",
+        "name": "Check the name",
+        "phone": "Check the phone",
+        "address": "Check the address"
+      },
+      "form":{
+        "number":"Number",
+        "name":"Name",
+        "phone":"Phone",
+        "address":"Address"
+      },
+      "table": ["Number", "Name", "Phone", "Address"],
+      "iformation":""
+    },
+    "Stores": {
+      "eer":{
+        "number":  "Check the number",
+        "name": "Check the name",
+        "storekeeper":  "Check the storekeeper"
+       },
+       "form":{
+        "number":"Number",
+        "name":"Name",
+        "storekeeper":"Storekeeper"
+      },
+      "table": ["Number", "Name", "Storekeeper"],
+      "iformation":""
+    },
+    "Input": {
+      "err":{
+        "number": "Check the number",
+        "date":  "Check the date",
+        "thesupplier": "Check the supplier",
+        "thestore": "Check the store"
+      },
+      "form":{
+        "number":"Purchase number",
+        "date":"Date",
+        "thesupplier":"supplier",
+        "thestore":"store"
+      },
+      "table": ["purchase", "supplier", "Date", "store", "Show"],
+      "iformation":""
+    },
+    "Out": {
+      "err":{
+        "number": "Check the number",
+        "date":  "Check the date",
+        "theclient":  "Check the client"
+      },
+      "form":{
+        "number":"Sales number",
+        "date":"Date",
+        "theclient":"Client"
+      },
+      "table": ["Sales number", "Client", "Date", "Show"],
+      "iformation":""
+    },
+    "Login": {
+      "err":{
+        "userName": "Check username",
+        "pass": "Confirm the password",
+        "companyName": "Check the company name",
+        "aliasName": "Check the alias",
+        "forgitKey": "Make sure to remember the account code"
+      },
+      "form":{
+        "loginTitle":"Login",
+        "signInTitle":"Create an account",
+        "companyName":"The Company's name",
+        "aliasName":"Alias",
+        "userName":"user name",
+        "pass":"password",
+        "forgitKey":"Password remember symbol",
+        "signBtn":"Create",
+        "loginBtn":"Login",
+        "backToLogin":"Back to log in",
+        "signIn": "I do not have a subscription? Subscribe with us for free!",
+        "forgitPass" : "Password Recovery?"
+      }
+    },
+    "Branch": {
+      "err":{
+        "branch": "Check the branch",
+        "name": "Check the name",
+        "pass": "Check the pass",
+        "phone": "Check the phone",
+        "address": "Check the address"
+      },
+      "form":{
+        "branch":"branch name",
+        "name":"user name",
+        "pass":"password",
+        "phone":"phone",
+        "address":"address"
+      },
+      "table": ["branch", "user name", "password", "phone", "address"]
+    }
+  }
+
+}

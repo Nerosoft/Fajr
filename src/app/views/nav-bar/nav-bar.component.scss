@@ -77,10 +77,17 @@ nav .navbar-brand {
 }
 
 .navbar-collapse {
-  padding-right: 7%;
+  flex-direction: column-reverse;
 }
 
 .hidenav {
   visibility: hidden;
   display: none;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+  color: #16181b;
+  text-decoration: none;
+  background-color:#ffc107;
 }

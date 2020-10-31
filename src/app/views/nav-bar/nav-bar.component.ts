@@ -1,21 +1,20 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
-import {
-  Router,
-  NavigationEnd,
-} from '@angular/router';
+import { HeroService } from 'src/app/hero/hero.service';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import { UserPassComponent } from '../user-pass/user-pass.component';
-
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css'],
+  styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent implements OnInit {
+  public get heroService(): HeroService {
+    return this._heroService;
+  }
+
   phrases = [
     'منظومة الشركه',
     'Abdullah',
@@ -31,16 +30,17 @@ export class NavBarComponent implements OnInit {
   shouldShow = true;
   constructor(
     private route: Router,
+    private _heroService: HeroService,
     private _modalService: NgbModal
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
     this.route.events.subscribe((val: NavigationEnd) => {
       if (val.url != undefined) {
         if (val.url == '/' || val.url.includes('/Login')) {
-          if (val.url.includes('/Login/')) { this.branch = false; }
+          if (val.url.includes('/Login/')) {
+            this.branch = false;
+          }
           this.shouldShow = false;
         } else {
           this.shouldShow = true;
@@ -55,7 +55,7 @@ export class NavBarComponent implements OnInit {
     let loadeprog = 5;
     dom.style.width = 0 + '%';
     dom.parentElement.style.display = 'flex';
-    const timer = setInterval(function() {
+    const timer = setInterval(function () {
       loadeprog += 7;
       dom.style.width = loadeprog + '%';
       if (loadeprog >= 120) {
@@ -68,19 +68,25 @@ export class NavBarComponent implements OnInit {
   }
 
   setclock(that) {
-    let _createClass: any = (function() {
+    let _createClass: any = (function () {
       function defineProperties(target, props) {
         for (let i = 0; i < props.length; i++) {
           const descriptor = props[i];
           descriptor.enumerable = descriptor.enumerable || false;
           descriptor.configurable = true;
-          if ('value' in descriptor) { descriptor.writable = true; }
+          if ('value' in descriptor) {
+            descriptor.writable = true;
+          }
           Object.defineProperty(target, descriptor.key, descriptor);
         }
       }
-      return function(Constructor, protoProps, staticProps) {
-        if (protoProps) { defineProperties(Constructor.prototype, protoProps); }
-        if (staticProps) { defineProperties(Constructor, staticProps); }
+      return function (Constructor, protoProps, staticProps) {
+        if (protoProps) {
+          defineProperties(Constructor.prototype, protoProps);
+        }
+        if (staticProps) {
+          defineProperties(Constructor, staticProps);
+        }
         return Constructor;
       };
     })();
@@ -91,7 +97,7 @@ export class NavBarComponent implements OnInit {
       }
     }
 
-    const TextScramble = (function() {
+    const TextScramble = (function () {
       function TextScramble(el) {
         _classCallCheck(this, TextScramble);
 
@@ -108,7 +114,7 @@ export class NavBarComponent implements OnInit {
 
             const oldText = this.el.innerText;
             const length = Math.max(oldText.length, newText.length);
-            const promise = new Promise(function(resolve) {
+            const promise = new Promise(function (resolve) {
               return (_this.resolve = resolve);
             });
             this.queue = [];
@@ -171,18 +177,18 @@ export class NavBarComponent implements OnInit {
       return TextScramble;
     })();
 
-
-
     const el = document.querySelector('.textScramble');
     const fx = new TextScramble(el);
 
     let counter = 0;
 
     const next = function next() {
-      for (let i = 0; i < that.phrases.length; i++) { that.colores[i] = false; }
+      for (let i = 0; i < that.phrases.length; i++) {
+        that.colores[i] = false;
+      }
 
       that.colores[counter] = true;
-      fx.setText(that.phrases[counter]).then(function() {
+      fx.setText(that.phrases[counter]).then(function () {
         setTimeout(next, 2000);
       });
       counter = (counter + 1) % that.phrases.length;
@@ -194,5 +200,10 @@ export class NavBarComponent implements OnInit {
     const modalRef = this._modalService.open(UserPassComponent, {
       windowClass: 'dark-modal',
     });
+  }
+
+  changeLang(lang) {
+    this.heroService.translate.use(lang);
+    this.heroService.RIGHTTOLIFT = lang === 'ar' ? true : false;
   }
 }

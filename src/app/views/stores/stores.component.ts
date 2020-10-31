@@ -12,25 +12,30 @@ import { Stores } from './Stores';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { EditRow, TableEdit } from '../interfaces';
+import { EditRow, Lang, TableEdit } from '../interfaces';
 import { storage } from 'firebase';
 import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
+import { LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-stores',
   templateUrl: './stores.component.html',
-  styleUrls: ['./stores.component.css'],
+  styleUrls: ['./stores.component.scss'],
 })
-export class StoresComponent implements OnInit, OnDestroy, EditRow, TableEdit{
+export class StoresComponent implements OnInit, OnDestroy, EditRow, TableEdit, Lang {
+  public get heroService(): HeroService {
+    return this._heroService;
+  }
   @ViewChild(NgbdTableCompleteComponent, { static: false })
   td: NgbdTableCompleteComponent;
   postionTap = 0;
   model = Stores.getNewStores();
   message;
   err;
-  hedTable = ['رقم المخزن', 'اسم المخزن', 'امين المخزن'];
+  hedTable = [];
   info = [];
-  Id = 'StoresComponent';
+  form: any = {};
+  Id = 'Stores';
   public activeId = 1;
   public ngbnv1 = true;
   public ngbnv2 = false;
@@ -39,13 +44,20 @@ export class StoresComponent implements OnInit, OnDestroy, EditRow, TableEdit{
     public toastService: ToastService,
     private storesServes: StoresServes, // fire
     private modalService: NgbModal,
-    private heroService: HeroService,
-    config: NgbNavConfig
+    private _heroService: HeroService,
+    private config: NgbNavConfig
   ) {
-    this.message = this.heroService.message;
-    this.err = this.heroService.err.Stores;
-    config.destroyOnHide = true;
-    config.roles = 'tablist';
+    this.heroService.setupLanguage(this);
+
+    this.config.destroyOnHide = true;
+    this.config.roles = 'tablist';
+  }
+
+  setupLang(lang: any) {
+    this.message = lang.message;
+    this.hedTable = lang.compoMessage[this.Id].table;
+    this.form = lang.compoMessage[this.Id].form;
+    this.err = lang.compoMessage[this.Id].err;
   }
   showItem(model: any) {
     throw new Error('Method not implemented.');
@@ -59,7 +71,12 @@ export class StoresComponent implements OnInit, OnDestroy, EditRow, TableEdit{
     );
   }
   pushItem(model: any, modalN: any) {
-    this.storesServes.updateF(model.key, model).then(modalN.close);
+    this.storesServes
+      .updateF(model.key, model)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   checkItem(model: any) {
     if (model.stnumber) {
@@ -73,10 +90,14 @@ export class StoresComponent implements OnInit, OnDestroy, EditRow, TableEdit{
     }
   }
   deleteItem(key: any, modalN: any) {
-    this.storesServes.deleteF(key).then(modalN.close);
+    this.storesServes
+      .deleteF(key)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   get This() {
-
     return this;
   }
   ngOnInit() {
@@ -89,7 +110,7 @@ export class StoresComponent implements OnInit, OnDestroy, EditRow, TableEdit{
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-     this.checkItem(this.model)
+      this.checkItem(this.model);
     }
   }
   showDanger(dangerTpl) {
@@ -158,7 +179,7 @@ export class StoresComponent implements OnInit, OnDestroy, EditRow, TableEdit{
       );
       NgbdMCAC.componentInstance.cleareInformation(() => {
         this.model = Stores.getNewStores();
-      }, 'المخازن');
+      });
     }
 
     if (this.postionTap === 1) {
@@ -179,6 +200,6 @@ export class StoresComponent implements OnInit, OnDestroy, EditRow, TableEdit{
   information() {
     this.modalService
       .open(AlertInfoComponent)
-      .componentInstance.displaystores();
+      .componentInstance.display(this.Id);
   }
 }

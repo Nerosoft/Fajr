@@ -1,40 +1,43 @@
 <div class="back">
-    <app-toasts></app-toasts>
-<div class="home-page">
+
+  <div class="home-page">
     <!-- الكلاس خاص بخلفية الصفحه الرئيسيه  -->
     <div class="overlay">
 
-        <nav>
-            <div class="row">
-                <h1 class=" col-12 h1">{{ productId }}</h1>
-
-            </div>
-            <!--row -->
-        </nav>
-
+      <nav>
+        <div class="row">
+          <h1 class=" col-12 h1">{{ productId }}</h1>
+        </div>
+        <!--row -->
+      </nav>
 
 
-        <!-- ___________________________________________tools__________________ -->
-        <section >
-            <div class="container">
-                <ul>
-                    <!-- <li (click)="sendDataEffect()"class="active  col-5 col-lg-3 hvr-bounce-in"> <a routerLink=".">الصفحه الرئيسيه</a> </li> -->
-                    <li (click)="sendDataEffect()"class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top"routerLink="categorys"> <a >الاصناف</a> </li>
-                    <li (click)="sendDataEffect()"class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top"routerLink="/clients"> <a >العملاء</a> </li>
-                    <li (click)="sendDataEffect()"class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top"routerLink="output"> <a >المبيعات</a> </li>
-                    <li (click)="sendDataEffect()"class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top"routerLink="input"> <a >المشتريات</a> </li>
-                    <li (click)="sendDataEffect()"class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top"routerLink="stores"> <a >المخازن</a> </li>
-                    <li (click)="sendDataEffect()"class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top"routerLink="suppliers"> <a >الموردين</a></li>
+
+      <!-- ___________________________________________tools__________________ -->
+      <section>
+        <div class="container">
+          <ul>
+            <li (click)="sendDataEffect()" class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top" routerLink="categorys">
+              <a>{{heroService.lang["Categorys"]}}</a> </li>
+            <li (click)="sendDataEffect()" class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top" routerLink="/clients">
+              <a>{{heroService.lang["Clients"]}}</a> </li>
+            <li (click)="sendDataEffect()" class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top" routerLink="output">
+              <a>{{heroService.lang["Out"]}}</a> </li>
+            <li (click)="sendDataEffect()" class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top" routerLink="input">
+              <a>{{heroService.lang["Input"]}}</a> </li>
+            <li (click)="sendDataEffect()" class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top" routerLink="stores">
+              <a>{{heroService.lang["Stores"]}}</a> </li>
+            <li (click)="sendDataEffect()" class="col-5 col-lg-3 hvr-bounce-in hvr-sweep-to-top" routerLink="suppliers">
+              <a>{{heroService.lang["Suppliers"]}}</a></li>
 
 
-                </ul>
+          </ul>
 
 
-            </div>
-        </section>
+        </div>
+      </section>
 
 
     </div>
+  </div>
 </div>
-</div>
-

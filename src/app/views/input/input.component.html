@@ -1,6 +1,6 @@
 <div class="ov">
     <!-- ___________________________________________tools__________________ -->
-    <app-toasts></app-toasts>
+
 
     <section class="tools">
         <div class="container">
@@ -31,23 +31,23 @@
                     <li [ngbNavItem]="1">
                         <a ngbNavLink class="fas fa-arrow-right" (click)="setpostion(0)"></a>
                         <ng-template ngbNavContent>
-                            <h2 class="t-center">بيانات المشتريات </h2>
+                            <h2 class="text-center">{{heroService.lang[Id]}} </h2>
                             <fieldset>
                                 <form #heroForm="ngForm" >
                                     <div class="form-group">
-                                        <label for="number">رقم الشراء</label>
+                                        <label for="number">{{form.number}}</label>
                                         <input type="number" class="form-control" id="number"
                                             [ngClass]="{'error' : model.stnumber}" required [(ngModel)]="model.number"
                                             name="number">
                                     </div>
                                     <div class="form-group">
-                                        <label for="date">التاريخ</label>
+                                        <label for="date">{{form.date}}</label>
                                         <input type="date" class="form-control" id="date"
                                             [ngClass]="{'error' : model.stdate}" required [(ngModel)]="model.date"
                                             name="date">
                                     </div>
                                     <div class="form-group">
-                                        <label for="thesupplier">المورد</label>
+                                        <label for="thesupplier">{{form.thesupplier}}</label>
                                         <select class="form-control" id="thesupplier"
 
                                             [ngClass]="{'error' : model.stthesupplier}" required
@@ -57,7 +57,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="thestore">المخزن</label>
+                                        <label for="thestore">{{form.thestore}}</label>
                                         <select class="form-control" id="thestore"
 
                                             [ngClass]="{'error' : model.stthestore}" required
@@ -71,11 +71,11 @@
                                     <table class="table">
                                         <thead class="thead-dark">
                                             <tr>
-                                                <th scope="col">الصنف</th>
-                                                <th scope="col">سعر الوحده</th>
-                                                <th scope="col">الكميه</th>
-                                                <th scope="col">الاجمالى</th>
-                                                <th scope="col">ملاحظات</th>
+                                              <th scope="col">{{heroService.lang['nameCategory']}}</th>
+                                              <th scope="col">{{heroService.lang['salaryCategory']}}</th>
+                                              <th scope="col">{{heroService.lang['quantity']}}</th>
+                                              <th scope="col">{{heroService.lang['total']}}</th>
+                                              <th scope="col">{{heroService.lang['notes']}}</th>
                                             </tr>
                                         </thead>
                                         <tbody class="tbody">

@@ -1,10 +1,20 @@
+.icon-minus {
+  color: rgb(238, 24, 9);
+}
+i {
+  cursor: pointer;
+}
+.mr-2,
+.mx-2 {
+  margin-right: 0.5rem !important;
+  margin-left: 0.5rem !important;
+}
 .tbody {
-  /* background-color: #5e7192; */
   background-color: transparent;
 }
 .myinfotable .tbody .info input {
   width: 100%;
-
+  text-align: center;
   border-radius: none !important;
 }
 .itemclas {
@@ -19,6 +29,8 @@
 .table td,
 .table th {
   width: 15% !important;
+  font-size: 2rem;
+  text-align: center;
 }
 
-/* border-collapse: collapse; */
+

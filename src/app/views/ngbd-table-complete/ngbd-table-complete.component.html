@@ -1,7 +1,7 @@
-<form>
+<form id="scrollbartable">
     <div class="form-group form-inline">
-       ابحث <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm"/>
-        <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
+       <h3>{{heroService.lang['search']}}</h3> <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm"/>
+        <span class="ml-3" *ngIf="service.loading$ | async"> {{heroService.lang['Loading']}}</span>
     </div>
 
     <table class="table table-hover table-dark">
@@ -18,15 +18,15 @@
       <tr *ngFor="let row of tableInfo$ | async ">
           <td *ngFor="let cx of row | slice : 1; index as i" class="text-nowrap">
             <div class="edit" *ngIf="i==1">
-            <i class="icon-edit mr-2" style="width: 20px" (click)="editItem(This,row)"></i>
+            <i class="icon-edit" style="width: 20px" (click)="editItem(row)"></i>
             </div>
             <ngb-highlight [result]="cx" [term]="service.searchTerm">
             </ngb-highlight>
           </td>
 
           <p *ngIf="show">
-            <button  type="button" class="btn btn-outline-primary" (click)="openXlShowTable(This,row)">
-              بيانات
+            <button  type="button" class="btn btn-outline-primary" (click)="openXlShowTable(row)">
+              $$$
             </button>
           </p>
 
@@ -36,15 +36,15 @@
       </tbody>
     </table>
 
-    <div class="d-flex justify-content-between p-2">
+    <div class="d-flex justify-content-between p-2 pages">
       <ngb-pagination
-        [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+        [collectionSize]="(total$ | async)!" [(page)]="service.page"  [maxSize]="2" [rotate]="true" [boundaryLinks]="false" [pageSize]="service.pageSize" class="pagination">
       </ngb-pagination>
 
       <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
-        <option [ngValue]="2">2 items per page</option>
-        <option [ngValue]="4">4 items per page</option>
-        <option [ngValue]="6">6 items per page</option>
+        <option [ngValue]="2">2  {{heroService.lang['page']}}</option>
+        <option [ngValue]="4">4  {{heroService.lang['page']}}</option>
+        <option [ngValue]="6">6  {{heroService.lang['page']}}</option>
       </select>
     </div>
 

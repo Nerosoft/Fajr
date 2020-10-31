@@ -12,41 +12,52 @@ import { CategorysComponent } from '../categorys/categorys.component';
 import { Clients } from './Clients';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
-import { EditRow, TableEdit } from '../interfaces';
+import { EditRow, Lang, TableEdit } from '../interfaces';
 import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
+import { LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css'],
+  styleUrls: ['./clients.component.scss'],
 })
-export class ClientsComponent implements OnInit, OnDestroy, EditRow, TableEdit {
+export class ClientsComponent implements OnInit, OnDestroy, EditRow, TableEdit, Lang {
+  public get heroService(): HeroService {
+    return this._heroService;
+  }
+
   @ViewChild(NgbdTableCompleteComponent, { static: false })
   td: NgbdTableCompleteComponent;
   postionTap = 0;
   model = Clients.getNewClients();
   message;
   err;
-  hedTable = ['الرقم', 'الاسم', 'الهاتف', 'العنوان'];
+  hedTable = [];
   info = [];
-
+  form: any = {};
   public activeId = 1;
   public ngbnv1 = true;
   public ngbnv2 = false;
-  Id = 'ClientsComponent';
+  Id = 'Clients';
   subscription: Subscription;
-
   constructor(
     public toastService: ToastService,
     private clientsServes: ClientsServes,
     private modalService: NgbModal,
-    private heroService: HeroService,
-    private config: NgbNavConfig
+    private _heroService: HeroService,
+    private config: NgbNavConfig,
   ) {
-    this.message = this.heroService.message;
-    this.err = this.heroService.err.Clients;
-    config.destroyOnHide = true;
-    config.roles = 'tablist';
+    this.heroService.setupLanguage(this);
+
+    this.config.destroyOnHide = true;
+    this.config.roles = 'tablist';
+  }
+
+  setupLang(lang: any) {
+    this.message = lang.message;
+    this.hedTable = lang.compoMessage[this.Id].table;
+    this.form = lang.compoMessage[this.Id].form;
+    this.err = lang.compoMessage[this.Id].err;
   }
   showItem(model: any) {
     throw new Error('Method not implemented.');
@@ -60,7 +71,12 @@ export class ClientsComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     );
   }
   pushItem(model: any, modalN: any) {
-    this.clientsServes.updateF(model.key, model).then(modalN.close);
+    this.clientsServes
+      .updateF(model.key, model)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   checkItem(model: any) {
     if (model.stnumber) {
@@ -77,7 +93,12 @@ export class ClientsComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     }
   }
   deleteItem(key: any, modalN: any) {
-    this.clientsServes.deleteF(key).then(modalN.close);
+    this.clientsServes
+      .deleteF(key)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   get This() {
     //  [This]='This'
@@ -93,7 +114,7 @@ export class ClientsComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-     this.checkItem(this.model)
+      this.checkItem(this.model);
     }
   }
   showDanger(dangerTpl) {
@@ -117,7 +138,7 @@ export class ClientsComponent implements OnInit, OnDestroy, EditRow, TableEdit {
   }
 
   getClientsList() {
-   this.subscription =  this.clientsServes
+    this.subscription = this.clientsServes
       .getClientsList()
       .snapshotChanges()
       .pipe(
@@ -167,16 +188,18 @@ export class ClientsComponent implements OnInit, OnDestroy, EditRow, TableEdit {
 
   open() {
     if (this.postionTap === 0) {
-      const NgbdMCAC = this.modalService.open(NgbdModalConfirmAutofocusComponent);
+      const NgbdMCAC = this.modalService.open(
+        NgbdModalConfirmAutofocusComponent
+      );
       NgbdMCAC.componentInstance.cleareInformation(() => {
         this.model = Clients.getNewClients();
-      }, 'العملاء');
+      });
     }
   }
 
   information() {
     this.modalService
       .open(AlertInfoComponent)
-      .componentInstance.displayClints();
+      .componentInstance.display(this.Id);
   }
 }

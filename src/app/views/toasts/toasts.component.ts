@@ -4,7 +4,7 @@ import {ToastService} from './toast-service';
   selector: 'app-toasts',
   templateUrl: './toasts.component.html',
   host: {'[class.ngb-toasts]': 'true'},
-  styleUrls: ['./toasts.component.css']
+  styleUrls: ['./toasts.component.scss']
 })
 export class ToastsComponent implements OnInit {
 

@@ -11,24 +11,33 @@ import { InputServes } from './InputServes';
 import { Inputs } from './Inputs';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
-import { EditRow, TableEdit } from '../interfaces';
+import { EditRow, Lang, TableEdit } from '../interfaces';
 import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
+import { LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
-  styleUrls: ['../output/output.component.css'],
+  styleUrls: [
+    './input.component.scss',
+    '../ngbd-table-complete/edit/table-edit/table-edit.component.scss',
+  ],
 })
-export class InputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
+export class InputComponent
+  implements OnInit, OnDestroy, EditRow, TableEdit, Lang {
+  public get heroService(): HeroService {
+    return this._heroService;
+  }
   @ViewChild(NgbdTableCompleteComponent, { static: false })
   td: NgbdTableCompleteComponent;
   postionTap = 0;
   model: Inputs = Inputs.getNewInput();
   message;
   err;
-  hedTable = ['رقم الشراء', 'المورد', 'التاريخ', 'المخزن', 'عرض'];
+  hedTable = [];
+  form: any = {};
   info = [];
-  Id = 'InputComponent';
+  Id = 'Input';
   public activeId = 1;
   public ngbnv1 = true;
   public ngbnv2 = false;
@@ -38,18 +47,27 @@ export class InputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     public toastService: ToastService,
     private inputServes: InputServes, // fire
     private modalService: NgbModal,
-    public heroService: HeroService,
-    config: NgbNavConfig
+    private _heroService: HeroService,
+    private config: NgbNavConfig
   ) {
-    this.message = this.heroService.message;
-    this.err = this.heroService.err.Input;
-    config.destroyOnHide = true;
-    config.roles = 'tablist';
+    this.heroService.setupLanguage(this);
+    this.config.destroyOnHide = true;
+    this.config.roles = 'tablist';
+  }
+  setupLang(lang: any) {
+    this.message = lang.message;
+    this.hedTable = lang.compoMessage[this.Id].table;
+    this.form = lang.compoMessage[this.Id].form;
+    this.err = lang.compoMessage[this.Id].err;
   }
   showItem(model: any) {
     const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
     const infoTableInput = [...Object.values(model[0]), ...model.slice(1)];
-    edit.componentInstance.setupModel('show/InputComponent',  Inputs.initInput(...infoTableInput));
+    edit.componentInstance.setupModel(
+      this.Id,
+      Inputs.initInput(...infoTableInput),
+      false
+    );
   }
   editItem(model: any) {
     const edit = this.modalService.open(TableEditComponent, { size: 'xl' });
@@ -61,8 +79,12 @@ export class InputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     );
   }
   pushItem(model: any, modalN: any) {
-
-    this.inputServes.updateF(model.key, model).then(modalN.close);
+    this.inputServes
+      .updateF(model.key, model)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   checkItem(model: any) {
     if (model.stnumber) {
@@ -79,7 +101,12 @@ export class InputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     }
   }
   deleteItem(key: any, modalN: any) {
-    this.inputServes.deleteF(key).then(modalN.close);
+    this.inputServes
+      .deleteF(key)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
 
   get This() {
@@ -95,7 +122,7 @@ export class InputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-      this.checkItem(this.model)
+      this.checkItem(this.model);
     }
   }
   showDanger(dangerTpl) {
@@ -158,9 +185,7 @@ export class InputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
       });
   }
 
-  onNavChange(changeEvent: NgbNavChangeEvent) {
-
-  }
+  onNavChange(changeEvent: NgbNavChangeEvent) {}
 
   setpostion(pos) {
     this.postionTap = pos;
@@ -172,7 +197,7 @@ export class InputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
       );
       NgbdMCAC.componentInstance.cleareInformation(() => {
         this.model = Inputs.getNewInput();
-      }, 'المشترايات');
+      });
     }
   }
   setnav(vn) {
@@ -187,8 +212,8 @@ export class InputComponent implements OnInit, OnDestroy, EditRow, TableEdit {
   }
 
   information() {
-    this.modalService.open(AlertInfoComponent).componentInstance.displayInput();
+    this.modalService
+      .open(AlertInfoComponent)
+      .componentInstance.display(this.Id);
   }
-
-
 }

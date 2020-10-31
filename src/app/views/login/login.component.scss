@@ -1,0 +1,87 @@
+$fontSize: 1.8rem;
+
+.xo {
+  background-image: url('../../../assets/pic/login.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  font-family: 'Numans', sans-serif;
+}
+
+.container {
+  height: 100%;
+  align-content: center;
+
+  .card {
+    height: 65%;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    .card-header {
+      h3 {
+        color: white;
+        margin-top: 2rem;
+        font-size: $fontSize;
+      }
+      .social_icon {
+        position: absolute;
+        right: $fontSize/3;
+        top: -($fontSize/3) * 3.3;
+        a {
+          font-size: $fontSize * 1.8;
+          margin-left: 10px;
+          color: #3d52c7 !important;
+          &:hover {
+            color: white !important;
+          }
+        }
+      }
+    }
+
+    .card-body {
+      .input-group-prepend span {
+        width: 50px;
+        background-color: #3d52c7;
+        color: black;
+        border: 0 !important;
+      }
+      .login_btn {
+        color: black;
+        background-color: #3d52c7;
+        width: 100px;
+        &:hover {
+          color: black;
+          background-color: white;
+        }
+      }
+    }
+
+    .card-footer {
+      div{
+        cursor: pointer;
+        font-size: $fontSize;
+        font-weight: bold;
+        color: white;
+        a {
+          margin-left: 4px;
+        }
+        &:hover {
+          color: yellowgreen;
+        }
+      }
+    }
+  }
+}
+
+.sin_btn {
+  color: black;
+  background-color: #80132b;
+  width: 100px;
+  &:hover {
+    color: black;
+    background-color: white;
+  }
+}
+
+

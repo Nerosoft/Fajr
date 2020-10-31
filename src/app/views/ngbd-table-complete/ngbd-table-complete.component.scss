@@ -1,0 +1,73 @@
+
+$fontSize: 1.7rem;
+$fontSizem: 1.2rem;
+$fontSizes: .7rem;
+
+
+#scrollbartable {
+  background-color: transparent;
+}
+#scrollbartable::-webkit-scrollbar-track,
+.modal::-webkit-scrollbar-track {
+  border-radius: 10px !important;
+}
+
+#scrollbartable::-webkit-scrollbar,
+.modal::-webkit-scrollbar {
+  width: 14px !important;
+  height: .2em !important;
+}
+
+#scrollbartable::-webkit-scrollbar-thumb,
+.modal::-webkit-scrollbar-thumb {
+  border-radius: 10px !important;
+  background-color: #007bff !important;
+}
+
+form{
+  overflow: auto;
+}
+
+.edit {
+  display: inline-block;
+  margin-left: 10px;
+  .icon-edit {
+    color: rgb(12, 211, 79);
+  }
+  i {
+    cursor: pointer;
+  }
+}
+
+.headtable {
+  background-color: #215f9d;
+}
+.headborder {
+  border-color: #215f9d;
+  text-align: center;
+  font-size: $fontSize;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+  max-width: 175px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: $fontSize;
+  text-align: center;
+}
+.pages{
+  justify-content: space-between !important;
+  flex-wrap: wrap;
+  margin-bottom: 5%;
+}
+.pagination{
+  font-size: $fontSize;
+}
+
+.form-inline{
+  display: inline-flex;
+  h3,span{
+    font-size: 70%;
+  }
+}

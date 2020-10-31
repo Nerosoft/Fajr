@@ -1,163 +1,127 @@
 <app-toasts></app-toasts>
+<div class="xo" dir="ltr">
+  <div class="container">
+    <div class="d-flex justify-content-center h-100">
+      <div class="card" *ngIf='isLogin'>
+        <div class="card-header d-flex justify-content-center">
+          <h3>{{form.loginTitle}} {{productId}} </h3>
+          <div class="d-flex justify-content-end social_icon">
+            <span>
+              <a href="https://www.facebook.com/mor.lena.33" target="_blank">
+                <i class="fab icon-facebook-official"></i>
+              </a>
+            </span>
+            <span>
+              <a href="https://www.youtube.com/channel/UC7fpUDkbNDP2ioHvvTupSaQ" target="_blank" rel="noopener">
+                <i class="fab icon-youtube-play"></i>
+              </a>
 
-<div class="xo"  dir="ltr">
-<div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card" *ngIf='isLogin'>
-			<div class="card-header d-flex justify-content-center">
-				<h3>تسجيل دخول {{productId}} </h3>
-				<div class="d-flex justify-content-end social_icon invisible">
-					<span>
-						<a href="https://www.facebook.com/mor.lena.33" target="_blank">
-							<i class="fab icon-facebook-official"></i>
-						</a>
-					</span>
-					<span>
-						<a href="https://www.youtube.com/channel/UC7fpUDkbNDP2ioHvvTupSaQ" target="_blank" rel="noopener">
-							<i class="fab icon-youtube-play"></i>
-						</a>
+            </span>
+            <span>
+              <a href="https://github.com/Nerosoft" target="_blank" rel="noopener">
+                <i class="fab icon-github-circled"></i>
+              </a>
 
-					</span>
-					<span>
-						<a href="https://github.com/Nerosoft" target="_blank" rel="noopener">
-							<i class="fab icon-github-circled"></i>
-						</a>
+            </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <form (keyup.enter)='login()'>
+            <div *ngIf='isBranch' class="btn-group mr-3 mb-3" style="width: 100%;">
+              <button type="button" class="btn btn-primary">{{defBranch}}</button>
+              <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
+                <div class="dropdown-menu" ngbDropdownMenu>
+                  <button *ngFor="let branch of branchs;index as i" (click)="setBranch(i)"
+                    ngbDropdownItem>{{branch.branchName}}</button>
+                </div>
+              </div>
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="icon-user"></i></span>
+              </div>
+              <input type="text" class="form-control" id="userName" [ngClass]="{'error' : model.stuserName}" required
+                placeholder="{{form.userName}}" [(ngModel)]="model.userName" name="userName">
 
-					</span>
-				</div>
-			</div>
-			<div class="card-body">
-				<form (keyup.enter)='login()'>
-					<div *ngIf='isBranch'
-					class="btn-group mr-3 mb-3" style="width: 100%;">
-						<button type="button" class="btn btn-primary">{{defBranch}}</button>
-						<div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-						  <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
-						  <div class="dropdown-menu"
-						  ngbDropdownMenu>
-							<button *ngFor="let branch of branchs;index as i"
-							(click)="setBranch(i)" ngbDropdownItem>{{branch.branchName}}</button>
-						  </div>
-						</div>
-					  </div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="icon-user"></i></span>
-						</div>
-                        <input type="text" class="form-control" id="userName"
-                        [ngClass]="{'error' : model.stuserName}"
-						required
-						placeholder="اسم المستخدم"
-                        [(ngModel)]="model.userName" name="userName">
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="icon-key"></i></span>
+              </div>
+              <input type="password" class="form-control" id="pass" [ngClass]="{'error' : model.stpass}" required
+                placeholder="{{form.pass}}" [(ngModel)]="model.pass" name="pass">
+            </div>
+            <div class="form-group">
+              <input type="button" (click)="login()" value="{{form.loginBtn}}" class="btn float-right login_btn">
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <div (click)="back()" class="d-flex justify-content-center">
+            <a>{{ form.signIn}}</a>
+          </div>
+          <div class="d-flex justify-content-center">
+            <a (click)="forgot()">{{form.forgitPass}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="card" *ngIf='!isLogin'>
+        <div class="card-header d-flex justify-content-center">
+          <h3>{{ form.signInTitle}}</h3>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="icon-network"></i></span>
+              </div>
+              <input type="text" class="form-control" id="companyName" [ngClass]="{'error' : model.stcompanyName}"
+                required placeholder="{{form.companyName}}" [(ngModel)]="model.companyName" name="companyName">
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span style="background-color: #8a9711;" class="input-group-text"><i class="icon-network"></i></span>
+              </div>
+              <input type="text" class="form-control" id="aliasName" [ngClass]="{'error' : model.staliasName}" required
+                placeholder="{{form.aliasName}}" [(ngModel)]="model.aliasName" name="aliasName">
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span style="background-color: #f44336;" class="input-group-text"><i class="icon-user"></i></span>
+              </div>
+              <input type="text" class="form-control" id="userName" [ngClass]="{'error' : model.stuserName}" required
+                placeholder="{{form.userName}}" [(ngModel)]="model.userName" name="userName">
 
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="icon-key"></i></span>
-						</div>
-                        <input type="password" class="form-control" id="pass"
-                        [ngClass]="{'error' : model.stpass}"
-						required
-						placeholder="كلمة المرور"
-                        [(ngModel)]="model.pass" name="pass">
-					</div>
-					<!-- ----------------- -->
-					<!-- <div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
-					</div> -->
-					<div class="form-group">
-						<input type="button" (click)="login()" value="دخول" class="btn float-right login_btn">
-                    </div>
-				</form>
-			</div>
-			<div class="card-footer">
-				<div (click)="back()" class="d-flex justify-content-center forgit links">
-					<a > !اشترك معنا مجانا </a>  ليس لدي اشتراك؟
-				</div>
-				<div class="d-flex justify-content-center forgit links">
-					<a (click)="forgot()">استرجاع كلمة المرور؟</a>
-				</div>
-			</div>
-		</div>
-		<div class="card" *ngIf='!isLogin'>
-			<div class="card-header d-flex justify-content-center">
-				<h3>انشاء حساب</h3>
-			</div>
-			<div class="card-body">
-				<form>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span
-							 class="input-group-text"><i class="icon-network"></i></span>
-						</div>
-                        <input type="text" class="form-control" id="companyName"
-                        [ngClass]="{'error' : model.stcompanyName}"
-						required
-						placeholder="اسم الشركه"
-                        [(ngModel)]="model.companyName" name="companyName">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span style="background-color: #8a9711;"
-							 class="input-group-text"><i class="icon-network"></i></span>
-						</div>
-                        <input type="text" class="form-control" id="aliasName"
-                        [ngClass]="{'error' : model.staliasName}"
-						required
-						placeholder="اسم المستعار"
-                        [(ngModel)]="model.aliasName" name="aliasName">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span style="background-color: #f44336;"
-							class="input-group-text"><i class="icon-user"></i></span>
-						</div>
-                        <input type="text" class="form-control" id="userName"
-                        [ngClass]="{'error' : model.stuserName}"
-						required
-						placeholder="اسم المستخدم"
-                        [(ngModel)]="model.userName" name="userName">
-
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span style="background-color: #28a745;"
-							 class="input-group-text"><i class="icon-key"></i></span>
-						</div>
-                        <input type="password" class="form-control" id="pass"
-                        [ngClass]="{'error' : model.stpass}"
-						required
-						placeholder="كلمة المرور"
-                        [(ngModel)]="model.pass" name="pass">
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span style="background-color: #fd9131;"
-							 class="input-group-text"><i class="icon-key-1"></i></span>
-						</div>
-                        <input type="text" class="form-control" id="forgitKey"
-                        [ngClass]="{'error' : model.stforgitKey}"
-						required
-						placeholder="رمز تذكر كلمة المرور"
-                        [(ngModel)]="model.forgitKey" name="forgitKey">
-					</div>
-					<!-- ----------------- -->
-                    <div class="form-group d-flex justify-content-end">
-						<input type="button"
-						(click)="sinIn()"
-						value="انشاء" class="btn float-left sin_btn ">
-					</div>
-				</form>
-			</div>
-			<div class="card-footer">
-				<div class="d-flex justify-content-center forgit links">
-					<a (click)="back()">الرجوع لتسجيل الدخول</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span style="background-color: #28a745;" class="input-group-text"><i class="icon-key"></i></span>
+              </div>
+              <input type="password" class="form-control" id="pass" [ngClass]="{'error' : model.stpass}" required
+                placeholder="{{form.pass}}" [(ngModel)]="model.pass" name="pass">
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span style="background-color: #fd9131;" class="input-group-text"><i class="icon-key-1"></i></span>
+              </div>
+              <input type="text" class="form-control" id="forgitKey" [ngClass]="{'error' : model.stforgitKey}" required
+                placeholder="{{form.forgitKey}}" [(ngModel)]="model.forgitKey" name="forgitKey">
+            </div>
+            <!-- ----------------- -->
+            <div class="form-group d-flex justify-content-end">
+              <input type="button" (click)="sinIn()" value="{{form.signBtn}}" class="btn float-left sin_btn ">
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex justify-content-center forgit links">
+            <a (click)="back()">{{form.backToLogin}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div>
-

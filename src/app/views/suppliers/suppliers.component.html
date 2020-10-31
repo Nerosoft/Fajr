@@ -2,7 +2,7 @@
 <div class="ov">
     <!-- ___________________________________________tools__________________ -->
 
-    <app-toasts></app-toasts>
+
 
     <section class="tools">
         <div class="container">
@@ -33,26 +33,26 @@
                     <li [ngbNavItem]="1">
                       <a ngbNavLink class="fas fa-arrow-right" (click)="setpostion(0)"></a>
                       <ng-template ngbNavContent>
-                        <h2 class="t-center">بيانات الموردين </h2>
+                        <h2 class="text-center">{{heroService.lang[Id]}} </h2>
                         <fieldset>
                             <form #heroForm="ngForm" >
                               <div class="form-group">
-                                  <label for="number">الرقم</label>
+                                  <label for="number">{{form.number}}</label>
                                   <input type="number" class="form-control" id="number" [ngClass]="{'error' : model.stnumber}"
                                       required [(ngModel)]="model.number" name="number">
                               </div>
                               <div class="form-group">
-                                  <label for="name">الاسم</label>
+                                  <label for="name">{{form.name}}</label>
                                   <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}"
                                       required [(ngModel)]="model.name" name="name">
                               </div>
                               <div class="form-group">
-                                  <label for="phone">الهاتف</label>
+                                  <label for="phone">{{form.phone}}</label>
                                   <input type="number" class="form-control" id="phone" [ngClass]="{'error' : model.stphone}"
                                       required [(ngModel)]="model.phone" name="phone">
                               </div>
                               <div class="form-group">
-                                  <label for="address">العنوان</label>
+                                  <label for="address">{{form.address}}</label>
                                   <input type="text" class="form-control" id="address" [ngClass]="{'error' : model.staddress}"
                                       required [(ngModel)]="model.address" name="address">
                               </div>

@@ -1,6 +1,6 @@
 <div class="ov">
   <!-- ___________________________________________tools__________________ -->
-  <app-toasts></app-toasts>
+
   <!--
         icon-help
 
@@ -29,32 +29,32 @@
           <li [ngbNavItem]="1">
             <a ngbNavLink class="fas fa-arrow-right" (click)="setpostion(0)"></a>
             <ng-template ngbNavContent>
-              <h2 class="t-center">بيانات الفروع </h2>
+              <h2 class="text-center">{{heroService.lang[Id]}}</h2>
               <fieldset>
                 <form #heroForm="ngForm">
                   <div class="form-group">
-                    <label for="branchName">اسم الفرع</label>
+                    <label for="branchName">{{form.branch}}</label>
                     <input type="text" class="form-control" id="branchName" [ngClass]="{'error' : model.stbranchName}"
                       required [(ngModel)]="model.branchName" name="branchName">
                   </div>
                   <div class="form-group">
-                    <label for="name">اسم المستخدم</label>
+                    <label for="name"> {{form.name}}</label>
                     <input type="text" class="form-control" id="name" [ngClass]="{'error' : model.stname}" required
                       [(ngModel)]="model.name" name="name">
                   </div>
                   <div class="form-group">
-                    <label for="pass">كلمة المرور</label>
+                    <label for="pass">{{form.pass}}</label>
                     <input type="password" class="form-control" id="pass" [ngClass]="{'error' : model.stpass}" required
                       [(ngModel)]="model.pass" name="pass">
                   </div>
 
                   <div class="form-group">
-                    <label for="phone">الهاتف</label>
+                    <label for="phone">{{form.phone}}</label>
                     <input type="number" class="form-control" id="phone" [ngClass]="{'error' : model.stphone}" required
                       [(ngModel)]="model.phone" name="phone" pattern="[0-9]*">
                   </div>
                   <div class="form-group">
-                    <label for="address">العنوان</label>
+                    <label for="address">{{form.address}}</label>
                     <input type="text" class="form-control" id="address" [ngClass]="{'error' : model.staddress}"
                       required [(ngModel)]="model.address" name="address">
                   </div>

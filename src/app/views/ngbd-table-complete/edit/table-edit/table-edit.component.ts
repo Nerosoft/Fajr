@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HeroService } from 'src/app/hero/hero.service';
 import { NgbdModalConfirmAutofocusComponent } from 'src/app/views/ngbd-modal-confirm-autofocus/ngbd-modal-confirm-autofocus.component';
@@ -7,42 +7,35 @@ import { TableEdit } from 'src/app/views/interfaces';
 @Component({
   selector: 'app-table-edit',
   templateUrl: './table-edit.component.html',
-  styleUrls: ['./table-edit.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./table-edit.component.scss'],
 })
 export class TableEditComponent implements OnInit {
   public get heroService(): HeroService {
     return this._heroService;
   }
-  componant = {
-    ClientsComponent: 'شاشة العملاء',
-    CategorysComponent: 'شاشة الاصناف',
-    SuppliersComponent: 'شاشة الموردين',
-    StoresComponent: 'شاشة المخازن',
-    InputComponent: 'شاشة المشتريات',
-    OutputComponent: 'شاشة المبيعات',
-    BranchComponent: 'شاشة الافرع',
-    ['show/InputComponent']: 'عرض شاشة المشترايات',
-    ['show/OutputComponent']: 'عرض شاشة المبيعات',
-  };
   model;
-  err;
+  form: any = {};
   Id;
   oky: any;
+  notShow = true;
   deletethis: any;
-  message;
   constructor(
     public modalN: NgbActiveModal,
     public modalService: NgbModal,
     // tslint:disable-next-line: variable-name
     private _heroService: HeroService,
-  ) {
-    this.message = this.heroService.message;
-  }
+  ) {}
+
+
+
 
   ngOnInit() {}
-  setupModel(ID, model: any) {
+  setupModel(ID, model: any, show = true) {
     this.model = model;
     this.Id = ID;
+    this.form = this.heroService.lang.compoMessage[this.Id].form;
+    this.notShow = show;
   }
   setupCompo(ID, model, tableEdit: TableEdit) {
     this.setupModel(ID, model);
@@ -55,7 +48,7 @@ export class TableEditComponent implements OnInit {
     };
 
     this.deletethis = () => {
-      this.deleteItem(this.componant[this.Id], this.model.name, () => {
+      this.deleteItem(this.heroService.lang[this.Id], this.model.name, () => {
         tableEdit.deleteItem(model.key, this.modalN);
       });
     };
@@ -69,6 +62,6 @@ export class TableEditComponent implements OnInit {
 
   deleteItem(titel, name, callback) {
     const NgbdMCAC = this.modalService.open(NgbdModalConfirmAutofocusComponent);
-    NgbdMCAC.componentInstance.removeItem(callback, titel, name);
+    NgbdMCAC.componentInstance.removeItem(callback, name);
   }
 }

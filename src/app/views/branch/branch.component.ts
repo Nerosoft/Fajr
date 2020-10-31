@@ -7,46 +7,55 @@ import { NgbNavConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdTableCompleteComponent } from '../ngbd-table-complete/ngbd-table-complete.component';
 
 import { map } from 'rxjs/operators';
-import { CategorysComponent } from '../categorys/categorys.component';
 
 import { Branch } from './Branch';
 import { BranchServes } from './BranchServes';
 import { AlertInfoComponent } from '../alert-info/alert-info.component';
 import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { EditRow, TableEdit } from '../interfaces';
+import { EditRow, Lang, TableEdit } from '../interfaces';
 import { TableEditComponent } from '../ngbd-table-complete/edit/table-edit/table-edit.component';
+
 
 @Component({
   selector: 'app-branch',
   templateUrl: './branch.component.html',
-  styleUrls: ['./branch.component.css'],
+  styleUrls: ['./branch.component.scss'],
 })
-export class BranchComponent implements OnInit, OnDestroy, EditRow, TableEdit {
+export class BranchComponent implements OnInit, OnDestroy, EditRow, TableEdit, Lang {
+  public get heroService(): HeroService {
+    return this._heroService;
+  }
   @ViewChild(NgbdTableCompleteComponent, { static: false })
   td: NgbdTableCompleteComponent;
   postionTap = 0;
   model = Branch.getNewBranch();
   message;
   err;
-  hedTable = ['اسم المستخدم', 'اسم الفرع', 'كلمة المرور', 'الهاتف', 'العنوان'];
+  hedTable = [];
+  form: any = {};
   info = [];
   public activeId = 1;
   public ngbnv1 = true;
   public ngbnv2 = false;
-  Id = 'BranchComponent';
+  Id = 'Branch';
   subscription: Subscription;
   constructor(
     public toastService: ToastService,
     private branchServes: BranchServes,
     private modalService: NgbModal,
-    private heroService: HeroService,
+    private _heroService: HeroService,
     private config: NgbNavConfig
   ) {
-    this.message = this.heroService.message;
-    this.err = this.heroService.err.Branch;
-    config.destroyOnHide = true;
-    config.roles = 'tablist';
+    this.heroService.setupLanguage(this);
+    this.config.destroyOnHide = true;
+    this.config.roles = 'tablist';
+  }
+  setupLang(lang: any) {
+    this.message = lang.message;
+    this.hedTable = lang.compoMessage[this.Id].table;
+    this.form = lang.compoMessage[this.Id].form;
+    this.err = lang.compoMessage[this.Id].err;
   }
   showItem(model: any) {
     throw new Error('Method not implemented.');
@@ -60,7 +69,12 @@ export class BranchComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     );
   }
   pushItem(model: any, modalN: any) {
-    this.branchServes.updateF(model.key, model).then(modalN.close);
+    this.branchServes
+      .updateF(model.key, model)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   checkItem(model: any) {
     if (model.stbranchName) {
@@ -80,7 +94,12 @@ export class BranchComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     }
   }
   deleteItem(key: any, modalN: any) {
-    this.branchServes.deleteF(key).then(modalN.close);
+    this.branchServes
+      .deleteF(key)
+      .then(() => {
+        this.showSuccessMessage(this.message.success.plus);
+      })
+      .then(modalN.close);
   }
   get This() {
     return this;
@@ -95,7 +114,7 @@ export class BranchComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     if (this.model.validateInput()) {
       this.showSuccess();
     } else {
-      this.checkItem(this.model)
+      this.checkItem(this.model);
     }
   }
   showDanger(dangerTpl) {
@@ -120,7 +139,7 @@ export class BranchComponent implements OnInit, OnDestroy, EditRow, TableEdit {
   }
 
   getBranchsList() {
-    this.subscription =  this.branchServes
+    this.subscription = this.branchServes
       .getBranchsList()
       .snapshotChanges()
       .pipe(
@@ -169,14 +188,13 @@ export class BranchComponent implements OnInit, OnDestroy, EditRow, TableEdit {
     }
   }
   open() {
-
     if (this.postionTap === 0) {
       const NgbdMCAC = this.modalService.open(
         NgbdModalConfirmAutofocusComponent
       );
       NgbdMCAC.componentInstance.cleareInformation(() => {
         this.model = Branch.getNewBranch();
-      }, 'الفروع');
+      });
     }
 
     if (this.postionTap === 1) {
@@ -186,6 +204,6 @@ export class BranchComponent implements OnInit, OnDestroy, EditRow, TableEdit {
   information() {
     this.modalService
       .open(AlertInfoComponent)
-      .componentInstance.displayBranch();
+      .componentInstance.display(this.Id);
   }
 }

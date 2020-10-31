@@ -5,11 +5,9 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-user-manger',
   templateUrl: './user-manger.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./user-manger.component.css']
+  styleUrls: ['./user-manger.component.scss']
 })
 export class UserMangerComponent implements OnInit {
-  @Input()title
-  @Input()nameAction
   @Input()callback
   @Input()state=false
   userName

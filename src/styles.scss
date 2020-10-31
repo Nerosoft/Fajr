@@ -1,0 +1,250 @@
+$wiht: #fff;
+$fSx_large: x-large;
+$fS_large: x-large;
+$fS_medium: x-large;
+$fS_small: large;
+$fSx_small: small;
+$fontSize: 2rem;
+$fontSizem: 1.5rem;
+$fontSizes: 1rem;
+%EXActive {
+  color: #e91e63 !important;
+  background-color: #000 !important ;
+  border-color: #dee2e6 #dee2e6 $wiht;
+}
+body {
+  background: url('assets/pic/wood.jpg') no-repeat fixed;
+  background-size: cover;
+}
+body,
+html {
+  height: 100vh;
+}
+#scrollbar {
+  background-color: #382616;
+}
+#scrollbar::-webkit-scrollbar-track,
+.modal::-webkit-scrollbar-track {
+  border-radius: 10px !important;
+}
+
+#scrollbar::-webkit-scrollbar,
+.modal::-webkit-scrollbar {
+  width: 14px !important;
+}
+
+#scrollbar::-webkit-scrollbar-thumb,
+.modal::-webkit-scrollbar-thumb {
+  border-radius: 10px !important;
+  background-color: #64664f !important;
+}
+
+.nav-tabs {
+  border: none;
+  &.nav-link {
+    margin-left: 15px;
+    background-color: $wiht;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    .active {
+      @extend %EXActive;
+    }
+  }
+}
+
+a {
+  color: #495057;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+/* -------tools----------*/
+
+.tools {
+  overflow: hidden;
+  margin-top: 30px;
+  .active {
+    @extend %EXActive;
+  }
+  .container {
+    font-size: $fontSize;
+    margin: 0 auto 14px auto;
+    padding: 0px;
+    text-align: center;
+    perspective: 600px;
+    border: 2px solid $wiht;
+    border-width: 10px 0;
+    width: fit-content;
+    border-radius: 20px;
+    i {
+      margin-left: 15px;
+      background-color: $wiht;
+      padding: 5px;
+      border-radius: 50%;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+    }
+    i:first-of-type {
+      color: blue;
+      background-color: black;
+    }
+    i:nth-of-type(1) {
+      color: rgb(55, 47, 169);
+      background-color: black;
+    }
+    i:nth-of-type(2) {
+      color: #555;
+    }
+    i:nth-of-type(4) {
+      color: rgb(238, 24, 9);
+      background-color: black;
+    }
+    i:last-of-type {
+      color: rgb(12, 211, 79);
+      background-color: black;
+    }
+  }
+}
+
+.icon:hover {
+  border: 2px solid #007ee3 !important;
+}
+
+.com-data {
+  font-size: $fontSize;
+  color: $wiht;
+  position: relative;
+  h2 {
+    margin-bottom: 17px;
+    font-weight: bold;
+    font-size: $fontSize;
+  }
+  input,
+  select {
+    width: 60%;
+  }
+  input {
+    border-radius: 7px;
+  }
+  label {
+    font-size: $fontSize;
+  }
+  .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+}
+
+@mixin changeFontSize($fontSize) {
+  .tools .container i {
+    font-size: $fontSize;
+  }
+  .com-data {
+    label {
+      font-size: $fontSize;
+    }
+    h2 {
+      font-size: $fontSize;
+    }
+  }
+  //    LOGIN PAGE
+
+  .container .card .card-header h3 {
+    color: white;
+    font-size: ($fontSize ) !important;
+  }
+  .container .card .card-footer div {
+    font-size: ($fontSize ) !important;
+  }
+
+  // HOME PAGE
+  .home-page .container ul li {
+    font-size: $fontSize !important;
+  }
+  nav h1 {
+    font-size: $fontSize !important;
+  }
+  // TABLE
+  .headborder {
+    font-size: ($fontSize) !important;
+  }
+  .text-nowrap {
+    font-size: ($fontSize) !important;
+  }
+  .pagination {
+    font-size: ($fontSize) !important;
+  }
+  // edit table
+  .table th {
+    font-size: $fontSize !important;
+  }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  @include changeFontSize($fSx_small);
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+  @include changeFontSize($fS_small);
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+  @include changeFontSize($fS_medium);
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  @include changeFontSize($fS_large);
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  @include changeFontSize($fSx_large);
+}
+/* ______________________________________________ my framework ________________________________________________________________ */
+
+fieldset {
+  padding: 1rem;
+  border-radius: 45px;
+  margin-bottom: 5px;
+  border: 2px solid $wiht;
+  border-width: 10px 0;
+  // overflow: auto;
+}
+
+.ov {
+  overflow: hidden;
+}
+
+.progloade {
+  display: none;
+  height: 3px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 0;
+  z-index: 1;
+  margin: 0;
+}
+
+.error {
+  color: #000;
+  background-color: #ddffff;
+  border: 2px solid #a94442;
+}
+
+.right {
+  direction: rtl;
+  text-align: right;
+}
+.left {
+  direction: ltr;
+  text-align: left;
+}
