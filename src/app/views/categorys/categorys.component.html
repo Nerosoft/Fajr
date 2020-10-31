@@ -28,7 +28,7 @@
           <li [ngbNavItem]="1">
             <a ngbNavLink class="fas fa-arrow-right" (click)="setpostion(0)"></a>
             <ng-template ngbNavContent>
-              <h2 (click)="translate.use('en')" class="text-center">{{heroService.lang[Id]}}</h2>
+              <h2 class="text-center">{{heroService.lang[Id]}}</h2>
               <fieldset>
                 <form #heroForm="ngForm">
                   <div class="form-group">
