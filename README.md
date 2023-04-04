@@ -6,7 +6,7 @@
 ### شاشة تسجيل الدخول
 ![Fajr](https://github.com/Nerosoft/Fajr/blob/master/screenshot/login.PNG)
 
-### شاشة أنشاءحساب شركه
+### شاشة أنشاء حساب شركه
 ![Fajr](https://github.com/Nerosoft/Fajr/blob/master/screenshot/sign.PNG)
 
 ### شاشة استعادة كلمة المرور 
